@@ -50,6 +50,16 @@ var SignIn = React.createClass({
 });
 
 
+var ProfileOptions = React.createClass({
+	render: function(){
+		return (
+
+	      		<h4>Preferences</h4>
+			);
+	}
+});
+
+
 var SubmissionList = React.createClass({
 	render: function(){
 		return (
@@ -80,24 +90,12 @@ var SignUpForm = React.createClass({
 	}
 });
 
-var FrontPage = React.createClass({
+var ProfilePage = React.createClass({
 	render: function(){
 		return (
 			<RB.Grid>
 			<Header />
-			<SubmissionList />
-			<Footer />
-			</RB.Grid>
-			);
-	}
-});
-
-var SubmitPage = React.createClass({
-	render: function(){
-		return (
-			<RB.Grid>
-			<Header />
-
+			<ProfileOptions />
 			<Footer />
 			</RB.Grid>
 			);
@@ -105,6 +103,4 @@ var SubmitPage = React.createClass({
 });
 
 
-ReactDOM.render(<FrontPage />, document.getElementById('content'));
-ReactDOM.render(<SubmitPage />, document.getElementById('submit'));
-
+ReactDOM.render(<ProfilePage />, document.getElementById('content'));

@@ -50,6 +50,29 @@ var SignIn = React.createClass({
 });
 
 
+var SubmitForm = React.createClass({
+	render: function(){
+		return (
+				<div>
+	      		<h4>Title</h4>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text"/>
+	        	</RB.FormGroup>
+	        	<h4>Content</h4>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl componentClass="textarea" type="text"/>
+	        	</RB.FormGroup>
+	        	<RB.ButtonGroup>
+				<RB.Button>Submit</RB.Button>
+				</RB.ButtonGroup>
+	        	</div>
+
+
+			);
+	}
+});
+
+
 var SubmissionList = React.createClass({
 	render: function(){
 		return (
@@ -80,24 +103,12 @@ var SignUpForm = React.createClass({
 	}
 });
 
-var FrontPage = React.createClass({
-	render: function(){
-		return (
-			<RB.Grid>
-			<Header />
-			<SubmissionList />
-			<Footer />
-			</RB.Grid>
-			);
-	}
-});
-
 var SubmitPage = React.createClass({
 	render: function(){
 		return (
 			<RB.Grid>
 			<Header />
-
+			<SubmitForm />
 			<Footer />
 			</RB.Grid>
 			);
@@ -105,6 +116,5 @@ var SubmitPage = React.createClass({
 });
 
 
-ReactDOM.render(<FrontPage />, document.getElementById('content'));
-ReactDOM.render(<SubmitPage />, document.getElementById('submit'));
+ReactDOM.render(<SubmitPage />, document.getElementById('content'));
 
