@@ -1,3 +1,6 @@
+export class Header {}
+export class Footer {}
+
 var Header = React.createClass({
 	render: function(){
 		return (

@@ -1,3 +1,4 @@
+import { Header, Footer } from './header.jsx';
 
 var RB = ReactBootstrap;
 
@@ -50,6 +51,7 @@ var SignIn = React.createClass({
 });
 
 
+
 var SubmissionList = React.createClass({
 	render: function(){
 		return (
@@ -92,19 +94,8 @@ var FrontPage = React.createClass({
 	}
 });
 
-var SubmitPage = React.createClass({
-	render: function(){
-		return (
-			<RB.Grid>
-			<Header />
-
-			<Footer />
-			</RB.Grid>
-			);
-	}
-});
 
 
 ReactDOM.render(<FrontPage />, document.getElementById('content'));
-ReactDOM.render(<SubmitPage />, document.getElementById('submit'));
+
 

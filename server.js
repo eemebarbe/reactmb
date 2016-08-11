@@ -14,4 +14,13 @@ app.listen(port, function() {
 });
 
  app.get("/", function(req, res) {
+ 	res.sendFile('public/index.html');
+ });
+
+  app.get("/submit", function(req, res) {
+	res.sendFile('public/submit.html', { root: __dirname });
+ });
+
+  app.get("/profile", function(req, res) {
+	res.sendFile('public/profile.html', { root: __dirname });
  });
