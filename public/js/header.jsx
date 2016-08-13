@@ -1,8 +1,7 @@
-export class Header {}
-export class Footer {}
+var RB = ReactBootstrap;
 
-var Header = React.createClass({
-	render: function(){
+export class Header extends React.Component {
+	render() {
 		return (
 			<div>
 
@@ -24,7 +23,7 @@ var Header = React.createClass({
 				</RB.Nav>
 				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
-				      <RB.Button onClick={this.signIn}>Sign In</RB.Button>
+				      <RB.Button onClick={this.signIn.bind(this)}>Sign In</RB.Button>
 				</RB.ButtonGroup>
 				</RB.Navbar.Form>
   				</RB.Navbar>
@@ -34,28 +33,61 @@ var Header = React.createClass({
 			<SignIn />
 
 			</div>
+		);}
 
-			);
-	},
-
-	signUp: function() {
-		window.location.href='../signUp/';
-	},
-	signIn: function() {
+  signIn() {
 		$("#signIn").show();
-	}
+  }
+}
 
-});
 
-
-var Footer = React.createClass({
-	render: function(){
+export class SignIn extends React.Component {
+	render() {
 		return (
-			<RB.Row>
-			<RB.Navbar fixedBottom>
-			Footer
-			</RB.Navbar>
-			</RB.Row>
+			<div id="signIn">
+			<RB.Modal.Dialog>
+			      <RB.Modal.Header>
+        			<RB.Modal.Title>Enter your credentials</RB.Modal.Title>
+      			  </RB.Modal.Header>
+
+      		<RB.Modal.Body>
+      		<RB.Row>
+	      		<RB.Col sm={6}>
+	      		<h4>Sign Up</h4>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="choose a username" />
+	        	</RB.FormGroup>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="password" />
+	        	</RB.FormGroup>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="verify password" />
+	        	</RB.FormGroup>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="email" />
+	        	</RB.FormGroup>
+	        	</RB.Col>
+	        	<RB.Col sm={6}>
+	        	<h4>Sign In</h4>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="username" />
+	        	</RB.FormGroup>
+	        	<RB.FormGroup>        	
+	        	<RB.FormControl type="text" placeholder="password" />
+	        	</RB.FormGroup>
+	        	</RB.Col>
+        	</RB.Row>
+      		</RB.Modal.Body>
+
+      		<RB.Modal.Footer>
+        	<RB.Button>Cancel</RB.Button>
+        	<RB.Button bsStyle="primary">Sign In</RB.Button>
+      		</RB.Modal.Footer>
+			</RB.Modal.Dialog>
+			</div>
 			);
 	}
-});
+}
+
+
+

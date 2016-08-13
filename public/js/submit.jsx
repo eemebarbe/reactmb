@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Header from './header.jsx';
 
 var RB = ReactBootstrap;
 
@@ -111,7 +110,6 @@ var SubmitPage = React.createClass({
 			<RB.Grid>
 			<Header />
 			<SubmitForm />
-			<Footer />
 			</RB.Grid>
 			);
 	}

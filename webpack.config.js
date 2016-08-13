@@ -6,11 +6,15 @@ var BUILD_DIR = path.resolve(__dirname, '../reactmb/public/js');
 var APP_DIR = path.resolve(__dirname, '../reactmb/public/js');
 
 module.exports = {
-  entry: APP_DIR + '/reactmb.jsx',
+  entry: {
+    index: APP_DIR + '/index.jsx',
+    submit: APP_DIR + '/submit.jsx'
+  },
+  
 
   output: {
     path: BUILD_DIR,
-    filename: '/bundle.js'
+    filename: '[name].js'
   },
 
   module : {
@@ -19,6 +23,7 @@ module.exports = {
         test : /\.jsx?/,
         include : APP_DIR,
         loader : 'babel',
+        exclude: "./node_modules/",
         query:
           {
         presets:['react', 'es2015']
