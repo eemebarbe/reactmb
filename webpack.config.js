@@ -31,7 +31,11 @@ module.exports = {
           }
       }
     ]
-  }
+  },
+
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js")
+    ]
 
 };
 
