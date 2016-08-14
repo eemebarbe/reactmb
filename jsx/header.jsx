@@ -10,22 +10,24 @@ export class Header extends React.Component {
   				Example page header <small>Subtext for header</small>
 			</RB.PageHeader>
 			  	<RB.Navbar>
+		    <RB.Navbar.Header>
+		      <RB.Navbar.Brand>
+		        <a href="/">ReactMB</a>
+		      </RB.Navbar.Brand>
+		    </RB.Navbar.Header>
   				<RB.Nav>
-  				      <RB.NavItem eventKey={1} href="#">Links</RB.NavItem>
-				      <RB.NavItem eventKey={2} href="#">Links</RB.NavItem>
-				      <RB.NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-				        <RB.MenuItem eventKey={3.1}>Action</RB.MenuItem>
-				        <RB.MenuItem eventKey={3.2}>Another action</RB.MenuItem>
-				        <RB.MenuItem eventKey={3.3}>Something else here</RB.MenuItem>
-				        <RB.MenuItem divider />
-				        <RB.MenuItem eventKey={3.3}>Separated link</RB.MenuItem>
-				      </RB.NavDropdown>
+  				      <RB.NavItem eventKey={1} href="#">Popular</RB.NavItem>
+				      <RB.NavItem eventKey={2} href="#">Newest</RB.NavItem>
 				</RB.Nav>
 				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
 				      <RB.Button onClick={this.signIn.bind(this)}>Sign In</RB.Button>
 				</RB.ButtonGroup>
 				</RB.Navbar.Form>
+  				<RB.Nav pullRight>
+  				      <RB.NavItem eventKey={3} href="submit">Submit</RB.NavItem>
+				      <RB.NavItem eventKey={4} href="profile">Profile</RB.NavItem>
+				</RB.Nav>
   				</RB.Navbar>
 			</RB.Row>
 
@@ -38,6 +40,7 @@ export class Header extends React.Component {
   signIn() {
 		$("#signIn").show();
   }
+
 }
 
 
@@ -80,13 +83,17 @@ export class SignIn extends React.Component {
       		</RB.Modal.Body>
 
       		<RB.Modal.Footer>
-        	<RB.Button>Cancel</RB.Button>
+        	<RB.Button onClick={this.signInCancel.bind(this)}>Cancel</RB.Button>
         	<RB.Button bsStyle="primary">Sign In</RB.Button>
       		</RB.Modal.Footer>
 			</RB.Modal.Dialog>
 			</div>
-			);
-	}
+			);}
+
+  signInCancel() {
+		$("#signIn").hide();
+  }
+
 }
 
 

@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import * as formatting from './header.jsx';
 

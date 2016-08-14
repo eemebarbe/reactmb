@@ -64,82 +64,54 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SubmitForm = function (_React$Component) {
-		_inherits(SubmitForm, _React$Component);
+	var ProfileOptions = function (_React$Component) {
+		_inherits(ProfileOptions, _React$Component);
 
-		function SubmitForm() {
-			_classCallCheck(this, SubmitForm);
+		function ProfileOptions() {
+			_classCallCheck(this, ProfileOptions);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForm).apply(this, arguments));
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).apply(this, arguments));
 		}
 
-		_createClass(SubmitForm, [{
+		_createClass(ProfileOptions, [{
 			key: 'render',
 			value: function render() {
 				return React.createElement(
-					'div',
+					'h4',
 					null,
-					React.createElement(
-						'h4',
-						null,
-						'Title'
-					),
-					React.createElement(
-						RB.FormGroup,
-						null,
-						React.createElement(RB.FormControl, { type: 'text' })
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Content'
-					),
-					React.createElement(
-						RB.FormGroup,
-						null,
-						React.createElement(RB.FormControl, { componentClass: 'textarea', type: 'text' })
-					),
-					React.createElement(
-						RB.ButtonGroup,
-						null,
-						React.createElement(
-							RB.Button,
-							null,
-							'Submit'
-						)
-					)
+					'Preferences'
 				);
 			}
 		}]);
 
-		return SubmitForm;
+		return ProfileOptions;
 	}(React.Component);
 
-	var SubmitPage = function (_React$Component2) {
-		_inherits(SubmitPage, _React$Component2);
+	var ProfilePage = function (_React$Component2) {
+		_inherits(ProfilePage, _React$Component2);
 
-		function SubmitPage() {
-			_classCallCheck(this, SubmitPage);
+		function ProfilePage() {
+			_classCallCheck(this, ProfilePage);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitPage).apply(this, arguments));
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfilePage).apply(this, arguments));
 		}
 
-		_createClass(SubmitPage, [{
+		_createClass(ProfilePage, [{
 			key: 'render',
 			value: function render() {
 				return React.createElement(
 					RB.Grid,
 					null,
 					React.createElement(formatting.Header, null),
-					React.createElement(SubmitForm, null)
+					React.createElement(ProfileOptions, null)
 				);
 			}
 		}]);
 
-		return SubmitPage;
+		return ProfilePage;
 	}(React.Component);
 
-	ReactDOM.render(React.createElement(SubmitPage, null), document.getElementById('content'));
+	ReactDOM.render(React.createElement(ProfilePage, null), document.getElementById('content'));
 
 /***/ },
 /* 1 */
