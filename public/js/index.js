@@ -6,15 +6,29 @@ webpackJsonp([0],[
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _reactBootstrap = __webpack_require__(1);
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactBootstrap = __webpack_require__(159);
 
 	var RB = _interopRequireWildcard(_reactBootstrap);
 
-	var _header = __webpack_require__(412);
+	var _jquery = __webpack_require__(412);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _header = __webpack_require__(413);
 
 	var formatting = _interopRequireWildcard(_header);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -25,54 +39,65 @@ webpackJsonp([0],[
 	var SubmissionList = function (_React$Component) {
 		_inherits(SubmissionList, _React$Component);
 
-		function SubmissionList() {
+		function SubmissionList(props) {
 			_classCallCheck(this, SubmissionList);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
+
+			_this.state = { posts: [] };
+
+			_this.getPosts = _this.getPosts.bind(_this);
+			return _this;
 		}
 
 		_createClass(SubmissionList, [{
+			key: 'getPosts',
+			value: function getPosts() {
+				var self = this;
+				var posts = [];
+				_jquery2.default.get("api/v1/posts/", function (response) {
+					for (var i = 0; i < response.length; i++) {
+						posts.push(_react2.default.createElement(
+							RB.ListGroupItem,
+							{ header: response[i].title },
+							response[i].article
+						));
+					}
+					self.setState({ posts: posts });
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return React.createElement(
+				return _react2.default.createElement(
 					RB.Row,
 					null,
-					React.createElement(
+					_react2.default.createElement(
 						RB.ListGroup,
 						null,
-						React.createElement(
+						_react2.default.createElement(
 							RB.ListGroupItem,
 							{ header: 'Duck' },
 							'Cras justo odio'
 						),
-						React.createElement(
-							RB.ListGroupItem,
-							{ header: 'Mayo' },
-							'Dapibus ac facilisis ine'
+						_react2.default.createElement(
+							RB.Button,
+							{ onClick: this.getPosts },
+							'clcik'
 						),
-						React.createElement(
-							RB.ListGroupItem,
-							{ header: 'It\'s all in' },
-							'Morbi leo risus'
-						),
-						React.createElement(
-							RB.ListGroupItem,
-							{ header: 'How is the sky' },
-							'Porta ac consectetur ac'
-						),
-						React.createElement(
-							RB.ListGroupItem,
-							{ header: 'Too many bananas' },
-							'Vestibulum at eros'
+						_react2.default.createElement(
+							'div',
+							null,
+							this.state.posts
 						)
 					),
-					React.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, activePage: 2 })
+					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, activePage: 2 })
 				);
 			}
 		}]);
 
 		return SubmissionList;
-	}(React.Component);
+	}(_react2.default.Component);
 
 	var FrontPage = function (_React$Component2) {
 		_inherits(FrontPage, _React$Component2);
@@ -86,19 +111,19 @@ webpackJsonp([0],[
 		_createClass(FrontPage, [{
 			key: 'render',
 			value: function render() {
-				return React.createElement(
+				return _react2.default.createElement(
 					RB.Grid,
 					null,
-					React.createElement(formatting.Header, null),
-					React.createElement(SubmissionList, null)
+					_react2.default.createElement(formatting.Header, null),
+					_react2.default.createElement(SubmissionList, null)
 				);
 			}
 		}]);
 
 		return FrontPage;
-	}(React.Component);
+	}(_react2.default.Component);
 
-	ReactDOM.render(React.createElement(FrontPage, null), document.getElementById('content'));
+	_reactDom2.default.render(_react2.default.createElement(FrontPage, null), document.getElementById('content'));
 
 /***/ }
 ]);

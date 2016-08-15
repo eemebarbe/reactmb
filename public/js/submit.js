@@ -6,15 +6,29 @@ webpackJsonp([2],[
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _reactBootstrap = __webpack_require__(1);
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactBootstrap = __webpack_require__(159);
 
 	var RB = _interopRequireWildcard(_reactBootstrap);
 
-	var _header = __webpack_require__(412);
+	var _jquery = __webpack_require__(412);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _header = __webpack_require__(413);
 
 	var formatting = _interopRequireWildcard(_header);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -34,33 +48,33 @@ webpackJsonp([2],[
 		_createClass(SubmitForm, [{
 			key: 'render',
 			value: function render() {
-				return React.createElement(
+				return _react2.default.createElement(
 					'div',
 					null,
-					React.createElement(
+					_react2.default.createElement(
 						'h4',
 						null,
 						'Title'
 					),
-					React.createElement(
+					_react2.default.createElement(
 						RB.FormGroup,
 						null,
-						React.createElement(RB.FormControl, { type: 'text' })
+						_react2.default.createElement(RB.FormControl, { type: 'text' })
 					),
-					React.createElement(
+					_react2.default.createElement(
 						'h4',
 						null,
 						'Content'
 					),
-					React.createElement(
+					_react2.default.createElement(
 						RB.FormGroup,
 						null,
-						React.createElement(RB.FormControl, { componentClass: 'textarea', type: 'text' })
+						_react2.default.createElement(RB.FormControl, { componentClass: 'textarea', type: 'text' })
 					),
-					React.createElement(
+					_react2.default.createElement(
 						RB.ButtonGroup,
 						null,
-						React.createElement(
+						_react2.default.createElement(
 							RB.Button,
 							null,
 							'Submit'
@@ -71,7 +85,7 @@ webpackJsonp([2],[
 		}]);
 
 		return SubmitForm;
-	}(React.Component);
+	}(_react2.default.Component);
 
 	var SubmitPage = function (_React$Component2) {
 		_inherits(SubmitPage, _React$Component2);
@@ -85,19 +99,19 @@ webpackJsonp([2],[
 		_createClass(SubmitPage, [{
 			key: 'render',
 			value: function render() {
-				return React.createElement(
+				return _react2.default.createElement(
 					RB.Grid,
 					null,
-					React.createElement(formatting.Header, null),
-					React.createElement(SubmitForm, null)
+					_react2.default.createElement(formatting.Header, null),
+					_react2.default.createElement(SubmitForm, null)
 				);
 			}
 		}]);
 
 		return SubmitPage;
-	}(React.Component);
+	}(_react2.default.Component);
 
-	ReactDOM.render(React.createElement(SubmitPage, null), document.getElementById('content'));
+	_reactDom2.default.render(_react2.default.createElement(SubmitPage, null), document.getElementById('content'));
 
 /***/ }
 ]);

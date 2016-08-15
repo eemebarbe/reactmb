@@ -3,7 +3,10 @@ var express = require('express');
 	fs = require('fs');
   	bodyParser = require('body-parser');
   	path = require ('path');
+  	router = express.Router(); 
 
+
+app.use('/api', router);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,3 +27,30 @@ app.listen(port, function() {
   app.get("/profile", function(req, res) {
 	res.sendFile('views/profile.html', { root: __dirname });
  });
+
+
+var mysql = require('mysql');
+  connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'my_password',
+  database : 'reactmb'
+});
+
+connection.connect();
+
+app.get('/api/v1/posts',function(req,res){
+    var data = null;
+    
+    connection.query("SELECT * from posts",function(err, rows, fields){
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+            
+        }else{
+            data = null;
+            res.json(data);
+        }
+          res.end();
+    });
+});

@@ -1,4 +1,7 @@
-var RB = ReactBootstrap;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as RB from 'react-bootstrap';
+import $ from "jquery";
 
 export class Header extends React.Component {
 	render() {
