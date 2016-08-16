@@ -45,26 +45,28 @@ webpackJsonp([0],[
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
 
 			_this.state = { posts: [] };
-
-			_this.getPosts = _this.getPosts.bind(_this);
 			return _this;
 		}
 
 		_createClass(SubmissionList, [{
 			key: 'getPosts',
 			value: function getPosts() {
-				var self = this;
-				var posts = [];
+				var loopPosts = [];
 				_jquery2.default.get("api/v1/posts/", function (response) {
 					for (var i = 0; i < response.length; i++) {
-						posts.push(_react2.default.createElement(
+						loopPosts.push(_react2.default.createElement(
 							RB.ListGroupItem,
 							{ header: response[i].title },
 							response[i].article
 						));
 					}
-					self.setState({ posts: posts });
-				});
+					this.setState({ posts: loopPosts });
+				}.bind(this));
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.getPosts();
 			}
 		}, {
 			key: 'render',
@@ -75,16 +77,6 @@ webpackJsonp([0],[
 					_react2.default.createElement(
 						RB.ListGroup,
 						null,
-						_react2.default.createElement(
-							RB.ListGroupItem,
-							{ header: 'Duck' },
-							'Cras justo odio'
-						),
-						_react2.default.createElement(
-							RB.Button,
-							{ onClick: this.getPosts },
-							'clcik'
-						),
 						_react2.default.createElement(
 							'div',
 							null,

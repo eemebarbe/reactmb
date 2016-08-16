@@ -9,29 +9,29 @@ class SubmissionList extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = {posts: []};
-
-   this.getPosts = this.getPosts.bind(this);
+    this.state = { posts: [] };
   }
 
 	getPosts() {
-    var self = this;
-    var posts = [];
+		var loopPosts = [];
 		$.get("api/v1/posts/", function(response) {
 			for(var i=0; i<response.length; i++) {
-				posts.push(<RB.ListGroupItem header={response[i].title}>{response[i].article}</RB.ListGroupItem>);
+				loopPosts.push(<RB.ListGroupItem header={response[i].title}>{response[i].article}</RB.ListGroupItem>);
 			}
-       self.setState({posts: posts});
-		});
+       this.setState({posts: loopPosts});
+		}.bind(this));
 	}
+
+	componentDidMount() {
+		this.getPosts();
+  }
+
 
 	render() {
 		return (
 			<RB.Row>
 			<RB.ListGroup>
-			  <RB.ListGroupItem header="Duck">Cras justo odio</RB.ListGroupItem>
 
-			  <RB.Button onClick={this.getPosts}>clcik</RB.Button>
 			  <div>{this.state.posts}</div>
 
 			</RB.ListGroup>
