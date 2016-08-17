@@ -85,9 +85,13 @@ export class SignIn extends React.Component {
       		</RB.Modal.Body>
 
       		<RB.Modal.Footer>
+	      	<RB.Col sm={6}>
       		<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
+      		</RB.Col>
+	      	<RB.Col sm={6}>
         	<RB.Button onClick={this.signInCancel.bind(this)}>Cancel</RB.Button>
         	<RB.Button bsStyle="primary">Sign In</RB.Button>
+        	</RB.Col>
       		</RB.Modal.Footer>
 			</RB.Modal.Dialog>
 			</div>
@@ -100,13 +104,13 @@ export class SignIn extends React.Component {
   signUp() {
 
   	var signUpData = {
-  		"username" : ReactDOM.findDOMNode(this.refs.username).value,
-  		"password" : ReactDOM.findDOMNode(this.refs.password).value,
-  		"passwordVerify" : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
-  		"email" : ReactDOM.findDOMNode(this.refs.email).value
+  		username : ReactDOM.findDOMNode(this.refs.username).value,
+  		password : ReactDOM.findDOMNode(this.refs.password).value,
+  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+  		email : ReactDOM.findDOMNode(this.refs.email).value
   		};
 
-    	$.post("/api/v1/newuser", {signUpData : signUpData});
+    	$.post("/api/v1/newuser", signUpData);
   }
 
 }

@@ -48869,19 +48869,27 @@
 							RB.Modal.Footer,
 							null,
 							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.signUp.bind(this) },
-								'Sign Up'
+								RB.Col,
+								{ sm: 6 },
+								_react2.default.createElement(
+									RB.Button,
+									{ onClick: this.signUp.bind(this) },
+									'Sign Up'
+								)
 							),
 							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.signInCancel.bind(this) },
-								'Cancel'
-							),
-							_react2.default.createElement(
-								RB.Button,
-								{ bsStyle: 'primary' },
-								'Sign In'
+								RB.Col,
+								{ sm: 6 },
+								_react2.default.createElement(
+									RB.Button,
+									{ onClick: this.signInCancel.bind(this) },
+									'Cancel'
+								),
+								_react2.default.createElement(
+									RB.Button,
+									{ bsStyle: 'primary' },
+									'Sign In'
+								)
 							)
 						)
 					)
@@ -48897,13 +48905,13 @@
 			value: function signUp() {
 
 				var signUpData = {
-					"username": _reactDom2.default.findDOMNode(this.refs.username).value,
-					"password": _reactDom2.default.findDOMNode(this.refs.password).value,
-					"passwordVerify": _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
-					"email": _reactDom2.default.findDOMNode(this.refs.email).value
+					username: _reactDom2.default.findDOMNode(this.refs.username).value,
+					password: _reactDom2.default.findDOMNode(this.refs.password).value,
+					passwordVerify: _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
+					email: _reactDom2.default.findDOMNode(this.refs.email).value
 				};
 
-				_jquery2.default.post("/api/v1/newuser", { signUpData: signUpData });
+				_jquery2.default.post("/api/v1/newuser", signUpData);
 			}
 		}]);
 

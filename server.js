@@ -58,13 +58,10 @@ app.get('/api/v1/posts',function(req,res){
 
 app.post('/api/v1/newuser', function(req,res) {
   
-      var signUpData = req.body.signUpData; 
-      console.log(signUpData[username]);
-
-    /*connection.query("INSERT INTO `users` (`username`, `password`, `email`) VALUES (?, ?, ?)",[ username, password, email ], function(err, rows, fields) {
+    connection.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",[ req.body.username, req.body.password, req.body.email ], function(err, rows, fields) {
       if (err) throw err;
 
-});*/
+});
 
   res.end();
 });
