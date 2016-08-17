@@ -98,15 +98,14 @@ export class SignIn extends React.Component {
   }
 
   signUp() {
-  	console.log(ReactDOM.findDOMNode(username).value);
 
-  	var signUpData = [
-  		{username : ReactDOM.findDOMNode(username).value},
-  		{password : ReactDOM.findDOMNode(password).value},
-  		{passwordVerify : ReactDOM.findDOMNode(passwordVerify).value},
-  		{email : ReactDOM.findDOMNode(email).value}
-  	];
-  	console.log(signUpData);
+  	var signUpData = {
+  		username : ReactDOM.findDOMNode(this.refs.username).value,
+  		password : ReactDOM.findDOMNode(this.refs.password).value,
+  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+  		email : ReactDOM.findDOMNode(this.refs.email).value
+  		};
+
     	$.post("/api/v1/newuser", {signUpData : signUpData});
   }
 

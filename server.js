@@ -58,11 +58,11 @@ app.get('/api/v1/posts',function(req,res){
 app.post('/api/v1/newuser', function(req,res){
   
       var signUpData = req.body.signUpData;  
-
-connection.query('INSERT INTO users (username, password, email) VALUES (?, ?, ?)',[username, password, email], function(err, rows, fields) {
+      console.log(signUpData);
+/*connection.query('INSERT INTO users (username, password, email) VALUES (?, ?, ?)',[username, password, email], function(err, rows, fields) {
   if (err) throw err;
 
-});
+});*/
 
   res.end();
 });

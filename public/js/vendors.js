@@ -48895,10 +48895,14 @@
 		}, {
 			key: 'signUp',
 			value: function signUp() {
-				console.log(_reactDom2.default.findDOMNode(username).value);
 
-				var signUpData = [{ username: _reactDom2.default.findDOMNode(username).value }, { password: _reactDom2.default.findDOMNode(password).value }, { passwordVerify: _reactDom2.default.findDOMNode(passwordVerify).value }, { email: _reactDom2.default.findDOMNode(email).value }];
-				console.log(signUpData);
+				var signUpData = {
+					username: _reactDom2.default.findDOMNode(this.refs.username).value,
+					password: _reactDom2.default.findDOMNode(this.refs.password).value,
+					passwordVerify: _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
+					email: _reactDom2.default.findDOMNode(this.refs.email).value
+				};
+
 				_jquery2.default.post("/api/v1/newuser", { signUpData: signUpData });
 			}
 		}]);
