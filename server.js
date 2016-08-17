@@ -8,7 +8,7 @@ var express = require('express');
 
 app.use('/api', router);
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var port = 80;
@@ -55,12 +55,14 @@ app.get('/api/v1/posts',function(req,res){
     });
 });
 
-app.post('/api/v1/newuser', function(req,res){
+
+app.post('/api/v1/newuser', function(req,res) {
   
-      var signUpData = req.body.signUpData;  
-      console.log(signUpData);
-/*connection.query('INSERT INTO users (username, password, email) VALUES (?, ?, ?)',[username, password, email], function(err, rows, fields) {
-  if (err) throw err;
+      var signUpData = req.body.signUpData; 
+      console.log(signUpData[username]);
+
+    /*connection.query("INSERT INTO `users` (`username`, `password`, `email`) VALUES (?, ?, ?)",[ username, password, email ], function(err, rows, fields) {
+      if (err) throw err;
 
 });*/
 

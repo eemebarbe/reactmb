@@ -100,10 +100,10 @@ export class SignIn extends React.Component {
   signUp() {
 
   	var signUpData = {
-  		username : ReactDOM.findDOMNode(this.refs.username).value,
-  		password : ReactDOM.findDOMNode(this.refs.password).value,
-  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
-  		email : ReactDOM.findDOMNode(this.refs.email).value
+  		"username" : ReactDOM.findDOMNode(this.refs.username).value,
+  		"password" : ReactDOM.findDOMNode(this.refs.password).value,
+  		"passwordVerify" : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+  		"email" : ReactDOM.findDOMNode(this.refs.email).value
   		};
 
     	$.post("/api/v1/newuser", {signUpData : signUpData});
