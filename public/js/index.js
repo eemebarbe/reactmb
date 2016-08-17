@@ -57,7 +57,9 @@ webpackJsonp([0],[
 						loopPosts.push(_react2.default.createElement(
 							RB.ListGroupItem,
 							{ header: response[i].title },
-							response[i].article
+							response[i].article,
+							' by ',
+							response[i].author
 						));
 					}
 					this.setState({ posts: loopPosts });

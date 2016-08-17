@@ -48826,22 +48826,22 @@
 									_react2.default.createElement(
 										RB.FormGroup,
 										null,
-										_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'choose a username' })
+										_react2.default.createElement(RB.FormControl, { ref: 'username', type: 'text', placeholder: 'choose a username' })
 									),
 									_react2.default.createElement(
 										RB.FormGroup,
 										null,
-										_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'password' })
+										_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'text', placeholder: 'password' })
 									),
 									_react2.default.createElement(
 										RB.FormGroup,
 										null,
-										_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'verify password' })
+										_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'text', placeholder: 'verify password' })
 									),
 									_react2.default.createElement(
 										RB.FormGroup,
 										null,
-										_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'email' })
+										_react2.default.createElement(RB.FormControl, { ref: 'email', type: 'text', placeholder: 'email' })
 									)
 								),
 								_react2.default.createElement(
@@ -48870,6 +48870,11 @@
 							null,
 							_react2.default.createElement(
 								RB.Button,
+								{ onClick: this.signUp.bind(this) },
+								'Sign Up'
+							),
+							_react2.default.createElement(
+								RB.Button,
 								{ onClick: this.signInCancel.bind(this) },
 								'Cancel'
 							),
@@ -48886,6 +48891,15 @@
 			key: 'signInCancel',
 			value: function signInCancel() {
 				(0, _jquery2.default)("#signIn").hide();
+			}
+		}, {
+			key: 'signUp',
+			value: function signUp() {
+				console.log(_reactDom2.default.findDOMNode(username).value);
+
+				var signUpData = [{ username: _reactDom2.default.findDOMNode(username).value }, { password: _reactDom2.default.findDOMNode(password).value }, { passwordVerify: _reactDom2.default.findDOMNode(passwordVerify).value }, { email: _reactDom2.default.findDOMNode(email).value }];
+				console.log(signUpData);
+				_jquery2.default.post("/api/v1/newuser", { signUpData: signUpData });
 			}
 		}]);
 

@@ -43,7 +43,6 @@ export class Header extends React.Component {
   signIn() {
 		$("#signIn").show();
   }
-
 }
 
 
@@ -61,16 +60,16 @@ export class SignIn extends React.Component {
 	      		<RB.Col sm={6}>
 	      		<h4>Sign Up</h4>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="choose a username" />
+	        	<RB.FormControl ref="username" type="text" placeholder="choose a username" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="password" />
+	        	<RB.FormControl ref="password" type="text" placeholder="password" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="verify password" />
+	        	<RB.FormControl ref="passwordVerify" type="text" placeholder="verify password" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="email" />
+	        	<RB.FormControl ref="email" type="text" placeholder="email" />
 	        	</RB.FormGroup>
 	        	</RB.Col>
 	        	<RB.Col sm={6}>
@@ -86,6 +85,7 @@ export class SignIn extends React.Component {
       		</RB.Modal.Body>
 
       		<RB.Modal.Footer>
+      		<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
         	<RB.Button onClick={this.signInCancel.bind(this)}>Cancel</RB.Button>
         	<RB.Button bsStyle="primary">Sign In</RB.Button>
       		</RB.Modal.Footer>
@@ -95,6 +95,19 @@ export class SignIn extends React.Component {
 
   signInCancel() {
 		$("#signIn").hide();
+  }
+
+  signUp() {
+  	console.log(ReactDOM.findDOMNode(username).value);
+
+  	var signUpData = [
+  		{username : ReactDOM.findDOMNode(username).value},
+  		{password : ReactDOM.findDOMNode(password).value},
+  		{passwordVerify : ReactDOM.findDOMNode(passwordVerify).value},
+  		{email : ReactDOM.findDOMNode(email).value}
+  	];
+  	console.log(signUpData);
+    	$.post("/api/v1/newuser", {signUpData : signUpData});
   }
 
 }
