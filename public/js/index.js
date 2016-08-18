@@ -59,7 +59,7 @@ webpackJsonp([0],[
 							{ header: response[i].title },
 							response[i].article,
 							' by ',
-							response[i].author
+							response[i].idusers
 						));
 					}
 					this.setState({ posts: loopPosts });

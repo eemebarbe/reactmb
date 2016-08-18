@@ -1,4 +1,4 @@
-webpackJsonp([2],[
+webpackJsonp([3],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -39,13 +39,27 @@ webpackJsonp([2],[
 	var SubmitForm = function (_React$Component) {
 		_inherits(SubmitForm, _React$Component);
 
-		function SubmitForm() {
+		function SubmitForm(props) {
 			_classCallCheck(this, SubmitForm);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForm).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForm).call(this, props));
+
+			_this.state = { article: [] };
+			return _this;
 		}
 
 		_createClass(SubmitForm, [{
+			key: 'getArticle',
+			value: function getArticle() {
+
+				var signUpData = {
+					title: _reactDom2.default.findDOMNode(this.refs.title).value,
+					article: _reactDom2.default.findDOMNode(this.refs.article).value
+				};
+
+				_jquery2.default.post("api/v1/newpost", signUpData);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -59,7 +73,7 @@ webpackJsonp([2],[
 					_react2.default.createElement(
 						RB.FormGroup,
 						null,
-						_react2.default.createElement(RB.FormControl, { type: 'text' })
+						_react2.default.createElement(RB.FormControl, { ref: 'title', type: 'text' })
 					),
 					_react2.default.createElement(
 						'h4',
@@ -69,14 +83,14 @@ webpackJsonp([2],[
 					_react2.default.createElement(
 						RB.FormGroup,
 						null,
-						_react2.default.createElement(RB.FormControl, { componentClass: 'textarea', type: 'text' })
+						_react2.default.createElement(RB.FormControl, { ref: 'article', componentClass: 'textarea', type: 'text' })
 					),
 					_react2.default.createElement(
 						RB.ButtonGroup,
 						null,
 						_react2.default.createElement(
 							RB.Button,
-							null,
+							{ onClick: this.getArticle.bind(this) },
 							'Submit'
 						)
 					)

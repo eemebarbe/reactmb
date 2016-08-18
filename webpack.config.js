@@ -9,7 +9,8 @@ module.exports = {
   entry: {
     index: APP_DIR + '/index.jsx',
     submit: APP_DIR + '/submit.jsx',
-    profile: APP_DIR + '/profile.jsx'
+    profile: APP_DIR + '/profile.jsx',
+    post: APP_DIR + '/post.jsx'
   },
   
 

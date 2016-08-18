@@ -6,25 +6,41 @@ import * as formatting from './header.jsx';
 
 
 class SubmitForm extends React.Component {
+
+	constructor(props) {
+    super(props);
+    this.state = { article : [] };
+  }
+
+	getArticle() {
+
+	var signUpData = {
+  		title : ReactDOM.findDOMNode(this.refs.title).value,
+  		article : ReactDOM.findDOMNode(this.refs.article).value,
+  		};
+
+		$.post("api/v1/newpost", signUpData);
+	}
+
+
 	render() {
 		return (
 				<div>
 	      		<h4>Title</h4>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text"/>
+	        	<RB.FormControl ref="title" type="text"/>
 	        	</RB.FormGroup>
 	        	<h4>Content</h4>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl componentClass="textarea" type="text"/>
+	        	<RB.FormControl ref="article" componentClass="textarea" type="text"/>
 	        	</RB.FormGroup>
 	        	<RB.ButtonGroup>
-				<RB.Button>Submit</RB.Button>
+				<RB.Button onClick={this.getArticle.bind(this)}>Submit</RB.Button>
 				</RB.ButtonGroup>
 	        	</div>
 			);
 	}
 }
-
 
 class SubmitPage extends React.Component {
 	render() {

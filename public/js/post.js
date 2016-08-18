@@ -1,4 +1,4 @@
-webpackJsonp([2],[
+webpackJsonp([1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -36,54 +36,63 @@ webpackJsonp([2],[
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ProfileOptions = function (_React$Component) {
-		_inherits(ProfileOptions, _React$Component);
+	var PostDisplay = function (_React$Component) {
+		_inherits(PostDisplay, _React$Component);
 
-		function ProfileOptions() {
-			_classCallCheck(this, ProfileOptions);
+		function PostDisplay() {
+			_classCallCheck(this, PostDisplay);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).apply(this, arguments));
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).apply(this, arguments));
 		}
 
-		_createClass(ProfileOptions, [{
+		_createClass(PostDisplay, [{
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					'h4',
+					'div',
 					null,
-					'Preferences'
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Dummy Title'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						'Words words words Words words words Words words words Words words words Words words words'
+					)
 				);
 			}
 		}]);
 
-		return ProfileOptions;
+		return PostDisplay;
 	}(_react2.default.Component);
 
-	var ProfilePage = function (_React$Component2) {
-		_inherits(ProfilePage, _React$Component2);
+	var PostPage = function (_React$Component2) {
+		_inherits(PostPage, _React$Component2);
 
-		function ProfilePage() {
-			_classCallCheck(this, ProfilePage);
+		function PostPage() {
+			_classCallCheck(this, PostPage);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfilePage).apply(this, arguments));
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostPage).apply(this, arguments));
 		}
 
-		_createClass(ProfilePage, [{
+		_createClass(PostPage, [{
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					RB.Grid,
 					null,
 					_react2.default.createElement(formatting.Header, null),
-					_react2.default.createElement(ProfileOptions, null)
+					_react2.default.createElement(PostDisplay, null)
 				);
 			}
 		}]);
 
-		return ProfilePage;
+		return PostPage;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(ProfilePage, null), document.getElementById('content'));
+	_reactDom2.default.render(_react2.default.createElement(PostPage, null), document.getElementById('content'));
 
 /***/ }
 ]);

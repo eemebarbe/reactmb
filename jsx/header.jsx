@@ -60,8 +60,7 @@ export class Header extends React.Component {
   				</RB.Navbar>
 			</RB.Row>
 
-			
-// pop up dialog for signing in / signing up
+
 
 			<RB.Modal show={this.state.showModal} onHide={this.close.bind(this)}>
 			      <RB.Modal.Header closeButton>
