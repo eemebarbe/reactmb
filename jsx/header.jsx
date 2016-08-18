@@ -4,6 +4,32 @@ import * as RB from 'react-bootstrap';
 import $ from "jquery";
 
 export class Header extends React.Component {
+	
+	constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+  }
+
+    close() {
+    this.setState({ showModal: false });
+  }
+
+  	open() {
+    this.setState({ showModal: true });
+  }
+
+  signUp() {
+
+  	var signUpData = {
+  		username : ReactDOM.findDOMNode(this.refs.username).value,
+  		password : ReactDOM.findDOMNode(this.refs.password).value,
+  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+  		email : ReactDOM.findDOMNode(this.refs.email).value
+  		};
+
+    	$.post("/api/v1/newuser", signUpData);
+  }
+
 	render() {
 		return (
 			<div>
@@ -24,7 +50,7 @@ export class Header extends React.Component {
 				</RB.Nav>
 				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
-				      <RB.Button onClick={this.signIn.bind(this)}>Sign In</RB.Button>
+				      <RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
 				</RB.ButtonGroup>
 				</RB.Navbar.Form>
   				<RB.Nav pullRight>
@@ -35,26 +61,12 @@ export class Header extends React.Component {
 			</RB.Row>
 
 			
-			<SignIn />
+// pop up dialog for signing in / signing up
 
-			</div>
-		);}
-
-  signIn() {
-		$("#signIn").show();
-  }
-}
-
-
-export class SignIn extends React.Component {
-	render() {
-		return (
-			<div id="signIn">
-			<RB.Modal.Dialog>
-			      <RB.Modal.Header>
+			<RB.Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+			      <RB.Modal.Header closeButton>
         			<RB.Modal.Title>Enter your credentials</RB.Modal.Title>
       			  </RB.Modal.Header>
-
       		<RB.Modal.Body>
       		<RB.Row>
 	      		<RB.Col sm={6}>
@@ -89,31 +101,17 @@ export class SignIn extends React.Component {
       		<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
       		</RB.Col>
 	      	<RB.Col sm={6}>
-        	<RB.Button onClick={this.signInCancel.bind(this)}>Cancel</RB.Button>
         	<RB.Button bsStyle="primary">Sign In</RB.Button>
         	</RB.Col>
       		</RB.Modal.Footer>
-			</RB.Modal.Dialog>
+			</RB.Modal>
+
 			</div>
-			);}
-
-  signInCancel() {
-		$("#signIn").hide();
-  }
-
-  signUp() {
-
-  	var signUpData = {
-  		username : ReactDOM.findDOMNode(this.refs.username).value,
-  		password : ReactDOM.findDOMNode(this.refs.password).value,
-  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
-  		email : ReactDOM.findDOMNode(this.refs.email).value
-  		};
-
-    	$.post("/api/v1/newuser", signUpData);
-  }
+		);}
 
 }
+
+
 
 
 
