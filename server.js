@@ -5,6 +5,9 @@ var express = require('express');
   	path = require ('path');
   	router = express.Router(); 
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 app.use('/api', router);
 app.use(express.static(__dirname + '/public'));
@@ -28,12 +31,18 @@ app.listen(port, function() {
 	res.sendFile('views/profile.html', { root: __dirname });
  });
 
-  app.get('/post/:thisId', function(req,res){
+
+  app.get('/post/:thisId', function(req, res) {
+            var data = null;
   var url_Id = req.param('thisId');
-  if(rows.length != 0){
-    var data = rows;
-    res.sendFile('views/post.html', { root: __dirname });
-  }
+    connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
+        if(rows.length != 0){
+            data = rows;
+        }else{
+            res.json("This isn't a page");
+        }
+    });
+  res.render('views/post.html', { data });
 });
 
 
@@ -84,15 +93,17 @@ app.post('/api/v1/newpost', function(req,res) {
 });
 
 
-app.get("api/v1/article/:postId", function(req, res) {
-
-    var url_Id = req.param('postId');
+app.get("/api/v1/posts/:thisId", function(req, res) {
+    var url_Id = req.param('thisId');
 
     connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
-      if(rows.length != 0){
-    var data = rows;
-    }
-  });
-
-  res.sendFile('views/post.html', { root: __dirname });
- });
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+        }else{
+            data = null;
+            res.json(data);
+        }
+          res.end();
+    });
+});

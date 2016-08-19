@@ -44,7 +44,7 @@ webpackJsonp([1],[
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
 
-			_this.state = { title: [], article: [] };
+			_this.state = { title: null, article: null, idPost: null, idUser: null };
 			return _this;
 		}
 
@@ -57,12 +57,12 @@ webpackJsonp([1],[
 					_react2.default.createElement(
 						'h2',
 						null,
-						'Dummy Title'
+						'dummy'
 					),
 					_react2.default.createElement(
 						'div',
 						null,
-						'Words words words Words words words Words words words Words words words Words words words'
+						'this is an article'
 					)
 				);
 			}

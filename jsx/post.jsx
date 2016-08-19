@@ -9,20 +9,18 @@ class PostDisplay extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = { title : [], article : [] };
+    this.state = { title : null, article : null, idPost : null, idUser : null };
   }
 
 		render() {
 		return (
 
 			<div>
-			<h2>Dummy Title</h2>
-			<div>Words words words Words words words
-			 Words words words Words words words Words words words</div>
+			<h2>dummy</h2>
+			<div>this is an article</div>
 			</div>
 
-			);
-	}
+			)}
 }
 
 class PostPage extends React.Component {
