@@ -49,8 +49,8 @@ webpackJsonp([3],[
 		}
 
 		_createClass(SubmitForm, [{
-			key: 'getArticle',
-			value: function getArticle() {
+			key: 'postArticle',
+			value: function postArticle() {
 
 				var signUpData = {
 					title: _reactDom2.default.findDOMNode(this.refs.title).value,
@@ -90,7 +90,7 @@ webpackJsonp([3],[
 						null,
 						_react2.default.createElement(
 							RB.Button,
-							{ onClick: this.getArticle.bind(this) },
+							{ onClick: this.postArticle.bind(this) },
 							'Submit'
 						)
 					)

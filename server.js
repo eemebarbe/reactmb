@@ -28,19 +28,13 @@ app.listen(port, function() {
 	res.sendFile('views/profile.html', { root: __dirname });
  });
 
-  app.get("/post/", function(req, res) {
-
-      var url_Id = req.param('postId');
-
-   connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
-   if(rows.length != 0){
-    data = rows;
-    console.log(data);
-    }
-  });
-
-  res.sendFile('views/post.html', { root: __dirname });
- });
+  app.get('/post/:thisId', function(req,res){
+  var url_Id = req.param('thisId');
+  if(rows.length != 0){
+    var data = rows;
+    res.sendFile('views/post.html', { root: __dirname });
+  }
+});
 
 
 var mysql = require('mysql');
@@ -69,8 +63,6 @@ app.get('/api/v1/posts',function(req,res){
     });
 });
 
-/*app.get('/posts/:thisId', function(req,res){
-}*/
 
 app.post('/api/v1/newuser', function(req,res) {
   
@@ -90,3 +82,17 @@ app.post('/api/v1/newpost', function(req,res) {
     
   res.end();
 });
+
+
+app.get("api/v1/article/:postId", function(req, res) {
+
+    var url_Id = req.param('postId');
+
+    connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
+      if(rows.length != 0){
+    var data = rows;
+    }
+  });
+
+  res.sendFile('views/post.html', { root: __dirname });
+ });

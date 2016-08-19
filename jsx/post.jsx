@@ -7,6 +7,11 @@ import * as formatting from './header.jsx';
 
 class PostDisplay extends React.Component {
 
+	constructor(props) {
+    super(props);
+    this.state = { title : [], article : [] };
+  }
+
 		render() {
 		return (
 

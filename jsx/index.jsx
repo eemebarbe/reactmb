@@ -16,7 +16,11 @@ class SubmissionList extends React.Component {
 		var loopPosts = [];
 		$.get("api/v1/posts/", function(response) {
 			for(var i=0; i<response.length; i++) {
-				loopPosts.push(<RB.ListGroupItem header={response[i].title}>{response[i].article} by {response[i].idusers}</RB.ListGroupItem>);
+				loopPosts.push(
+					<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
+					{response[i].article} by {response[i].idusers}
+					</RB.ListGroupItem>
+					);
 			}
        this.setState({posts: loopPosts});
 		}.bind(this));

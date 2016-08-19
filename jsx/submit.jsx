@@ -12,7 +12,7 @@ class SubmitForm extends React.Component {
     this.state = { article : [] };
   }
 
-	getArticle() {
+	postArticle() {
 
 	var signUpData = {
   		title : ReactDOM.findDOMNode(this.refs.title).value,
@@ -35,7 +35,7 @@ class SubmitForm extends React.Component {
 	        	<RB.FormControl ref="article" componentClass="textarea" type="text"/>
 	        	</RB.FormGroup>
 	        	<RB.ButtonGroup>
-				<RB.Button onClick={this.getArticle.bind(this)}>Submit</RB.Button>
+				<RB.Button onClick={this.postArticle.bind(this)}>Submit</RB.Button>
 				</RB.ButtonGroup>
 	        	</div>
 			);

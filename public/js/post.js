@@ -39,10 +39,13 @@ webpackJsonp([1],[
 	var PostDisplay = function (_React$Component) {
 		_inherits(PostDisplay, _React$Component);
 
-		function PostDisplay() {
+		function PostDisplay(props) {
 			_classCallCheck(this, PostDisplay);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
+
+			_this.state = { title: [], article: [] };
+			return _this;
 		}
 
 		_createClass(PostDisplay, [{
