@@ -19,15 +19,15 @@ app.listen(port, function() {
 });
 
  app.get("/", function(req, res) {
-	res.sendFile('views/index.html', { root: __dirname });
+	res.render('index.ejs', { root: __dirname });
  });
 
   app.get("/submit", function(req, res) {
-	res.sendFile('views/submit.html', { root: __dirname });
+	res.render('submit.ejs', { root: __dirname });
  });
 
   app.get("/profile", function(req, res) {
-	res.sendFile('views/profile.html', { root: __dirname });
+	res.render('profile.ejs', { root: __dirname });
  });
 
 

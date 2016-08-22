@@ -16,7 +16,7 @@ class PostDisplay extends React.Component {
 		return (
 
 			<div>
-			<h2>{ window.title }</h2>
+			<h2>{ window.article }</h2>
 			<div>{ window.article }</div>
 			</div>
 
