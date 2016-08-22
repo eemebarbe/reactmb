@@ -54,8 +54,8 @@ export class Header extends React.Component {
 				</RB.ButtonGroup>
 				</RB.Navbar.Form>
   				<RB.Nav pullRight>
-  				      <RB.NavItem eventKey={3} href="submit">Submit</RB.NavItem>
-				      <RB.NavItem eventKey={4} href="profile">Profile</RB.NavItem>
+  				      <RB.NavItem eventKey={3} href="../submit">Submit</RB.NavItem>
+				      <RB.NavItem eventKey={4} href="../profile">Profile</RB.NavItem>
 				</RB.Nav>
   				</RB.Navbar>
 			</RB.Row>

@@ -33,14 +33,33 @@ app.listen(port, function() {
 
   app.get('/post/:thisId', function(req, res) {
   var url_Id = req.param('thisId');
+
     connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
-            res.render('post.ejs', { title: data[0].title, article: data[0].article });
+
+            connection.query("SELECT * FROM comments WHERE `idposts`=(?)",[url_Id], function(err, rows, fields) {
+              if(rows.length != 0){
+                comments = rows;
+            var loopComments = null;
+                  for(var i=0; i<comments.length; i++) {
+                    var loopComments = [];
+                    loopComments.push(
+                    "<RB.Panel header={comments[i].user}>" +
+                    "comments[i].comment" +
+                    "</RB.Panel>");
+
+            }}
+            res.render('post.ejs', { title: data[0].title, article: data[0].article, loopComments: eval(loopComments)});
+
+          });
+
+
         }else{
             res.json("This isn't a page");
         }
     });
+
 });
 
 
@@ -80,6 +99,19 @@ app.post('/api/v1/newuser', function(req,res) {
   res.end();
 });
 
+app.get('/api/v1/comments/:postId', function(req,res) {
+    var url_Id = req.param('postId');  
+    connection.query("SELECT * FROM comments WHERE `idposts`=(?)",[url_Id], function(err, rows, fields) {
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+        }else{
+            data = null;
+            res.json("No comments for this post");
+        }
+          res.end();
+    });
+});
 
 app.post('/api/v1/newpost', function(req,res) {
   

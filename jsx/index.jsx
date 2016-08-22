@@ -18,7 +18,7 @@ class SubmissionList extends React.Component {
 			for(var i=0; i<response.length; i++) {
 				loopPosts.push(
 					<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
-					{response[i].article} by {response[i].idusers}
+					Submitted by {response[i].idusers} | Comments <b>(104)</b>
 					</RB.ListGroupItem>
 					);
 			}

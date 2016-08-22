@@ -57,9 +57,14 @@ webpackJsonp([0],[
 						loopPosts.push(_react2.default.createElement(
 							RB.ListGroupItem,
 							{ href: "/post/" + response[i].idposts, header: response[i].title },
-							response[i].article,
-							' by ',
-							response[i].idusers
+							'Submitted by ',
+							response[i].idusers,
+							' | Comments ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'(104)'
+							)
 						));
 					}
 					this.setState({ posts: loopPosts });

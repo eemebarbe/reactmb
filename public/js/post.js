@@ -42,10 +42,7 @@ webpackJsonp([1],[
 		function PostDisplay(props) {
 			_classCallCheck(this, PostDisplay);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
-
-			_this.state = { title: null, article: null, idPost: null, idUser: null };
-			return _this;
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
 		}
 
 		_createClass(PostDisplay, [{
@@ -63,6 +60,16 @@ webpackJsonp([1],[
 						'div',
 						null,
 						window.article
+					),
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Comments'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						window.loopComments
 					)
 				);
 			}

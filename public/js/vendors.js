@@ -48788,12 +48788,12 @@
 															{ pullRight: true },
 															_react2.default.createElement(
 																	RB.NavItem,
-																	{ eventKey: 3, href: 'submit' },
+																	{ eventKey: 3, href: '../submit' },
 																	'Submit'
 															),
 															_react2.default.createElement(
 																	RB.NavItem,
-																	{ eventKey: 4, href: 'profile' },
+																	{ eventKey: 4, href: '../profile' },
 																	'Profile'
 															)
 													)

@@ -9,15 +9,16 @@ class PostDisplay extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = { title : null, article : null, idPost : null, idUser : null };
   }
 
 		render() {
 		return (
 
 			<div>
-			<h2>{ window.article }</h2>
+			<h2>{ window.title }</h2>
 			<div>{ window.article }</div>
+			<h4>Comments</h4>
+			<div>{ window.loopComments }</div>
 			</div>
 
 			)}
