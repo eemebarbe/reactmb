@@ -57,12 +57,12 @@ webpackJsonp([1],[
 					_react2.default.createElement(
 						'h2',
 						null,
-						'dummy'
+						window.title
 					),
 					_react2.default.createElement(
 						'div',
 						null,
-						'this is an article'
+						window.article
 					)
 				);
 			}

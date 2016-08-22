@@ -1,18 +1,17 @@
 var express = require('express');
-	app = express();
-	fs = require('fs');
-  	bodyParser = require('body-parser');
-  	path = require ('path');
-  	router = express.Router(); 
-
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
+	   app = express();
+	   fs = require('fs');
+      bodyParser = require('body-parser');
+      path = require ('path');
+      ejs = require('ejs');
+  	 router = express.Router(); 
 
 app.use('/api', router);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.set('view engine', 'ejs');
 
 var port = 80;
 app.listen(port, function() {
@@ -33,16 +32,15 @@ app.listen(port, function() {
 
 
   app.get('/post/:thisId', function(req, res) {
-            var data = null;
   var url_Id = req.param('thisId');
     connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
+            res.render('post.ejs', { title: data[0].title, article: data[0].article });
         }else{
             res.json("This isn't a page");
         }
     });
-  res.render('views/post.html', { data });
 });
 
 

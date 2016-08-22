@@ -16,8 +16,8 @@ class PostDisplay extends React.Component {
 		return (
 
 			<div>
-			<h2>dummy</h2>
-			<div>this is an article</div>
+			<h2>{ window.title }</h2>
+			<div>{ window.article }</div>
 			</div>
 
 			)}
