@@ -40,17 +40,8 @@ app.listen(port, function() {
 
             connection.query("SELECT * FROM comments WHERE `idposts`=(?)",[url_Id], function(err, rows, fields) {
               if(rows.length != 0){
-                comments = rows;
-            var loopComments = null;
-                  for(var i=0; i<comments.length; i++) {
-                    var loopComments = [];
-                    loopComments.push(
-                    "<RB.Panel header={comments[i].user}>" +
-                    "comments[i].comment" +
-                    "</RB.Panel>");
-
-            }}
-            res.render('post.ejs', { title: data[0].title, article: data[0].article, loopComments: eval(loopComments)});
+               }
+            res.render('post.ejs', { title: data[0].title, article: data[0].article, loopComments: JSON.stringify(rows)});
 
           });
 
