@@ -84,11 +84,7 @@ webpackJsonp([0],[
 					_react2.default.createElement(
 						RB.ListGroup,
 						null,
-						_react2.default.createElement(
-							'div',
-							null,
-							this.state.posts
-						)
+						this.state.posts
 					),
 					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, activePage: 2 })
 				);

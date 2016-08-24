@@ -20,6 +20,7 @@ class SubmitForm extends React.Component {
   		};
 
 		$.post("api/v1/newpost", signUpData);
+
 	}
 
 

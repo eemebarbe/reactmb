@@ -85,12 +85,14 @@ export class Header extends React.Component {
 	        	</RB.Col>
 	        	<RB.Col sm={6}>
 	        	<h4>Sign In</h4>
+	        	<RB.Form id="signInForm" action="/login" method="post">
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="username" />
+	        	<RB.FormControl type="text" placeholder="username" name="username" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="password" />
+	        	<RB.FormControl type="text" placeholder="password" name="password" />
 	        	</RB.FormGroup>
+	        	</RB.Form>
 	        	</RB.Col>
         	</RB.Row>
       		</RB.Modal.Body>
@@ -100,7 +102,7 @@ export class Header extends React.Component {
       		<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
       		</RB.Col>
 	      	<RB.Col sm={6}>
-        	<RB.Button bsStyle="primary">Sign In</RB.Button>
+        	<RB.Button bsStyle="primary" type="submit" form="signInForm">Sign In</RB.Button>
         	</RB.Col>
       		</RB.Modal.Footer>
 			</RB.Modal>

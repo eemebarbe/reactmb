@@ -5,6 +5,7 @@ import $ from "jquery";
 import * as formatting from './header.jsx';
 
 
+
 class SubmissionList extends React.Component {
 
 	constructor(props) {
@@ -36,7 +37,7 @@ class SubmissionList extends React.Component {
 			<RB.Row>
 			<RB.ListGroup>
 
-			  <div>{this.state.posts}</div>
+			 {this.state.posts}
 
 			</RB.ListGroup>
 			<RB.Pagination next prev items={5} maxButtons={5} activePage={2}></RB.Pagination>

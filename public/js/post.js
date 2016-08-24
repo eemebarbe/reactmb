@@ -42,34 +42,79 @@ webpackJsonp([1],[
 		function PostDisplay(props) {
 			_classCallCheck(this, PostDisplay);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
+
+			_this.state = { comments: [],
+				numberOfComments: null };
+			return _this;
 		}
 
 		_createClass(PostDisplay, [{
+			key: 'getComments',
+			value: function getComments() {
+				var finalComments = [];
+				for (var i = 0; i < loopComments.length; i++) {
+					finalComments.push(_react2.default.createElement(
+						RB.Panel,
+						{ header: window.loopComments[i].iduser },
+						window.loopComments[i].comment
+					));
+					this.setState({ comments: finalComments, numberOfComments: loopComments.length });
+				}
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.getComments();
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
-						'h2',
+						RB.Row,
 						null,
-						window.title
+						_react2.default.createElement(
+							'h2',
+							null,
+							window.title
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							window.article
+						)
 					),
 					_react2.default.createElement(
-						'div',
+						RB.Row,
 						null,
-						window.article
+						_react2.default.createElement(
+							'h4',
+							null,
+							this.state.numberOfComments,
+							' Comments'
+						),
+						_react2.default.createElement(
+							RB.FormGroup,
+							null,
+							_react2.default.createElement(RB.FormControl, { ref: 'submitComment', componentClass: 'textarea', type: 'text' })
+						),
+						_react2.default.createElement(
+							RB.ButtonGroup,
+							null,
+							_react2.default.createElement(
+								RB.Button,
+								null,
+								'Submit'
+							)
+						)
 					),
 					_react2.default.createElement(
-						'h4',
+						RB.Row,
 						null,
-						'Comments'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						window.loopComments
+						this.state.comments
 					)
 				);
 			}

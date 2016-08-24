@@ -48855,14 +48855,18 @@
 																			'Sign In'
 																	),
 																	_react2.default.createElement(
-																			RB.FormGroup,
-																			null,
-																			_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username' })
-																	),
-																	_react2.default.createElement(
-																			RB.FormGroup,
-																			null,
-																			_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'password' })
+																			RB.Form,
+																			{ id: 'signInForm', action: './login', method: 'post' },
+																			_react2.default.createElement(
+																					RB.FormGroup,
+																					null,
+																					_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username', name: 'username' })
+																			),
+																			_react2.default.createElement(
+																					RB.FormGroup,
+																					null,
+																					_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'password', name: 'password' })
+																			)
 																	)
 															)
 													)
@@ -48884,7 +48888,7 @@
 															{ sm: 6 },
 															_react2.default.createElement(
 																	RB.Button,
-																	{ bsStyle: 'primary' },
+																	{ bsStyle: 'primary', type: 'submit', form: 'signInForm' },
 																	'Sign In'
 															)
 													)
