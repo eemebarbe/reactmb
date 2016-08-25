@@ -48856,7 +48856,7 @@
 																	),
 																	_react2.default.createElement(
 																			RB.Form,
-																			{ id: 'signInForm', action: './login', method: 'post' },
+																			{ id: 'signInForm', action: '/login', method: 'post' },
 																			_react2.default.createElement(
 																					RB.FormGroup,
 																					null,

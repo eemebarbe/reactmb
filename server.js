@@ -17,32 +17,34 @@ app.use(expressSession({secret: process.env.SESSION_SECRET || 'wintermute' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-app.post('/login',
-  passport.authenticate('local'), function(req,res) {
+app.get('/loginAuth', passport.authenticate('local'), function(req,res) {
     res.redirect('/');
-  }
-);
+  });
 
-//THIS IS THE PROBLEM
+
 passport.use(new LocalStrategy({
-    usernameField: 'username',
+      usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
   },
 
-function(req, username, password, done) {
+function(req, username, password, done) { // callback with email and password from our form
 
-         connection.query("SELECT * FROM users WHERE `username`=(?)", [usernameField], function(err,rows){
+         connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'",function(err,rows){
       if (err)
-            return done(err);
-      if (!rows.length) {
-            return done(null, false);
-        } 
-      if (!(rows[0].password == password))
-            return done(null, false);
-            return done(null, rows[0]);     
-        });
+                return done(err);
+       if (!rows.length) {
+                return done(null, false);
+                console.log("wrong shit");
+            } 
+      
+      // if the user is found but the password is wrong
+            if (!( rows[0].password == password))
+                return done(null, false); // create the loginMessage and save it to session as flashdata
+            // all is well, return successful user
+            return done(null, rows[0].username);     
+    
+    });
 }));
 
 
@@ -50,9 +52,10 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-passport.deserializeUser(function(id, done){
+passport.deserializeUser(function(user, done){
     done(null, user);
   });
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
