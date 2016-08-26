@@ -52,7 +52,6 @@ class FrontPage extends React.Component {
 		return (
 			<RB.Grid>
 			<formatting.Header />
-			<div>{ window.user }</div>
 			<SubmissionList />
 
 			</RB.Grid>

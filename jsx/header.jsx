@@ -29,8 +29,9 @@ export class Header extends React.Component {
     	$.post("/api/v1/newuser", signUpData);
   }
 
-  authChange() { 	
-	if(undefined == undefined) { 
+  authChange() { 
+ 	var authRender = null;	
+	if( { window.user } == undefined ) { 
  	var authRender = 
  				<div>
   				<RB.Navbar.Form pullRight>
