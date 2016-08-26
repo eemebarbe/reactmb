@@ -29,9 +29,8 @@ export class Header extends React.Component {
     	$.post("/api/v1/newuser", signUpData);
   }
 
-  authChange() { 
- 	var authRender = null;	
-	if( { window.user } == undefined ) { 
+  authChange() { 	
+	if( window.user == undefined ) { 
  	var authRender = 
  				<div>
   				<RB.Navbar.Form pullRight>
@@ -41,7 +40,7 @@ export class Header extends React.Component {
 				</RB.Navbar.Form>
 				</div>;
   			} else {
- 	var authRender = 
+ 	authRender = 
  				<div>
   				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
@@ -54,6 +53,7 @@ export class Header extends React.Component {
 				</RB.Nav>
 				</div>;
   			}
+  			console.log(authRender);
   }
 
 	componentDidMount() {

@@ -22,7 +22,7 @@ webpackJsonp([0],[
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _header = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./header.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _header = __webpack_require__(413);
 
 	var formatting = _interopRequireWildcard(_header);
 
@@ -110,11 +110,6 @@ webpackJsonp([0],[
 					RB.Grid,
 					null,
 					_react2.default.createElement(formatting.Header, null),
-					_react2.default.createElement(
-						'div',
-						null,
-						window.user
-					),
 					_react2.default.createElement(SubmissionList, null)
 				);
 			}

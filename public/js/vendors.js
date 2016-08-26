@@ -48647,5 +48647,293 @@
 	} );
 
 
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+	exports.Header = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactBootstrap = __webpack_require__(159);
+
+	var RB = _interopRequireWildcard(_reactBootstrap);
+
+	var _jquery = __webpack_require__(412);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Header = exports.Header = function (_React$Component) {
+			_inherits(Header, _React$Component);
+
+			function Header(props) {
+					_classCallCheck(this, Header);
+
+					var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+
+					_this.state = { showModal: false };
+					return _this;
+			}
+
+			_createClass(Header, [{
+					key: 'close',
+					value: function close() {
+							this.setState({ showModal: false });
+					}
+			}, {
+					key: 'open',
+					value: function open() {
+							this.setState({ showModal: true });
+					}
+			}, {
+					key: 'signUp',
+					value: function signUp() {
+							var signUpData = {
+									username: _reactDom2.default.findDOMNode(this.refs.username).value,
+									password: _reactDom2.default.findDOMNode(this.refs.password).value,
+									passwordVerify: _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
+									email: _reactDom2.default.findDOMNode(this.refs.email).value
+							};
+
+							_jquery2.default.post("/api/v1/newuser", signUpData);
+					}
+			}, {
+					key: 'authChange',
+					value: function authChange() {
+							if (window.user == undefined) {
+									authRender = _react2.default.createElement(
+											'div',
+											null,
+											_react2.default.createElement(
+													RB.Navbar.Form,
+													{ pullRight: true },
+													_react2.default.createElement(
+															RB.ButtonGroup,
+															null,
+															_react2.default.createElement(
+																	RB.Button,
+																	{ onClick: this.open.bind(this) },
+																	'Sign In'
+															)
+													)
+											)
+									);
+							} else {
+									authRender = _react2.default.createElement(
+											'div',
+											null,
+											_react2.default.createElement(
+													RB.Navbar.Form,
+													{ pullRight: true },
+													_react2.default.createElement(
+															RB.ButtonGroup,
+															null,
+															_react2.default.createElement(
+																	RB.Button,
+																	{ onClick: this.open.bind(this) },
+																	'Sign Out'
+															)
+													)
+											),
+											_react2.default.createElement(
+													RB.Nav,
+													{ pullRight: true },
+													_react2.default.createElement(
+															RB.NavItem,
+															{ eventKey: 3, href: '../submit' },
+															'Submit'
+													),
+													_react2.default.createElement(
+															RB.NavItem,
+															{ eventKey: 4, href: '../profile' },
+															'Profile'
+													)
+											)
+									);
+							}
+							console.log(authRender);
+					}
+			}, {
+					key: 'componentDidMount',
+					value: function componentDidMount() {
+							this.authChange();
+					}
+			}, {
+					key: 'render',
+					value: function render() {
+							return _react2.default.createElement(
+									'div',
+									null,
+									_react2.default.createElement(
+											RB.Row,
+											null,
+											_react2.default.createElement(
+													RB.PageHeader,
+													null,
+													'Example page header ',
+													_react2.default.createElement(
+															'small',
+															null,
+															'Subtext for header'
+													)
+											),
+											_react2.default.createElement(
+													RB.Navbar,
+													null,
+													_react2.default.createElement(
+															RB.Navbar.Header,
+															null,
+															_react2.default.createElement(
+																	RB.Navbar.Brand,
+																	null,
+																	_react2.default.createElement(
+																			'a',
+																			{ href: '/' },
+																			'ReactMB'
+																	)
+															)
+													),
+													_react2.default.createElement(
+															RB.Nav,
+															null,
+															_react2.default.createElement(
+																	RB.NavItem,
+																	{ eventKey: 1, href: '#' },
+																	'Popular'
+															),
+															_react2.default.createElement(
+																	RB.NavItem,
+																	{ eventKey: 2, href: '#' },
+																	'Newest'
+															)
+													),
+													this.authRender.bind(this)
+											)
+									),
+									_react2.default.createElement(
+											RB.Modal,
+											{ show: this.state.showModal, onHide: this.close.bind(this) },
+											_react2.default.createElement(
+													RB.Modal.Header,
+													{ closeButton: true },
+													_react2.default.createElement(
+															RB.Modal.Title,
+															null,
+															'Enter your credentials'
+													)
+											),
+											_react2.default.createElement(
+													RB.Modal.Body,
+													null,
+													_react2.default.createElement(
+															RB.Row,
+															null,
+															_react2.default.createElement(
+																	RB.Col,
+																	{ sm: 6 },
+																	_react2.default.createElement(
+																			'h4',
+																			null,
+																			'Sign Up'
+																	),
+																	_react2.default.createElement(
+																			RB.FormGroup,
+																			null,
+																			_react2.default.createElement(RB.FormControl, { ref: 'username', type: 'text', placeholder: 'choose a username' })
+																	),
+																	_react2.default.createElement(
+																			RB.FormGroup,
+																			null,
+																			_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'text', placeholder: 'password' })
+																	),
+																	_react2.default.createElement(
+																			RB.FormGroup,
+																			null,
+																			_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'text', placeholder: 'verify password' })
+																	),
+																	_react2.default.createElement(
+																			RB.FormGroup,
+																			null,
+																			_react2.default.createElement(RB.FormControl, { ref: 'email', type: 'text', placeholder: 'email' })
+																	)
+															),
+															_react2.default.createElement(
+																	RB.Col,
+																	{ sm: 6 },
+																	_react2.default.createElement(
+																			'h4',
+																			null,
+																			'Sign In'
+																	),
+																	_react2.default.createElement(
+																			RB.Form,
+																			{ id: 'signInForm', action: '/loginAuth', method: 'get' },
+																			_react2.default.createElement(
+																					RB.FormGroup,
+																					null,
+																					_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username', name: 'username' })
+																			),
+																			_react2.default.createElement(
+																					RB.FormGroup,
+																					null,
+																					_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'password', name: 'password' })
+																			)
+																	)
+															)
+													)
+											),
+											_react2.default.createElement(
+													RB.Modal.Footer,
+													null,
+													_react2.default.createElement(
+															RB.Col,
+															{ sm: 6 },
+															_react2.default.createElement(
+																	RB.Button,
+																	{ onClick: this.signUp.bind(this) },
+																	'Sign Up'
+															)
+													),
+													_react2.default.createElement(
+															RB.Col,
+															{ sm: 6 },
+															_react2.default.createElement(
+																	RB.Button,
+																	{ bsStyle: 'primary', type: 'submit', form: 'signInForm' },
+																	'Sign In'
+															)
+													)
+											)
+									)
+							);
+					}
+			}]);
+
+			return Header;
+	}(_react2.default.Component);
+
 /***/ }
 /******/ ]);
