@@ -19,7 +19,6 @@ export class Header extends React.Component {
   }
 
   signUp() {
-
   	var signUpData = {
   		username : ReactDOM.findDOMNode(this.refs.username).value,
   		password : ReactDOM.findDOMNode(this.refs.password).value,
@@ -85,7 +84,7 @@ export class Header extends React.Component {
 	        	</RB.Col>
 	        	<RB.Col sm={6}>
 	        	<h4>Sign In</h4>
-	        	<RB.Form id="signInForm" action="/login" method="post">
+	        	<RB.Form id="signInForm" action="/loginAuth" method="get">
 	        	<RB.FormGroup>        	
 	        	<RB.FormControl type="text" placeholder="username" name="username" />
 	        	</RB.FormGroup>

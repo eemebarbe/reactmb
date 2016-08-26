@@ -1,3 +1,9 @@
-#signIn {
-	display: none;
+.commentRow{
+	max-height: 150px;
+	margin-top: 20px;
+
+}
+
+.commentPanel {
+	height: 100%;
 }

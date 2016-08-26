@@ -21,6 +21,11 @@ app.get('/loginAuth', passport.authenticate('local'), function(req,res) {
     res.redirect('/');
   });
 
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 
 passport.use(new LocalStrategy({
       usernameField: 'username',
@@ -66,12 +71,6 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-app.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
-
-
 //END OF PASSPORT STUFF
 
 app.use('/api', router);
@@ -87,19 +86,19 @@ app.listen(port, function() {
 });
 
  app.get("/", function(req, res) {
-	res.render('index.ejs', { root: __dirname });
+	res.render('index.ejs', { user : req.user });
  });
 
   app.get("/submit", ensureAuthenticated, function(req, res) {
-	res.render('submit.ejs', { root: __dirname });
+	res.render('submit.ejs', { user : req.user });
  });
 
   app.get("/profile", ensureAuthenticated, function(req, res) {
-	res.render('profile.ejs', { root: __dirname });
+	res.render('profile.ejs', { user : req.user });
  });
 
   app.get("/login", function(req, res) {
-  res.render('login.ejs', { root: __dirname });
+  res.render('login.ejs', { user : req.user });
  });
 
 
@@ -114,7 +113,7 @@ app.listen(port, function() {
               if(rows.length != 0){
                 comments = rows;
                }
-            res.render('post.ejs', { title: data[0].title, article: data[0].article, loopComments: JSON.stringify(rows)});
+            res.render('post.ejs', {  user : req.user, title: data[0].title, article: data[0].article, loopComments: JSON.stringify(rows)});
           });
 
 

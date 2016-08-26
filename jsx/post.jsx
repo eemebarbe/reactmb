@@ -17,9 +17,18 @@ class PostDisplay extends React.Component {
 		var finalComments = [];
 			for(var i=0; i<loopComments.length; i++) {
 				finalComments.push(
-					<RB.Panel header={ window.loopComments[i].iduser }>
+					<div>
+					<RB.Row className="commentRow">
+					<RB.Col xs={3} sm={2}>
+        			<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+      				</RB.Col>
+      				<RB.Col xs={9} sm={10} >
+					<RB.Panel className="commentPanel" header={ window.loopComments[i].iduser }>
 		      		{ window.loopComments[i].comment }
 		    		</RB.Panel>
+		    		</RB.Col>
+		    		</RB.Row>
+		    		</div>
 					);
        this.setState({comments: finalComments, numberOfComments: loopComments.length});
 		}

@@ -110,6 +110,11 @@ webpackJsonp([0],[
 					RB.Grid,
 					null,
 					_react2.default.createElement(formatting.Header, null),
+					_react2.default.createElement(
+						'div',
+						null,
+						window.user
+					),
 					_react2.default.createElement(SubmissionList, null)
 				);
 			}

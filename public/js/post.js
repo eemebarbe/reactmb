@@ -55,9 +55,26 @@ webpackJsonp([1],[
 				var finalComments = [];
 				for (var i = 0; i < loopComments.length; i++) {
 					finalComments.push(_react2.default.createElement(
-						RB.Panel,
-						{ header: window.loopComments[i].iduser },
-						window.loopComments[i].comment
+						'div',
+						null,
+						_react2.default.createElement(
+							RB.Row,
+							{ className: 'commentRow' },
+							_react2.default.createElement(
+								RB.Col,
+								{ xs: 3, sm: 2 },
+								_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+							),
+							_react2.default.createElement(
+								RB.Col,
+								{ xs: 9, sm: 10 },
+								_react2.default.createElement(
+									RB.Panel,
+									{ className: 'commentPanel', header: window.loopComments[i].iduser },
+									window.loopComments[i].comment
+								)
+							)
+						)
 					));
 					this.setState({ comments: finalComments, numberOfComments: loopComments.length });
 				}

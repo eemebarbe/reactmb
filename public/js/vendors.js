@@ -48711,7 +48711,6 @@
 			}, {
 					key: 'signUp',
 					value: function signUp() {
-
 							var signUpData = {
 									username: _reactDom2.default.findDOMNode(this.refs.username).value,
 									password: _reactDom2.default.findDOMNode(this.refs.password).value,
@@ -48856,7 +48855,7 @@
 																	),
 																	_react2.default.createElement(
 																			RB.Form,
-																			{ id: 'signInForm', action: '/login', method: 'post' },
+																			{ id: 'signInForm', action: '/loginAuth', method: 'get' },
 																			_react2.default.createElement(
 																					RB.FormGroup,
 																					null,
