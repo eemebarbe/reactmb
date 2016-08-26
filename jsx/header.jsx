@@ -29,9 +29,11 @@ export class Header extends React.Component {
     	$.post("/api/v1/newuser", signUpData);
   }
 
-  authChange() { 	
-	if( window.user == undefined ) { 
- 	var authRender = 
+	render() {
+
+	var authRender = null;
+	if( window.user == "" ) { 
+ 	authRender = 
  				<div>
   				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
@@ -44,7 +46,7 @@ export class Header extends React.Component {
  				<div>
   				<RB.Navbar.Form pullRight>
 				<RB.ButtonGroup>
-				      <RB.Button onClick={this.open.bind(this)}>Sign Out</RB.Button>
+				      <RB.Button href="/logout">Sign Out</RB.Button>
 				</RB.ButtonGroup>
 				</RB.Navbar.Form>
   				<RB.Nav pullRight>
@@ -53,14 +55,7 @@ export class Header extends React.Component {
 				</RB.Nav>
 				</div>;
   			}
-  			console.log(authRender);
-  }
 
-	componentDidMount() {
-		this.authChange();
-  }
-
-	render() {
 		return (
 			<div>
 

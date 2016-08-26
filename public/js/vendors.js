@@ -48721,9 +48721,11 @@
 							_jquery2.default.post("/api/v1/newuser", signUpData);
 					}
 			}, {
-					key: 'authChange',
-					value: function authChange() {
-							if (window.user == undefined) {
+					key: 'render',
+					value: function render() {
+
+							var authRender = null;
+							if (window.user == "") {
 									authRender = _react2.default.createElement(
 											'div',
 											null,
@@ -48753,7 +48755,7 @@
 															null,
 															_react2.default.createElement(
 																	RB.Button,
-																	{ onClick: this.open.bind(this) },
+																	{ href: '/logout' },
 																	'Sign Out'
 															)
 													)
@@ -48774,16 +48776,7 @@
 											)
 									);
 							}
-							console.log(authRender);
-					}
-			}, {
-					key: 'componentDidMount',
-					value: function componentDidMount() {
-							this.authChange();
-					}
-			}, {
-					key: 'render',
-					value: function render() {
+
 							return _react2.default.createElement(
 									'div',
 									null,
@@ -48830,7 +48823,7 @@
 																	'Newest'
 															)
 													),
-													this.authRender.bind(this)
+													authRender
 											)
 									),
 									_react2.default.createElement(
