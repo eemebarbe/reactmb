@@ -138,7 +138,7 @@ connection.connect();
 app.get('/api/v1/posts',function(req,res){
     var data = null;
     
-    connection.query("SELECT * from posts",function(err, rows, fields){
+    connection.query("SELECT * from posts", function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
             res.json(data);

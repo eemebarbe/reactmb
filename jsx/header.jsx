@@ -29,6 +29,36 @@ export class Header extends React.Component {
     	$.post("/api/v1/newuser", signUpData);
   }
 
+  authChange() { 	
+	if(undefined == undefined) { 
+ 	var authRender = 
+ 				<div>
+  				<RB.Navbar.Form pullRight>
+				<RB.ButtonGroup>
+				      <RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
+				</RB.ButtonGroup>
+				</RB.Navbar.Form>
+				</div>;
+  			} else {
+ 	var authRender = 
+ 				<div>
+  				<RB.Navbar.Form pullRight>
+				<RB.ButtonGroup>
+				      <RB.Button onClick={this.open.bind(this)}>Sign Out</RB.Button>
+				</RB.ButtonGroup>
+				</RB.Navbar.Form>
+  				<RB.Nav pullRight>
+  				      <RB.NavItem eventKey={3} href="../submit">Submit</RB.NavItem>
+				      <RB.NavItem eventKey={4} href="../profile">Profile</RB.NavItem>
+				</RB.Nav>
+				</div>;
+  			}
+  }
+
+	componentDidMount() {
+		this.authChange();
+  }
+
 	render() {
 		return (
 			<div>
@@ -47,15 +77,7 @@ export class Header extends React.Component {
   				      <RB.NavItem eventKey={1} href="#">Popular</RB.NavItem>
 				      <RB.NavItem eventKey={2} href="#">Newest</RB.NavItem>
 				</RB.Nav>
-				<RB.Navbar.Form pullRight>
-				<RB.ButtonGroup>
-				      <RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
-				</RB.ButtonGroup>
-				</RB.Navbar.Form>
-  				<RB.Nav pullRight>
-  				      <RB.NavItem eventKey={3} href="../submit">Submit</RB.NavItem>
-				      <RB.NavItem eventKey={4} href="../profile">Profile</RB.NavItem>
-				</RB.Nav>
+					{authRender}
   				</RB.Navbar>
 			</RB.Row>
 

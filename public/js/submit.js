@@ -22,7 +22,7 @@ webpackJsonp([3],[
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _header = __webpack_require__(413);
+	var _header = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./header.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var formatting = _interopRequireWildcard(_header);
 
