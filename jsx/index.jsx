@@ -10,12 +10,13 @@ class SubmissionList extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = { posts: [] };
+    this.state = { 	posts: [],
+    				 };
   }
 
 	getPosts() {
 		var loopPosts = [];
-		$.get("api/v1/posts/", function(response) {
+		$.get("/api/v1/postrange/" + window.page, function(response) {
 			for(var i=0; i<response.length; i++) {
 				loopPosts.push(
 					<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>

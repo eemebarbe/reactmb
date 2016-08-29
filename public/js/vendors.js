@@ -48718,7 +48718,11 @@
 									email: _reactDom2.default.findDOMNode(this.refs.email).value
 							};
 
-							_jquery2.default.post("/api/v1/newuser", signUpData);
+							if (signUpData.password != signUpData.passwordVerify) {
+									alert("passwords dont match");
+							} else {
+									_jquery2.default.post("/api/v1/newuser", signUpData);
+							}
 					}
 			}, {
 					key: 'render',

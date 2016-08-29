@@ -86,8 +86,16 @@ app.listen(port, function() {
 });
 
  app.get("/", function(req, res) {
-	res.render('index.ejs', { user : req.user });
+	res.render('index.ejs', { user : req.user,
+                            page: 0 });
  });
+
+  app.get("/:pageNumber", function(req, res) {
+    var pageNumber = req.param('pageNumber');
+  res.render('index.ejs', { user : req.user,
+                            page : pageNumber });
+ });
+
 
   app.get("/submit", ensureAuthenticated, function(req, res) {
 	res.render('submit.ejs', { user : req.user });
@@ -189,6 +197,28 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
     var url_Id = req.param('thisId');
 
     connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+        }else{
+            data = null;
+            res.json(data);
+        }
+          res.end();
+    });
+});
+
+app.get("/api/v1/postrange/:pageNumber", function(req, res) {
+    var pageNumber = req.param('pageNumber');
+        console.log(pageNumber);
+        pageRange = 3;
+        bottomRange = pageNumber * pageRange;
+        topRange = bottomRange + pageRange;
+        console.log(bottomRange);
+        console.log(topRange);
+
+
+    connection.query('SELECT * FROM posts WHERE idposts BETWEEN (?) AND (?)',[bottomRange, topRange], function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
             res.json(data);

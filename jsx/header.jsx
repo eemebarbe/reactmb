@@ -26,7 +26,12 @@ export class Header extends React.Component {
   		email : ReactDOM.findDOMNode(this.refs.email).value
   		};
 
+  	if(signUpData.password != signUpData.passwordVerify) {
+  		alert("passwords dont match");
+  	} else {
     	$.post("/api/v1/newuser", signUpData);
+    }
+
   }
 
 	render() {

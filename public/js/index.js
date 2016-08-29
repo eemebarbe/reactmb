@@ -44,7 +44,8 @@ webpackJsonp([0],[
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
 
-			_this.state = { posts: [] };
+			_this.state = { posts: []
+			};
 			return _this;
 		}
 
@@ -52,7 +53,7 @@ webpackJsonp([0],[
 			key: 'getPosts',
 			value: function getPosts() {
 				var loopPosts = [];
-				_jquery2.default.get("api/v1/posts/", function (response) {
+				_jquery2.default.get("/api/v1/postrange/" + window.page, function (response) {
 					for (var i = 0; i < response.length; i++) {
 						loopPosts.push(_react2.default.createElement(
 							RB.ListGroupItem,
