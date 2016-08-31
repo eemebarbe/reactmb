@@ -11,6 +11,7 @@ class SubmissionList extends React.Component {
 	constructor(props) {
     super(props);
     this.state = { 	posts: [],
+    				currentPage : window.page
     				 };
   }
 
@@ -28,10 +29,16 @@ class SubmissionList extends React.Component {
 		}.bind(this));
 	}
 
+  	handleSelect(eventKey) {
+    	this.setState({
+     	currentPage: eventKey
+    });
+    	window.location = "../" + this.state.currentPage;
+  }
+
 	componentDidMount() {
 		this.getPosts();
   }
-
 
 	render() {
 		return (
@@ -41,7 +48,7 @@ class SubmissionList extends React.Component {
 			 {this.state.posts}
 
 			</RB.ListGroup>
-			<RB.Pagination next prev items={5} maxButtons={5} activePage={2}></RB.Pagination>
+			<RB.Pagination next prev items={5} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
 			</RB.Row>
 
 			);

@@ -44,7 +44,8 @@ webpackJsonp([0],[
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
 
-			_this.state = { posts: []
+			_this.state = { posts: [],
+				currentPage: window.page
 			};
 			return _this;
 		}
@@ -72,6 +73,14 @@ webpackJsonp([0],[
 				}.bind(this));
 			}
 		}, {
+			key: 'handleSelect',
+			value: function handleSelect(eventKey) {
+				this.setState({
+					currentPage: eventKey
+				});
+				window.location = "../" + this.state.currentPage;
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.getPosts();
@@ -87,7 +96,7 @@ webpackJsonp([0],[
 						null,
 						this.state.posts
 					),
-					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, activePage: 2 })
+					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
 				);
 			}
 		}]);
