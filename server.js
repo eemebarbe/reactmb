@@ -209,10 +209,10 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
 });
 
 app.get("/api/v1/postrange/:pageNumber", function(req, res) {
-    var pageNumber = req.param('pageNumber');
+    var pageNumber = req.param('pageNumber') -1;
         pageRange = 3;
-        bottomRange = pageNumber * pageRange;
-        topRange = bottomRange + pageRange;
+        bottomRange = (pageNumber * pageRange) + 1;
+        topRange = (bottomRange + pageRange) - 1;
 
 
     connection.query('SELECT * FROM posts WHERE idposts BETWEEN (?) AND (?)',[bottomRange, topRange], function(err, rows, fields){

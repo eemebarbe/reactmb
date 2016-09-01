@@ -11,33 +11,41 @@ class SubmissionList extends React.Component {
 	constructor(props) {
     super(props);
     this.state = { 	posts: [],
-    				currentPage : window.page
+    				currentPage : 1
     				 };
   }
 
-	getPosts() {
+	getPosts(page) {
 		var loopPosts = [];
-		$.get("/api/v1/postrange/" + window.page, function(response) {
+		$.get("/api/v1/postrange/" + page, function(response) {
+
+			if(response !== null){
 			for(var i=0; i<response.length; i++) {
 				loopPosts.push(
 					<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
-					Submitted by {response[i].idusers} | Comments <b>(104)</b>
+					Submitted by {response[i].idusers} | Comments <b>(106)</b>
 					</RB.ListGroupItem>
 					);
 			}
+		} else {
+			loopPosts = <div>No More Posts</div>;
+		}
+
        this.setState({posts: loopPosts});
 		}.bind(this));
 	}
+
 
   	handleSelect(eventKey) {
     	this.setState({
      	currentPage: eventKey
     });
-    	window.location = "../" + this.state.currentPage;
+    	this.getPosts(eventKey);
   }
 
+
 	componentDidMount() {
-		this.getPosts();
+		this.getPosts(this.state.currentPage);
   }
 
 	render() {

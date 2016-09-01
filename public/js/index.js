@@ -45,30 +45,40 @@ webpackJsonp([0],[
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
 
 			_this.state = { posts: [],
-				currentPage: window.page
+				currentPage: 1
 			};
 			return _this;
 		}
 
 		_createClass(SubmissionList, [{
 			key: 'getPosts',
-			value: function getPosts() {
+			value: function getPosts(page) {
 				var loopPosts = [];
-				_jquery2.default.get("/api/v1/postrange/" + window.page, function (response) {
-					for (var i = 0; i < response.length; i++) {
-						loopPosts.push(_react2.default.createElement(
-							RB.ListGroupItem,
-							{ href: "/post/" + response[i].idposts, header: response[i].title },
-							'Submitted by ',
-							response[i].idusers,
-							' | Comments ',
-							_react2.default.createElement(
-								'b',
-								null,
-								'(104)'
-							)
-						));
+				_jquery2.default.get("/api/v1/postrange/" + page, function (response) {
+
+					if (response !== null) {
+						for (var i = 0; i < response.length; i++) {
+							loopPosts.push(_react2.default.createElement(
+								RB.ListGroupItem,
+								{ href: "/post/" + response[i].idposts, header: response[i].title },
+								'Submitted by ',
+								response[i].idusers,
+								' | Comments ',
+								_react2.default.createElement(
+									'b',
+									null,
+									'(106)'
+								)
+							));
+						}
+					} else {
+						loopPosts = _react2.default.createElement(
+							'div',
+							null,
+							'No More Posts'
+						);
 					}
+
 					this.setState({ posts: loopPosts });
 				}.bind(this));
 			}
@@ -78,12 +88,12 @@ webpackJsonp([0],[
 				this.setState({
 					currentPage: eventKey
 				});
-				window.location = "../" + this.state.currentPage;
+				this.getPosts(eventKey);
 			}
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.getPosts();
+				this.getPosts(this.state.currentPage);
 			}
 		}, {
 			key: 'render',
