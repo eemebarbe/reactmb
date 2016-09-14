@@ -9,18 +9,6 @@ var express = require('express');
   	router = express.Router(); 
 
 
-//authentication dependencies and requirements
-
-var  passport = require('passport');
-     cookieParser = require('cookie-parser');
-     expressSession = require('express-session');
-     LocalStrategy = require('passport-local').Strategy;
-
-app.use(expressSession({secret: process.env.SESSION_SECRET || 'wintermute' }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 //database configuration
 
 var	mysql = require('mysql');
@@ -47,7 +35,7 @@ var	mysql = require('mysql');
 //internal app dependencies
 
 var	routes = require('./routes/routes.js');
-	api = require('./api');
+	api = require('./api/api.js');
 
 
 //server initialization

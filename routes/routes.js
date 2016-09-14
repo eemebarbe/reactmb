@@ -1,4 +1,4 @@
-var auth = require('../authentication/auth.js');
+var ensureAuthenticated = require('../authentication/auth.js');
 
 app.get("/submit", ensureAuthenticated, function(req, res) {
   res.render('submit.ejs', { user : req.user });
@@ -32,7 +32,7 @@ app.get('/post/:thisId', function(req, res) {
             res.render('post.ejs', {  user : req.user, 
                                       title: data[0].title, 
                                       article: data[0].article, 
-                                      loopComments: JSON.stringify(rows)});
+                                      loopComments: JSON.stringify(rows)  });
           });
 
 

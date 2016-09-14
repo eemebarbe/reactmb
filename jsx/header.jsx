@@ -66,7 +66,7 @@ export class Header extends React.Component {
 
 			<RB.Row>
 			<RB.PageHeader>
-  				Example page header <small>Subtext for header</small>
+  				ReactMB <small>Built on React and Node</small>
 			</RB.PageHeader>
 			  	<RB.Navbar>
 		    <RB.Navbar.Header>

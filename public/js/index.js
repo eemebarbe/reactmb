@@ -44,7 +44,8 @@ webpackJsonp([0],[
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SubmissionList).call(this, props));
 
-			_this.state = { posts: [],
+			_this.state = {
+				posts: [],
 				currentPage: 1
 			};
 			return _this;

@@ -48790,11 +48790,11 @@
 											_react2.default.createElement(
 													RB.PageHeader,
 													null,
-													'Example page header ',
+													'ReactMB ',
 													_react2.default.createElement(
 															'small',
 															null,
-															'Subtext for header'
+															'Built on React and Node'
 													)
 											),
 											_react2.default.createElement(
