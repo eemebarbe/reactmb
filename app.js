@@ -34,8 +34,8 @@ var	mysql = require('mysql');
 
 //internal app dependencies
 
-var	routes = require('./routes/routes.js');
-	api = require('./api/api.js');
+var	routes = require('./routes/routes.js')(app);
+	api = require('./api/api.js')(app);
 
 
 //server initialization

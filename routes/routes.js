@@ -1,4 +1,6 @@
-var ensureAuthenticated = require('../authentication/auth.js');
+module.exports = function(app){
+
+var ensureAuthenticated = require('../authentication/auth.js')(app);
 
 app.get("/submit", ensureAuthenticated, function(req, res) {
   res.render('submit.ejs', { user : req.user });
@@ -42,3 +44,5 @@ app.get('/post/:thisId', function(req, res) {
     });
 
 });
+
+}

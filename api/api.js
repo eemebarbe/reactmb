@@ -1,3 +1,7 @@
+module.exports = function(app){
+
+var ensureAuthenticated = require('../authentication/auth.js')(app);
+
 app.get('/api/v1/posts',function(req,res){
     var data = null;
     
@@ -6,7 +10,7 @@ app.get('/api/v1/posts',function(req,res){
             data = rows;
             res.json(data);
             
-        }else{
+        } else {
             data = null;
             res.json(data);
         }
@@ -55,7 +59,7 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
         if(rows.length != 0){
             data = rows;
             res.json(data);
-        }else{
+        } else {
             data = null;
             res.json(data);
         }
@@ -74,10 +78,12 @@ app.get("/api/v1/postrange/:pageNumber", function(req, res) {
         if(rows.length != 0){
             data = rows;
             res.json(data);
-        }else{
+        } else {
             data = null;
             res.json(data);
         }
           res.end();
     });
 });
+
+}

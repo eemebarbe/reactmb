@@ -1,3 +1,5 @@
+module.exports = function(app){
+
 var  passport = require('passport');
      cookieParser = require('cookie-parser');
      expressSession = require('express-session');
@@ -63,4 +65,4 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-module.exports = ensureAuthenticated;
+}
