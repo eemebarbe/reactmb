@@ -9,11 +9,12 @@ import * as formatting from './header.jsx';
 class SubmissionList extends React.Component {
 
 	constructor(props) {
-    super(props);
-    this.state = { 	posts: [],
-    				currentPage : 1
-    				 };
-  }
+	    super(props);
+	    this.state = { 	
+	    	posts: [],
+	    	currentPage : 1 
+	    };
+	  }
 
 	getPosts(page) {
 		var loopPosts = [];

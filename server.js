@@ -85,17 +85,6 @@ app.listen(port, function() {
     console.log('ReactMB up and running on Port ' + port);
 });
 
- app.get("/", function(req, res) {
-	res.render('index.ejs', { user : req.user,
-                            page: 0 });
- });
-
-  app.get("/:pageNumber", function(req, res) {
-    var pageNumber = req.param('pageNumber');
-  res.render('index.ejs', { user : req.user,
-                            page : pageNumber });
- });
-
 
   app.get("/submit", ensureAuthenticated, function(req, res) {
 	res.render('submit.ejs', { user : req.user });
@@ -108,7 +97,6 @@ app.listen(port, function() {
   app.get("/login", function(req, res) {
   res.render('login.ejs', { user : req.user });
  });
-
 
   app.get('/post/:thisId', function(req, res) {
   var url_Id = req.param('thisId');
@@ -132,6 +120,10 @@ app.listen(port, function() {
 
 });
 
+ app.get("/", function(req, res) {
+  res.render('index.ejs', { user : req.user,
+                            page: 0 });
+ });
 
 var mysql = require('mysql');
   connection = mysql.createConnection({

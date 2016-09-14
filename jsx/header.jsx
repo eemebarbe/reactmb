@@ -96,10 +96,10 @@ export class Header extends React.Component {
 	        	<RB.FormControl ref="username" type="text" placeholder="choose a username" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl ref="password" type="text" placeholder="password" />
+	        	<RB.FormControl ref="password" type="password" placeholder="password" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl ref="passwordVerify" type="text" placeholder="verify password" />
+	        	<RB.FormControl ref="passwordVerify" type="password" placeholder="verify password" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
 	        	<RB.FormControl ref="email" type="text" placeholder="email" />
@@ -112,7 +112,7 @@ export class Header extends React.Component {
 	        	<RB.FormControl type="text" placeholder="username" name="username" />
 	        	</RB.FormGroup>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl type="text" placeholder="password" name="password" />
+	        	<RB.FormControl type="password" placeholder="password" name="password" />
 	        	</RB.FormGroup>
 	        	</RB.Form>
 	        	</RB.Col>

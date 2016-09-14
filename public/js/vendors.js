@@ -48864,12 +48864,12 @@
 																	_react2.default.createElement(
 																			RB.FormGroup,
 																			null,
-																			_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'text', placeholder: 'password' })
+																			_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'password', placeholder: 'password' })
 																	),
 																	_react2.default.createElement(
 																			RB.FormGroup,
 																			null,
-																			_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'text', placeholder: 'verify password' })
+																			_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'password', placeholder: 'verify password' })
 																	),
 																	_react2.default.createElement(
 																			RB.FormGroup,
@@ -48896,7 +48896,7 @@
 																			_react2.default.createElement(
 																					RB.FormGroup,
 																					null,
-																					_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'password', name: 'password' })
+																					_react2.default.createElement(RB.FormControl, { type: 'password', placeholder: 'password', name: 'password' })
 																			)
 																	)
 															)
