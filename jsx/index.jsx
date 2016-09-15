@@ -12,25 +12,33 @@ class SubmissionList extends React.Component {
 	    super(props);
 	    this.state = { 	
 	    	posts: [],
-	    	currentPage : 1 
+	    	currentPage : 1,
+	    	numberOfPages: null
 	    };
 	  }
 
 	getPosts(page) {
 		var loopPosts = [];
+		var pageRange = 3;
+		$.get("/api/v1/postcount/", function(response) {
+       		this.setState({numberOfPages: response[0].count / pageRange });
+		}.bind(this));
+
 		$.get("/api/v1/postrange/" + page, function(response) {
 
 			if(response !== null){
-			for(var i=0; i<response.length; i++) {
-				loopPosts.push(
-					<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
-					Submitted by {response[i].idusers} | Comments <b>(106)</b>
-					</RB.ListGroupItem>
-					);
-			}
-		} else {
+
+				for(var i=0; i<response.length; i++) {
+					loopPosts.push(
+						<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
+						Submitted by {response[i].idusers} | Comments <b>(106)</b>
+						</RB.ListGroupItem>
+						);
+				}
+
+			} else {
 			loopPosts = <div>No More Posts</div>;
-		}
+			}
 
        this.setState({posts: loopPosts});
 		}.bind(this));
@@ -57,7 +65,7 @@ class SubmissionList extends React.Component {
 			 {this.state.posts}
 
 			</RB.ListGroup>
-			<RB.Pagination next prev items={5} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
+			<RB.Pagination next prev items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
 			</RB.Row>
 
 			);

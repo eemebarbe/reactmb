@@ -67,12 +67,12 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
     });
 });
 
+
 app.get("/api/v1/postrange/:pageNumber", function(req, res) {
     var pageNumber = req.param('pageNumber') -1;
         pageRange = 3;
         bottomRange = (pageNumber * pageRange) + 1;
         topRange = (bottomRange + pageRange) - 1;
-
 
     connection.query('SELECT * FROM posts WHERE idposts BETWEEN (?) AND (?)',[bottomRange, topRange], function(err, rows, fields){
         if(rows.length != 0){
@@ -87,3 +87,17 @@ app.get("/api/v1/postrange/:pageNumber", function(req, res) {
 });
 
 }
+
+app.get("/api/v1/postcount/", function(req, res) {
+
+    connection.query('SELECT COUNT(*) as count FROM posts', function(err, rows, fields){
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+        } else {
+            data = null;
+            res.json(data);
+        }
+          res.end();
+    });
+});

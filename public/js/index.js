@@ -46,7 +46,8 @@ webpackJsonp([0],[
 
 			_this.state = {
 				posts: [],
-				currentPage: 1
+				currentPage: 1,
+				numberOfPages: null
 			};
 			return _this;
 		}
@@ -55,9 +56,15 @@ webpackJsonp([0],[
 			key: 'getPosts',
 			value: function getPosts(page) {
 				var loopPosts = [];
+
+				_jquery2.default.get("/api/v1/postcount/", function (response) {
+					this.setState({ numberOfPages: response[0].count / 3 });
+				}.bind(this));
+
 				_jquery2.default.get("/api/v1/postrange/" + page, function (response) {
 
 					if (response !== null) {
+
 						for (var i = 0; i < response.length; i++) {
 							loopPosts.push(_react2.default.createElement(
 								RB.ListGroupItem,
@@ -107,7 +114,7 @@ webpackJsonp([0],[
 						null,
 						this.state.posts
 					),
-					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: 5, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
+					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: this.state.numberOfPages, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
 				);
 			}
 		}]);
