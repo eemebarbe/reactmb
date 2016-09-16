@@ -74,7 +74,7 @@ app.get("/api/v1/postrange/:pageNumber", function(req, res) {
         bottomRange = (pageNumber * pageRange) + 1;
         topRange = (bottomRange + pageRange) - 1;
 
-    connection.query('SELECT * FROM posts WHERE idposts BETWEEN (?) AND (?)',[bottomRange, topRange], function(err, rows, fields){
+    connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts WHERE posts.idposts BETWEEN (?) AND (?)',[bottomRange, topRange], function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
             res.json(data);

@@ -56,9 +56,9 @@ webpackJsonp([0],[
 			key: 'getPosts',
 			value: function getPosts(page) {
 				var loopPosts = [];
-
+				var pageRange = 3;
 				_jquery2.default.get("/api/v1/postcount/", function (response) {
-					this.setState({ numberOfPages: response[0].count / 3 });
+					this.setState({ numberOfPages: response[0].count / pageRange });
 				}.bind(this));
 
 				_jquery2.default.get("/api/v1/postrange/" + page, function (response) {
@@ -75,7 +75,9 @@ webpackJsonp([0],[
 								_react2.default.createElement(
 									'b',
 									null,
-									'(106)'
+									'(',
+									response[i].comments,
+									')'
 								)
 							));
 						}
