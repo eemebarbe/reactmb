@@ -14,12 +14,14 @@ class SubmitForm extends React.Component {
 
 	postArticle() {
 
-	var signUpData = {
+	var articleData = {
   		title : ReactDOM.findDOMNode(this.refs.title).value,
   		article : ReactDOM.findDOMNode(this.refs.article).value,
+  		idusers : window.user
   		};
 
-		$.post("api/v1/newpost", signUpData);
+		$.post("api/v1/newpost", articleData);
+
 
 	}
 
@@ -36,7 +38,7 @@ class SubmitForm extends React.Component {
 	        	<RB.FormControl ref="article" componentClass="textarea" type="text"/>
 	        	</RB.FormGroup>
 	        	<RB.ButtonGroup>
-				<RB.Button onClick={this.postArticle.bind(this)}>Submit</RB.Button>
+				<RB.Button onClick={this.postArticle.bind(this)} href="./">Submit</RB.Button>
 				</RB.ButtonGroup>
 	        	</div>
 			);

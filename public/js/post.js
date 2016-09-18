@@ -80,6 +80,18 @@ webpackJsonp([1],[
 				}
 			}
 		}, {
+			key: 'postComment',
+			value: function postComment() {
+
+				var commentData = {
+					comment: _reactDom2.default.findDOMNode(this.refs.submitComment).value,
+					idposts: window.idposts,
+					idusers: window.user
+				};
+
+				_jquery2.default.post("../api/v1/newcomment", commentData);
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.getComments();
@@ -87,24 +99,10 @@ webpackJsonp([1],[
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						RB.Row,
-						null,
-						_react2.default.createElement(
-							'h2',
-							null,
-							window.title
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							window.article
-						)
-					),
-					_react2.default.createElement(
+
+				var authRender = null;
+				if (window.user !== "") {
+					authRender = _react2.default.createElement(
 						RB.Row,
 						null,
 						_react2.default.createElement(
@@ -123,11 +121,37 @@ webpackJsonp([1],[
 							null,
 							_react2.default.createElement(
 								RB.Button,
-								null,
+								{ onClick: this.postComment.bind(this) },
 								'Submit'
 							)
 						)
+					);
+				} else {
+					authRender = _react2.default.createElement(
+						'h4',
+						null,
+						'Please sign in to comment!'
+					);
+				}
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						RB.Row,
+						null,
+						_react2.default.createElement(
+							'h2',
+							null,
+							window.title
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							window.article
+						)
 					),
+					authRender,
 					_react2.default.createElement(
 						RB.Row,
 						null,

@@ -34,11 +34,41 @@ class PostDisplay extends React.Component {
 		}
 	}
 
+	postComment() {
+
+	var commentData = {
+  		comment : ReactDOM.findDOMNode(this.refs.submitComment).value,
+  		idposts : window.idposts,
+  		idusers : window.user
+  		};
+
+		$.post("../api/v1/newcomment", commentData);
+
+
+	}
+
 	componentDidMount() {
 		this.getComments();
 	}
 
 		render() {
+
+		var authRender = null;
+		if( window.user !== "" ) { 
+	 	authRender = 
+			<RB.Row>
+				<h4>{this.state.numberOfComments} Comments</h4>
+				<RB.FormGroup>        	
+		        <RB.FormControl ref="submitComment" componentClass="textarea" type="text"/>
+		        </RB.FormGroup>
+		        <RB.ButtonGroup>
+				<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
+				</RB.ButtonGroup>
+			</RB.Row>
+	  } else {
+	  authRender = <h4>Please sign in to comment!</h4>;
+	  }
+
 		return (
 
 			<div>
@@ -46,15 +76,7 @@ class PostDisplay extends React.Component {
 				<h2>{ window.title }</h2>
 				<div>{ window.article }</div>
 			</RB.Row>
-			<RB.Row>
-				<h4>{this.state.numberOfComments} Comments</h4>
-				<RB.FormGroup>        	
-		        <RB.FormControl ref="submitComment" componentClass="textarea" type="text"/>
-		        </RB.FormGroup>
-		        <RB.ButtonGroup>
-				<RB.Button>Submit</RB.Button>
-				</RB.ButtonGroup>
-			</RB.Row>
+			{authRender}
 			<RB.Row>
 				{this.state.comments}
 			</RB.Row>

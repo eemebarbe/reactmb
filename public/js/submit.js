@@ -52,12 +52,13 @@ webpackJsonp([3],[
 			key: 'postArticle',
 			value: function postArticle() {
 
-				var signUpData = {
+				var articleData = {
 					title: _reactDom2.default.findDOMNode(this.refs.title).value,
-					article: _reactDom2.default.findDOMNode(this.refs.article).value
+					article: _reactDom2.default.findDOMNode(this.refs.article).value,
+					idusers: window.user
 				};
 
-				_jquery2.default.post("api/v1/newpost", signUpData);
+				_jquery2.default.post("api/v1/newpost", articleData);
 			}
 		}, {
 			key: 'render',
@@ -90,7 +91,7 @@ webpackJsonp([3],[
 						null,
 						_react2.default.createElement(
 							RB.Button,
-							{ onClick: this.postArticle.bind(this) },
+							{ onClick: this.postArticle.bind(this), href: './' },
 							'Submit'
 						)
 					)

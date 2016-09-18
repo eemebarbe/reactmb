@@ -66,6 +66,15 @@ webpackJsonp([0],[
 					if (response !== null) {
 
 						for (var i = 0; i < response.length; i++) {
+
+							// if the comment number comes out as null in the query, pass "0" so that it isn't blank
+							var commentAmount = null;
+							if (response[i].comments == null) {
+								commentAmount = "0";
+							} else {
+								commentAmount = response[i].comments;
+							}
+
 							loopPosts.push(_react2.default.createElement(
 								RB.ListGroupItem,
 								{ href: "/post/" + response[i].idposts, header: response[i].title },
@@ -76,7 +85,7 @@ webpackJsonp([0],[
 									'b',
 									null,
 									'(',
-									response[i].comments,
+									commentAmount,
 									')'
 								)
 							));

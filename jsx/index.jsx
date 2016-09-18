@@ -21,7 +21,7 @@ class SubmissionList extends React.Component {
 		var loopPosts = [];
 		var pageRange = 3;
 		$.get("/api/v1/postcount/", function(response) {
-       		this.setState({numberOfPages: response[0].count / pageRange });
+       		this.setState({ numberOfPages: response[0].count / pageRange });
 		}.bind(this));
 
 		$.get("/api/v1/postrange/" + page, function(response) {
@@ -29,9 +29,18 @@ class SubmissionList extends React.Component {
 			if(response !== null){
 
 				for(var i=0; i<response.length; i++) {
+
+// if the comment number comes out as null in the query, pass "0" so that it isn't blank
+				var commentAmount = null;
+				if(response[i].comments == null) {
+					commentAmount = "0";
+				} else {
+					commentAmount = response[i].comments;
+				}
+
 					loopPosts.push(
 						<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
-						Submitted by {response[i].idusers} | Comments <b>({response[i].comments})</b>
+						Submitted by {response[i].idusers} | Comments <b>({commentAmount})</b>
 						</RB.ListGroupItem>
 						);
 				}

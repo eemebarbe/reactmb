@@ -32,7 +32,8 @@ app.get('/post/:thisId', function(req, res) {
                 comments = rows;
                }
             res.render('post.ejs', {  user : req.user, 
-                                      title: data[0].title, 
+                                      title: data[0].title,
+                                      idposts : data[0].idposts, 
                                       article: data[0].article, 
                                       loopComments: JSON.stringify(rows)  });
           });
