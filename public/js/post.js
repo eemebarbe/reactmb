@@ -89,9 +89,10 @@ webpackJsonp([1],[
 					idusers: window.user
 				};
 
-				_jquery2.default.post("../api/v1/newcomment", commentData);
-				_jquery2.default.get("'/api/v1/comments/" + window.idposts), function (response) {
-					this.getComments(response);
+				_jquery2.default.post("../api/v1/newcomment", commentData), function (response) {
+					_jquery2.default.get("'/api/v1/comments/" + window.idposts), function (response) {
+						this.getComments(response);
+					};
 				};
 			}
 		}, {

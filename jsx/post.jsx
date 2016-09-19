@@ -42,10 +42,11 @@ class PostDisplay extends React.Component {
   		idusers : window.user
   		};
 
-		$.post("../api/v1/newcomment", commentData);
-		$.get("'/api/v1/comments/" + window.idposts), function(response) {
-		this.getComments(response);
-		}
+		$.post("../api/v1/newcomment", commentData), function(response) {
+			$.get("'/api/v1/comments/" + window.idposts), function(response) {
+				this.getComments(response);
+			}
+		};
 
 	}
 
