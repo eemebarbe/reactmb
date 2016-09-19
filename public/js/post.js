@@ -51,9 +51,9 @@ webpackJsonp([1],[
 
 		_createClass(PostDisplay, [{
 			key: 'getComments',
-			value: function getComments() {
+			value: function getComments(commentsEntered) {
 				var finalComments = [];
-				for (var i = 0; i < loopComments.length; i++) {
+				for (var i = 0; i < commentsEntered.length; i++) {
 					finalComments.push(_react2.default.createElement(
 						'div',
 						null,
@@ -70,13 +70,13 @@ webpackJsonp([1],[
 								{ xs: 9, sm: 10 },
 								_react2.default.createElement(
 									RB.Panel,
-									{ className: 'commentPanel', header: window.loopComments[i].iduser },
-									window.loopComments[i].comment
+									{ className: 'commentPanel', header: commentsEntered[i].iduser },
+									commentsEntered[i].comment
 								)
 							)
 						)
 					));
-					this.setState({ comments: finalComments, numberOfComments: loopComments.length });
+					this.setState({ comments: finalComments, numberOfComments: commentsEntered.length });
 				}
 			}
 		}, {
@@ -90,11 +90,14 @@ webpackJsonp([1],[
 				};
 
 				_jquery2.default.post("../api/v1/newcomment", commentData);
+				_jquery2.default.get("'/api/v1/comments/" + window.idposts), function (response) {
+					this.getComments(response);
+				};
 			}
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.getComments();
+				this.getComments(window.loopComments);
 			}
 		}, {
 			key: 'render',
@@ -128,9 +131,19 @@ webpackJsonp([1],[
 					);
 				} else {
 					authRender = _react2.default.createElement(
-						'h4',
+						RB.Row,
 						null,
-						'Please sign in to comment!'
+						_react2.default.createElement(
+							'h4',
+							null,
+							this.state.numberOfComments,
+							' Comments ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'(Please log in to comment!)'
+							)
+						)
 					);
 				}
 

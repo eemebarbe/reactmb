@@ -85,7 +85,7 @@ app.get("/api/v1/postrange/:pageNumber", function(req, res) {
         pageRange = 3;
         startRange = (pageNumber * pageRange) + 1;
 
-    connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts ORDER BY posts.idposts ASC LIMIT (?), (?)',[startRange, pageRange], function(err, rows, fields){
+    connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts ORDER BY posts.idposts ASC LIMIT ?, ?',[startRange, pageRange], function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
             res.json(data);

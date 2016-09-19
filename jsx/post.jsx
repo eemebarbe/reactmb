@@ -13,9 +13,9 @@ class PostDisplay extends React.Component {
     				numberOfComments: null };
   }
 
-	getComments() {
+	getComments(commentsEntered) {
 		var finalComments = [];
-			for(var i=0; i<loopComments.length; i++) {
+			for(var i=0; i<commentsEntered.length; i++) {
 				finalComments.push(
 					<div>
 					<RB.Row className="commentRow">
@@ -23,14 +23,14 @@ class PostDisplay extends React.Component {
         			<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
       				</RB.Col>
       				<RB.Col xs={9} sm={10} >
-					<RB.Panel className="commentPanel" header={ window.loopComments[i].iduser }>
-		      		{ window.loopComments[i].comment }
+					<RB.Panel className="commentPanel" header={ commentsEntered[i].iduser }>
+		      		{ commentsEntered[i].comment }
 		    		</RB.Panel>
 		    		</RB.Col>
 		    		</RB.Row>
 		    		</div>
 					);
-       this.setState({comments: finalComments, numberOfComments: loopComments.length});
+       this.setState({comments: finalComments, numberOfComments: commentsEntered.length});
 		}
 	}
 
@@ -43,12 +43,14 @@ class PostDisplay extends React.Component {
   		};
 
 		$.post("../api/v1/newcomment", commentData);
-
+		$.get("'/api/v1/comments/" + window.idposts), function(response) {
+		this.getComments(response);
+		}
 
 	}
 
 	componentDidMount() {
-		this.getComments();
+		this.getComments(window.loopComments);
 	}
 
 		render() {
@@ -66,7 +68,10 @@ class PostDisplay extends React.Component {
 				</RB.ButtonGroup>
 			</RB.Row>
 	  } else {
-	  authRender = <h4>Please sign in to comment!</h4>;
+	  	authRender = 
+	  		<RB.Row>
+	  			<h4>{this.state.numberOfComments} Comments <b>(Please log in to comment!)</b></h4>
+	  		</RB.Row>
 	  }
 
 		return (
