@@ -58,7 +58,8 @@ webpackJsonp([0],[
 				var loopPosts = [];
 				var pageRange = 3;
 				_jquery2.default.get("/api/v1/postcount/", function (response) {
-					this.setState({ numberOfPages: response[0].count / pageRange });
+					var math = Math.ceil(response[0].count / pageRange);
+					this.setState({ numberOfPages: math });
 				}.bind(this));
 
 				_jquery2.default.get("/api/v1/postrange/" + page, function (response) {

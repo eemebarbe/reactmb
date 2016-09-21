@@ -27,7 +27,7 @@ app.get('/post/:thisId', function(req, res) {
         if(rows.length != 0){
             data = rows;
 
-            connection.query("SELECT * FROM comments WHERE `idposts`=(?)",[url_Id], function(err, rows, fields) {
+            connection.query("SELECT * FROM comments WHERE `idposts`=(?) ORDER BY commentdate DESC",[url_Id], function(err, rows, fields) {
               if(rows.length != 0){
                 comments = rows;
                }

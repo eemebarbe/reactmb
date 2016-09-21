@@ -44,61 +44,23 @@ webpackJsonp([1],[
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
 
-			_this.state = { comments: [],
-				numberOfComments: null };
+			_this.state = { comments: window.loopComments,
+				numberOfComments: window.loopComments.length };
 			return _this;
 		}
 
 		_createClass(PostDisplay, [{
-			key: 'getComments',
-			value: function getComments(commentsEntered) {
-				var finalComments = [];
-				for (var i = 0; i < commentsEntered.length; i++) {
-					finalComments.push(_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							RB.Row,
-							{ className: 'commentRow' },
-							_react2.default.createElement(
-								RB.Col,
-								{ xs: 3, sm: 2 },
-								_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
-							),
-							_react2.default.createElement(
-								RB.Col,
-								{ xs: 9, sm: 10 },
-								_react2.default.createElement(
-									RB.Panel,
-									{ className: 'commentPanel', header: commentsEntered[i].iduser },
-									commentsEntered[i].comment
-								)
-							)
-						)
-					));
-					this.setState({ comments: finalComments, numberOfComments: commentsEntered.length });
-				}
-			}
-		}, {
 			key: 'postComment',
 			value: function postComment() {
-
 				var commentData = {
 					comment: _reactDom2.default.findDOMNode(this.refs.submitComment).value,
 					idposts: window.idposts,
 					idusers: window.user
 				};
 
-				_jquery2.default.post("../api/v1/newcomment", commentData), function (response) {
-					_jquery2.default.get("'/api/v1/comments/" + window.idposts), function (response) {
-						this.getComments(response);
-					};
-				};
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.getComments(window.loopComments);
+				_jquery2.default.post("../api/v1/newcomment", commentData, function (response) {
+					this.setState({ comments: this.state.comments.concat(commentData) });
+				}.bind(this));
 			}
 		}, {
 			key: 'render',
@@ -148,6 +110,31 @@ webpackJsonp([1],[
 					);
 				}
 
+				var finalComments = this.state.comments.map(function (commentsEntered) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							RB.Row,
+							{ className: 'commentRow' },
+							_react2.default.createElement(
+								RB.Col,
+								{ xs: 3, sm: 2 },
+								_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+							),
+							_react2.default.createElement(
+								RB.Col,
+								{ xs: 9, sm: 10 },
+								_react2.default.createElement(
+									RB.Panel,
+									{ className: 'commentPanel', header: commentsEntered.iduser },
+									commentsEntered.comment
+								)
+							)
+						)
+					);
+				});
+
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -169,7 +156,7 @@ webpackJsonp([1],[
 					_react2.default.createElement(
 						RB.Row,
 						null,
-						this.state.comments
+						finalComments
 					)
 				);
 			}

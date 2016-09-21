@@ -31,7 +31,7 @@ app.post('/api/v1/newuser', function(req,res) {
 
 app.get('/api/v1/comments/:postId', function(req,res) {
     var url_Id = req.param('postId');  
-    connection.query("SELECT * FROM comments WHERE `idposts`=(?)",[url_Id], function(err, rows, fields) {
+    connection.query("SELECT * FROM comments WHERE `idposts`=(?) ORDER BY commentdate DESC",[url_Id], function(err, rows, fields) {
         if(rows.length != 0){
             data = rows;
             res.json(data);
@@ -83,9 +83,9 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
 app.get("/api/v1/postrange/:pageNumber", function(req, res) {
     var pageNumber = req.param('pageNumber') -1;
         pageRange = 3;
-        startRange = (pageNumber * pageRange) + 1;
+        startRange = (pageNumber * pageRange);
 
-    connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts ORDER BY posts.idposts ASC LIMIT ?, ?',[startRange, pageRange], function(err, rows, fields){
+    connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts ORDER BY posts.postdate DESC LIMIT ?, ?',[startRange, pageRange], function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
             res.json(data);

@@ -21,7 +21,8 @@ class SubmissionList extends React.Component {
 		var loopPosts = [];
 		var pageRange = 3;
 		$.get("/api/v1/postcount/", function(response) {
-       		this.setState({ numberOfPages: response[0].count / pageRange });
+			var math = Math.ceil(response[0].count / pageRange);
+       		this.setState({ numberOfPages: math });
 		}.bind(this));
 
 		$.get("/api/v1/postrange/" + page, function(response) {
