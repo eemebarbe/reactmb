@@ -20,10 +20,16 @@ app.get('/api/v1/posts',function(req,res){
 
 
 app.post('/api/v1/newuser', function(req,res) {
-  
-    connection.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",[ req.body.username, req.body.password, req.body.email ], function(err, rows, fields) {
-      if (err) throw err;
-});
+
+//Regex on both client and server side for protection in case JS is augmented
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!re.test(req.body.email)) {
+            res.json("Email address is not valid!");
+        } else {
+            connection.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",[ req.body.username, req.body.password, req.body.email ], function(err, rows, fields) {
+            if (err) throw err;
+            });
+        }
 
   res.end();
 });

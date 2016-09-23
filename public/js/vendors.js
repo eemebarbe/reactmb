@@ -48718,10 +48718,26 @@
 									email: _reactDom2.default.findDOMNode(this.refs.email).value
 							};
 
-							if (signUpData.password != signUpData.passwordVerify) {
-									alert("passwords dont match");
-							} else {
-									_jquery2.default.post("/api/v1/newuser", signUpData);
+							//Verify all sign-up data before passing it to the server
+							if (signUpData.username == null || signUpData.username == "") {
+									alert("Please enter a username!");
+							} else if (signUpData.password == null || signUpData.password == "") {
+									alert("Please enter a password!");
+							} else if (signUpData.password != signUpData.passwordVerify) {
+									alert("Password entries don't match!");
+							} else if (signUpData.email == null || signUpData.email == "") {
+									alert("Please enter your email address!");
+							} else if (signUpData.email !== null || signUpData.email !== "") {
+									var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+									if (!re.test(signUpData.email)) {
+											alert("Not a valid email address!");
+									} else {
+											_jquery2.default.post("/api/v1/newuser", signUpData, function () {
+													_jquery2.default.get("/loginAuth", signUpData, function () {
+															window.location.href = "./";
+													});
+											});
+									}
 							}
 					}
 			}, {

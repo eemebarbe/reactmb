@@ -49,9 +49,32 @@ webpackJsonp([2],[
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					'h4',
+					'div',
 					null,
-					'Preferences'
+					_react2.default.createElement(
+						RB.Row,
+						null,
+						_react2.default.createElement(
+							'h4',
+							null,
+							'Profile Image'
+						),
+						_react2.default.createElement(RB.Image, { className: 'userImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true }),
+						_react2.default.createElement(
+							RB.FormGroup,
+							{ id: 'formControlsFile' },
+							_react2.default.createElement(RB.FormControl, { type: 'file' })
+						)
+					),
+					_react2.default.createElement(
+						RB.Row,
+						null,
+						_react2.default.createElement(
+							'h4',
+							null,
+							'Posts/Comments'
+						)
+					)
 				);
 			}
 		}]);

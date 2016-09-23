@@ -8,8 +8,18 @@ import * as formatting from './header.jsx';
 class ProfileOptions extends React.Component {
 	render() {
 		return (
-
-	      		<h4>Preferences</h4>
+			<div>
+				<RB.Row>
+				<h4>Profile Image</h4>
+	      		<RB.Image className="userImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+			    <RB.FormGroup id="formControlsFile">
+			        <RB.FormControl type="file"/>
+			    </RB.FormGroup>
+				</RB.Row>
+				<RB.Row>
+	      		<h4>Posts/Comments</h4>
+	      		</RB.Row>
+	      	</div>
 			);
 	}
 }
