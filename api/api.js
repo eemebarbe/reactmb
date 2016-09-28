@@ -18,19 +18,34 @@ app.get('/api/v1/posts',function(req,res){
     });
 });
 
+app.get('/api/v1/profileData/:userId',function(req,res){
+    var url_Id = req.param('userId');
+    
+    connection.query("SELECT * from posts WHERE `idusers`=(?) ORDER BY postdate DESC",[url_Id], function(err, rows, fields){
+        if(rows.length != 0){
+            data = rows;
+            res.json(data);
+            
+        } else {
+            data = null;
+            res.json(data);
+        }
+          res.end();
+    });
+});
 
 app.post('/api/v1/newuser', function(req,res) {
-
 //Regex on both client and server side for protection in case JS is augmented
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!re.test(req.body.email)) {
             res.json("Email address is not valid!");
         } else {
             connection.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",[ req.body.username, req.body.password, req.body.email ], function(err, rows, fields) {
-            if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
             });
         }
-
   res.end();
 });
 
@@ -86,13 +101,16 @@ app.get("/api/v1/posts/:thisId", function(req, res) {
 });
 
 
-app.get("/api/v1/postrange/:pageNumber", function(req, res) {
-    var pageNumber = req.param('pageNumber') -1;
-        pageRange = 3;
+app.get("/api/v1/postrange", function(req, res) {
+    var pageNumber = req.query.page -1;
+        pageRange = parseInt(req.query.pageRange, 10);
         startRange = (pageNumber * pageRange);
 
     connection.query('SELECT posts.*, c.comments AS comments FROM posts LEFT JOIN (SELECT idposts, COUNT(*) comments FROM comments GROUP BY idposts) AS c ON c.idposts = posts.idposts ORDER BY posts.postdate DESC LIMIT ?, ?',[startRange, pageRange], function(err, rows, fields){
-        if(rows.length != 0){
+        if (err) {
+            throw err;
+        }
+        else if(rows.length != 0){
             data = rows;
             res.json(data);
         } else {

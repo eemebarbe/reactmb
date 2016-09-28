@@ -6,8 +6,12 @@ app.get("/submit", ensureAuthenticated, function(req, res) {
   res.render('submit.ejs', { user : req.user });
  });
 
+
 app.get("/profile", ensureAuthenticated, function(req, res) {
-  res.render('profile.ejs', { user : req.user });
+  connection.query("SELECT * from posts WHERE `idusers`=(?) ORDER BY postdate DESC",[req.user], function(err, rows, fields){
+    res.render('profile.ejs', { user : req.user,
+                                posts: JSON.stringify(rows) });
+  });
  });
 
 app.get("/login", function(req, res) {

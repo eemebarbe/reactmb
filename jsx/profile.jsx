@@ -6,7 +6,32 @@ import * as formatting from './header.jsx';
 
 
 class ProfileOptions extends React.Component {
+
+	constructor(props) {
+    super(props);
+    this.state = { posts : window.posts };
+  }
+
+	uploadImage() {
+
+
+	}
+
 	render() {
+
+		var finalPosts = this.state.posts.map((posts) => {
+			return (
+				<div>
+				<RB.Row className="postRow">
+					<RB.Panel>
+						{posts.title}
+						{posts.postdate}
+					</RB.Panel>
+	    		</RB.Row>
+	    		</div>
+	        );
+	    });
+
 		return (
 			<div>
 				<RB.Row>
@@ -15,9 +40,11 @@ class ProfileOptions extends React.Component {
 			    <RB.FormGroup id="formControlsFile">
 			        <RB.FormControl type="file"/>
 			    </RB.FormGroup>
+				<RB.Button onClick={this.uploadImage.bind(this)}>Save</RB.Button>
 				</RB.Row>
 				<RB.Row>
-	      		<h4>Posts/Comments</h4>
+	      		<h4>Posts</h4>
+	      			{finalPosts}
 	      		</RB.Row>
 	      	</div>
 			);

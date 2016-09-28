@@ -25,7 +25,7 @@ class SubmissionList extends React.Component {
        		this.setState({ numberOfPages: math });
 		}.bind(this));
 
-		$.get("/api/v1/postrange/" + page, function(response) {
+		$.get("/api/v1/postrange?page=" + page + "&pageRange=" + pageRange, function(response) {
 
 			if(response !== null){
 
@@ -45,12 +45,10 @@ class SubmissionList extends React.Component {
 						</RB.ListGroupItem>
 						);
 				}
-
 			} else {
-			loopPosts = <div>No More Posts</div>;
+				loopPosts = <div>No More Posts</div>;
 			}
-
-       this.setState({posts: loopPosts});
+       		this.setState({posts: loopPosts});
 		}.bind(this));
 	}
 
@@ -75,7 +73,7 @@ class SubmissionList extends React.Component {
 			 {this.state.posts}
 
 			</RB.ListGroup>
-			<RB.Pagination next prev items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
+			<RB.Pagination next prev first last items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
 			</RB.Row>
 
 			);

@@ -62,7 +62,7 @@ webpackJsonp([0],[
 					this.setState({ numberOfPages: math });
 				}.bind(this));
 
-				_jquery2.default.get("/api/v1/postrange/" + page, function (response) {
+				_jquery2.default.get("/api/v1/postrange?page=" + page + "&pageRange=" + pageRange, function (response) {
 
 					if (response !== null) {
 
@@ -98,7 +98,6 @@ webpackJsonp([0],[
 							'No More Posts'
 						);
 					}
-
 					this.setState({ posts: loopPosts });
 				}.bind(this));
 			}
@@ -126,7 +125,7 @@ webpackJsonp([0],[
 						null,
 						this.state.posts
 					),
-					_react2.default.createElement(RB.Pagination, { next: true, prev: true, items: this.state.numberOfPages, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
+					_react2.default.createElement(RB.Pagination, { next: true, prev: true, first: true, last: true, items: this.state.numberOfPages, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
 				);
 			}
 		}]);

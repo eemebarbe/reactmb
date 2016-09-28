@@ -39,15 +39,39 @@ webpackJsonp([2],[
 	var ProfileOptions = function (_React$Component) {
 		_inherits(ProfileOptions, _React$Component);
 
-		function ProfileOptions() {
+		function ProfileOptions(props) {
 			_classCallCheck(this, ProfileOptions);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).call(this, props));
+
+			_this.state = { posts: window.posts };
+			return _this;
 		}
 
 		_createClass(ProfileOptions, [{
+			key: 'uploadImage',
+			value: function uploadImage() {}
+		}, {
 			key: 'render',
 			value: function render() {
+
+				var finalPosts = this.state.posts.map(function (posts) {
+					return _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							RB.Row,
+							{ className: 'postRow' },
+							_react2.default.createElement(
+								RB.Panel,
+								null,
+								posts.title,
+								posts.postdate
+							)
+						)
+					);
+				});
+
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -64,6 +88,11 @@ webpackJsonp([2],[
 							RB.FormGroup,
 							{ id: 'formControlsFile' },
 							_react2.default.createElement(RB.FormControl, { type: 'file' })
+						),
+						_react2.default.createElement(
+							RB.Button,
+							{ onClick: this.uploadImage.bind(this) },
+							'Save'
 						)
 					),
 					_react2.default.createElement(
@@ -72,8 +101,9 @@ webpackJsonp([2],[
 						_react2.default.createElement(
 							'h4',
 							null,
-							'Posts/Comments'
-						)
+							'Posts'
+						),
+						finalPosts
 					)
 				);
 			}

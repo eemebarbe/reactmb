@@ -38,10 +38,12 @@ function(req, username, password, done) { // callback with email and password fr
             } 
       
       // if the user is found but the password is wrong
-            if (!( rows[0].password == password))
-                return done(null, false); // create the loginMessage and save it to session as flashdata
+            if (!( rows[0].password == password)) {
+                return done(null, false, { message: 'Incorrect password.' }); // create the loginMessage and save it to session as flashdata
+              } else {
             // all is well, return successful user
-                return done(null, rows[0].username);     
+                return done(null, rows[0].username);   
+                }  
     
     });
 }));
