@@ -3,6 +3,65 @@ import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import $ from "jquery";
 
+export class Modal extends React.Component {
+
+	constructor(props) {
+    	super(props);
+  	}
+
+	render(){
+		return(
+			<div>
+				<RB.Modal show={this.props.showModal} onHide={this.props.close}>
+				<RB.Modal.Header closeButton>
+	        	<RB.Modal.Title>Enter your credentials {this.props.showModal}</RB.Modal.Title>
+	      		</RB.Modal.Header>
+	      		<RB.Modal.Body>
+	      		<RB.Row>
+		      		<RB.Col sm={6}>
+			      		<h4>Sign Up</h4>
+			        	<RB.FormGroup>        	
+			        		<RB.FormControl ref="username" type="text" placeholder="choose a username" />
+			        	</RB.FormGroup>
+			        	<RB.FormGroup>        	
+			        		<RB.FormControl ref="password" type="password" placeholder="password" />
+			        	</RB.FormGroup>
+			        	<RB.FormGroup>        	
+			        		<RB.FormControl ref="passwordVerify" type="password" placeholder="verify password" />
+			        	</RB.FormGroup>
+			        	<RB.FormGroup>        	
+			        		<RB.FormControl ref="email" type="text" placeholder="email" />
+			        	</RB.FormGroup>
+		        	</RB.Col>
+		        	<RB.Col sm={6}>
+			        	<h4>Sign In</h4>
+			        	<RB.Form id="signInForm" action="/loginAuth" method="get">
+			        	<RB.FormGroup>        	
+			        	<RB.FormControl type="text" placeholder="username" name="username" />
+			        	</RB.FormGroup>
+			        	<RB.FormGroup>        	
+			        	<RB.FormControl type="password" placeholder="password" name="password" />
+			        	</RB.FormGroup>
+			        	</RB.Form>
+		        	</RB.Col>
+	        	</RB.Row>
+	      		</RB.Modal.Body>
+
+	      		<RB.Modal.Footer>
+			      	<RB.Col sm={6}>
+		      			<RB.Button onClick={this.props.signUp}>Sign Up</RB.Button>
+		      		</RB.Col>
+			      	<RB.Col sm={6}>
+		        		<RB.Button bsStyle="primary" type="submit" form="signInForm">Sign In</RB.Button>
+		        	</RB.Col>
+	      		</RB.Modal.Footer>
+				</RB.Modal>
+			</div>
+		);
+	}
+}
+
+
 export class Header extends React.Component {
 	
 	constructor(props) {
@@ -107,52 +166,7 @@ export class Header extends React.Component {
 		  			</RB.Navbar>
 				</RB.Row>
 
-
-
-				<RB.Modal show={this.state.showModal} onHide={this.close.bind(this)}>
-				<RB.Modal.Header closeButton>
-	        	<RB.Modal.Title>Enter your credentials</RB.Modal.Title>
-	      		</RB.Modal.Header>
-	      		<RB.Modal.Body>
-	      		<RB.Row>
-		      		<RB.Col sm={6}>
-			      		<h4>Sign Up</h4>
-			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="username" type="text" placeholder="choose a username" />
-			        	</RB.FormGroup>
-			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="password" type="password" placeholder="password" />
-			        	</RB.FormGroup>
-			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="passwordVerify" type="password" placeholder="verify password" />
-			        	</RB.FormGroup>
-			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="email" type="text" placeholder="email" />
-			        	</RB.FormGroup>
-		        	</RB.Col>
-		        	<RB.Col sm={6}>
-			        	<h4>Sign In</h4>
-			        	<RB.Form id="signInForm" action="/loginAuth" method="get">
-			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="text" placeholder="username" name="username" />
-			        	</RB.FormGroup>
-			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="password" placeholder="password" name="password" />
-			        	</RB.FormGroup>
-			        	</RB.Form>
-		        	</RB.Col>
-	        	</RB.Row>
-	      		</RB.Modal.Body>
-
-	      		<RB.Modal.Footer>
-			      	<RB.Col sm={6}>
-		      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
-		      		</RB.Col>
-			      	<RB.Col sm={6}>
-		        		<RB.Button bsStyle="primary" type="submit" form="signInForm">Sign In</RB.Button>
-		        	</RB.Col>
-	      		</RB.Modal.Footer>
-				</RB.Modal>
+				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)} onClick={this.signUp.bind(this)}/>
 			</div>
 		);
 	}

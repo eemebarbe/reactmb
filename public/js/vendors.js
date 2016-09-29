@@ -48656,7 +48656,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Header = undefined;
+	exports.Header = exports.Modal = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -48686,16 +48686,134 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Header = exports.Header = function (_React$Component) {
-		_inherits(Header, _React$Component);
+	var Modal = exports.Modal = function (_React$Component) {
+		_inherits(Modal, _React$Component);
+
+		function Modal(props) {
+			_classCallCheck(this, Modal);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Modal).call(this, props));
+		}
+
+		_createClass(Modal, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						RB.Modal,
+						{ show: this.props.showModal, onHide: this.props.close },
+						_react2.default.createElement(
+							RB.Modal.Header,
+							{ closeButton: true },
+							_react2.default.createElement(
+								RB.Modal.Title,
+								null,
+								'Enter your credentials ',
+								this.props.showModal
+							)
+						),
+						_react2.default.createElement(
+							RB.Modal.Body,
+							null,
+							_react2.default.createElement(
+								RB.Row,
+								null,
+								_react2.default.createElement(
+									RB.Col,
+									{ sm: 6 },
+									_react2.default.createElement(
+										'h4',
+										null,
+										'Sign Up'
+									),
+									_react2.default.createElement(
+										RB.FormGroup,
+										null,
+										_react2.default.createElement(RB.FormControl, { ref: 'username', type: 'text', placeholder: 'choose a username' })
+									),
+									_react2.default.createElement(
+										RB.FormGroup,
+										null,
+										_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'password', placeholder: 'password' })
+									),
+									_react2.default.createElement(
+										RB.FormGroup,
+										null,
+										_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'password', placeholder: 'verify password' })
+									),
+									_react2.default.createElement(
+										RB.FormGroup,
+										null,
+										_react2.default.createElement(RB.FormControl, { ref: 'email', type: 'text', placeholder: 'email' })
+									)
+								),
+								_react2.default.createElement(
+									RB.Col,
+									{ sm: 6 },
+									_react2.default.createElement(
+										'h4',
+										null,
+										'Sign In'
+									),
+									_react2.default.createElement(
+										RB.Form,
+										{ id: 'signInForm', action: '/loginAuth', method: 'get' },
+										_react2.default.createElement(
+											RB.FormGroup,
+											null,
+											_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username', name: 'username' })
+										),
+										_react2.default.createElement(
+											RB.FormGroup,
+											null,
+											_react2.default.createElement(RB.FormControl, { type: 'password', placeholder: 'password', name: 'password' })
+										)
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							RB.Modal.Footer,
+							null,
+							_react2.default.createElement(
+								RB.Col,
+								{ sm: 6 },
+								_react2.default.createElement(
+									RB.Button,
+									{ onClick: this.props.signUp },
+									'Sign Up'
+								)
+							),
+							_react2.default.createElement(
+								RB.Col,
+								{ sm: 6 },
+								_react2.default.createElement(
+									RB.Button,
+									{ bsStyle: 'primary', type: 'submit', form: 'signInForm' },
+									'Sign In'
+								)
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Modal;
+	}(_react2.default.Component);
+
+	var Header = exports.Header = function (_React$Component2) {
+		_inherits(Header, _React$Component2);
 
 		function Header(props) {
 			_classCallCheck(this, Header);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 
-			_this.state = { showModal: false };
-			return _this;
+			_this2.state = { showModal: false };
+			return _this2;
 		}
 
 		_createClass(Header, [{
@@ -48850,101 +48968,7 @@
 							authRender
 						)
 					),
-					_react2.default.createElement(
-						RB.Modal,
-						{ show: this.state.showModal, onHide: this.close.bind(this) },
-						_react2.default.createElement(
-							RB.Modal.Header,
-							{ closeButton: true },
-							_react2.default.createElement(
-								RB.Modal.Title,
-								null,
-								'Enter your credentials'
-							)
-						),
-						_react2.default.createElement(
-							RB.Modal.Body,
-							null,
-							_react2.default.createElement(
-								RB.Row,
-								null,
-								_react2.default.createElement(
-									RB.Col,
-									{ sm: 6 },
-									_react2.default.createElement(
-										'h4',
-										null,
-										'Sign Up'
-									),
-									_react2.default.createElement(
-										RB.FormGroup,
-										null,
-										_react2.default.createElement(RB.FormControl, { ref: 'username', type: 'text', placeholder: 'choose a username' })
-									),
-									_react2.default.createElement(
-										RB.FormGroup,
-										null,
-										_react2.default.createElement(RB.FormControl, { ref: 'password', type: 'password', placeholder: 'password' })
-									),
-									_react2.default.createElement(
-										RB.FormGroup,
-										null,
-										_react2.default.createElement(RB.FormControl, { ref: 'passwordVerify', type: 'password', placeholder: 'verify password' })
-									),
-									_react2.default.createElement(
-										RB.FormGroup,
-										null,
-										_react2.default.createElement(RB.FormControl, { ref: 'email', type: 'text', placeholder: 'email' })
-									)
-								),
-								_react2.default.createElement(
-									RB.Col,
-									{ sm: 6 },
-									_react2.default.createElement(
-										'h4',
-										null,
-										'Sign In'
-									),
-									_react2.default.createElement(
-										RB.Form,
-										{ id: 'signInForm', action: '/loginAuth', method: 'get' },
-										_react2.default.createElement(
-											RB.FormGroup,
-											null,
-											_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username', name: 'username' })
-										),
-										_react2.default.createElement(
-											RB.FormGroup,
-											null,
-											_react2.default.createElement(RB.FormControl, { type: 'password', placeholder: 'password', name: 'password' })
-										)
-									)
-								)
-							)
-						),
-						_react2.default.createElement(
-							RB.Modal.Footer,
-							null,
-							_react2.default.createElement(
-								RB.Col,
-								{ sm: 6 },
-								_react2.default.createElement(
-									RB.Button,
-									{ onClick: this.signUp.bind(this) },
-									'Sign Up'
-								)
-							),
-							_react2.default.createElement(
-								RB.Col,
-								{ sm: 6 },
-								_react2.default.createElement(
-									RB.Button,
-									{ bsStyle: 'primary', type: 'submit', form: 'signInForm' },
-									'Sign In'
-								)
-							)
-						)
-					)
+					_react2.default.createElement(Modal, { showModal: this.state.showModal, onHide: this.close.bind(this), onClick: this.signUp.bind(this) })
 				);
 			}
 		}]);
