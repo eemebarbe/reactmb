@@ -45,7 +45,8 @@ webpackJsonp([1],[
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
 
 			_this.state = { comments: window.loopComments,
-				numberOfComments: window.loopComments.length };
+				numberOfComments: window.loopComments.length,
+				commentSubmitted: false };
 			return _this;
 		}
 
@@ -61,13 +62,15 @@ webpackJsonp([1],[
 				_jquery2.default.post("../api/v1/newcomment", commentData, function (response) {
 					this.setState({ comments: this.state.comments.concat(commentData) });
 				}.bind(this));
+
+				this.setState({ commentSubmitted: true });
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 
 				var authRender = null;
-				if (window.user !== "") {
+				if (window.user !== "" && this.state.commentSubmitted == false) {
 					authRender = _react2.default.createElement(
 						RB.Row,
 						null,
@@ -90,6 +93,16 @@ webpackJsonp([1],[
 								{ onClick: this.postComment.bind(this) },
 								'Submit'
 							)
+						)
+					);
+				} else if (window.user !== "" && this.state.commentSubmitted == true) {
+					authRender = _react2.default.createElement(
+						RB.Row,
+						null,
+						_react2.default.createElement(
+							'h4',
+							null,
+							'Thanks!'
 						)
 					);
 				} else {

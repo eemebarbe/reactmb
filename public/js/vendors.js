@@ -48696,8 +48696,68 @@
 		}
 
 		_createClass(Modal, [{
+			key: 'signUp',
+			value: function signUp() {
+				var signUpData = {
+					username: _reactDom2.default.findDOMNode(this.refs.username).value,
+					password: _reactDom2.default.findDOMNode(this.refs.password).value,
+					passwordVerify: _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
+					email: _reactDom2.default.findDOMNode(this.refs.email).value
+				};
+
+				//Verify all sign-up data before passing it to the server
+				if (signUpData.username == null || signUpData.username == "") {
+					alert("Please enter a username!");
+				} else if (signUpData.password == null || signUpData.password == "") {
+					alert("Please enter a password!");
+				} else if (signUpData.password != signUpData.passwordVerify) {
+					alert("Password entries don't match!");
+				} else if (signUpData.email == null || signUpData.email == "") {
+					alert("Please enter your email address!");
+				} else if (signUpData.email !== null || signUpData.email !== "") {
+					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					if (!re.test(signUpData.email)) {
+						alert("Not a valid email address!");
+					} else {
+						_jquery2.default.ajax({
+							type: "POST",
+							url: "/api/v1/newuser",
+							data: signUpData,
+							dataType: "json",
+							success: function success() {
+								_jquery2.default.get("/loginAuth", signUpData, function () {
+									window.location.href = "./";
+								});
+							},
+							error: function error() {
+								alert("Either this email or this username is already in use!");
+							}
+						});
+					}
+				}
+			}
+
+			/*	signIn(){
+	  		$.ajax({
+	  			  type: "GET",
+	  			  url: "/loginAuth",
+	  			  data: signUpData,
+	  			  dataType: "json",
+	  			  success: function(){
+	  							$.get("/loginAuth", signUpData, function(){
+	  							window.location.href= "./"; 
+	  			  			});
+	  			  },
+	  			  error: function() {
+	  			         alert("Either your email or password is wrong!");
+	  			  }
+	  		});	
+	  	}*/
+
+		}, {
 			key: 'render',
 			value: function render() {
+
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -48782,7 +48842,7 @@
 								{ sm: 6 },
 								_react2.default.createElement(
 									RB.Button,
-									{ onClick: this.props.signUp },
+									{ onClick: this.signUp.bind(this) },
 									'Sign Up'
 								)
 							),
@@ -48825,42 +48885,6 @@
 			key: 'open',
 			value: function open() {
 				this.setState({ showModal: true });
-			}
-		}, {
-			key: 'signUp',
-			value: function signUp() {
-				var signUpData = {
-					username: _reactDom2.default.findDOMNode(this.refs.username).value,
-					password: _reactDom2.default.findDOMNode(this.refs.password).value,
-					passwordVerify: _reactDom2.default.findDOMNode(this.refs.passwordVerify).value,
-					email: _reactDom2.default.findDOMNode(this.refs.email).value
-				};
-
-				//Verify all sign-up data before passing it to the server
-				if (signUpData.username == null || signUpData.username == "") {
-					alert("Please enter a username!");
-				} else if (signUpData.password == null || signUpData.password == "") {
-					alert("Please enter a password!");
-				} else if (signUpData.password != signUpData.passwordVerify) {
-					alert("Password entries don't match!");
-				} else if (signUpData.email == null || signUpData.email == "") {
-					alert("Please enter your email address!");
-				} else if (signUpData.email !== null || signUpData.email !== "") {
-					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-					if (!re.test(signUpData.email)) {
-						alert("Not a valid email address!");
-					} else {
-						_jquery2.default.post("/api/v1/newuser", signUpData, function (response) {
-							if (response == "invalid") {
-								alert("Either this email or this username is already in use!");
-							} else {
-								_jquery2.default.get("/loginAuth", signUpData, function () {
-									window.location.href = "./";
-								});
-							}
-						});
-					}
-				}
 			}
 		}, {
 			key: 'render',
@@ -48968,7 +48992,7 @@
 							authRender
 						)
 					),
-					_react2.default.createElement(Modal, { showModal: this.state.showModal, onHide: this.close.bind(this), onClick: this.signUp.bind(this) })
+					_react2.default.createElement(Modal, { showModal: this.state.showModal, onHide: this.close.bind(this) })
 				);
 			}
 		}]);

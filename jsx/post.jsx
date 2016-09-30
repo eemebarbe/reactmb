@@ -10,7 +10,8 @@ class PostDisplay extends React.Component {
 	constructor(props) {
     super(props);
     this.state = { comments: window.loopComments,
-    				numberOfComments: window.loopComments.length };
+    				numberOfComments: window.loopComments.length,
+    				commentSubmitted: false };
   	}
 
 	postComment() {
@@ -24,13 +25,15 @@ class PostDisplay extends React.Component {
 				this.setState({ comments : this.state.comments.concat(commentData)});
 			}.bind(this));
 
+			this.setState({ commentSubmitted : true });
+
 	}
 
 
 	render() {
 
 		var authRender = null;
-			if( window.user !== "" ) { 
+			if( window.user !== "" && this.state.commentSubmitted == false ) { 
 			 	authRender = 
 					<RB.Row>
 						<h4>{this.state.numberOfComments} Comments</h4>
@@ -41,6 +44,11 @@ class PostDisplay extends React.Component {
 						<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
 						</RB.ButtonGroup>
 					</RB.Row>
+		  	} else if ( window.user !== "" && this.state.commentSubmitted == true ) {
+			  	authRender = 
+			  		<RB.Row>
+			  			<h4>Thanks!</h4>
+			  		</RB.Row>					
 		  	} else {
 			  	authRender = 
 			  		<RB.Row>

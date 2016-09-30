@@ -9,7 +9,71 @@ export class Modal extends React.Component {
     	super(props);
   	}
 
+	signUp() {
+	  	var signUpData = {
+	  		username : ReactDOM.findDOMNode(this.refs.username).value,
+	  		password : ReactDOM.findDOMNode(this.refs.password).value,
+	  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+	  		email : ReactDOM.findDOMNode(this.refs.email).value
+	  		};
+
+	//Verify all sign-up data before passing it to the server
+	  	if(signUpData.username == null || signUpData.username == "") {
+	  		alert("Please enter a username!");
+	  	}
+	  	else if(signUpData.password == null || signUpData.password == "") {
+	  		alert("Please enter a password!");
+	  	}
+	  	else if(signUpData.password != signUpData.passwordVerify) {
+	  		alert("Password entries don't match!");
+	  	}
+	  	else if(signUpData.email == null || signUpData.email == "") {
+	  		alert("Please enter your email address!");
+	  	}
+	  	else if (signUpData.email !== null || signUpData.email !== "") {
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if(!re.test(signUpData.email)) {
+				alert("Not a valid email address!");
+			}
+			else {
+$.ajax({
+  type: "POST",
+  url: "/api/v1/newuser",
+  data: signUpData,
+  dataType: "json",
+  success: function(){
+				$.get("/loginAuth", signUpData, function(){
+				window.location.href= "./"; 
+  			});
+  },
+  error: function() {
+         alert("Either this email or this username is already in use!");
+  }
+});
+	    	}
+	  	}
+	}
+
+
+/*	signIn(){
+		$.ajax({
+			  type: "GET",
+			  url: "/loginAuth",
+			  data: signUpData,
+			  dataType: "json",
+			  success: function(){
+							$.get("/loginAuth", signUpData, function(){
+							window.location.href= "./"; 
+			  			});
+			  },
+			  error: function() {
+			         alert("Either your email or password is wrong!");
+			  }
+		});	
+	}*/
+
 	render(){
+
 		return(
 			<div>
 				<RB.Modal show={this.props.showModal} onHide={this.props.close}>
@@ -49,7 +113,7 @@ export class Modal extends React.Component {
 
 	      		<RB.Modal.Footer>
 			      	<RB.Col sm={6}>
-		      			<RB.Button onClick={this.props.signUp}>Sign Up</RB.Button>
+		      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
 		      		</RB.Col>
 			      	<RB.Col sm={6}>
 		        		<RB.Button bsStyle="primary" type="submit" form="signInForm">Sign In</RB.Button>
@@ -76,47 +140,6 @@ export class Header extends React.Component {
   	open() {
     	this.setState({ showModal: true });
   	}
-
-	signUp() {
-	  	var signUpData = {
-	  		username : ReactDOM.findDOMNode(this.refs.username).value,
-	  		password : ReactDOM.findDOMNode(this.refs.password).value,
-	  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
-	  		email : ReactDOM.findDOMNode(this.refs.email).value
-	  		};
-
-	//Verify all sign-up data before passing it to the server
-	  	if(signUpData.username == null || signUpData.username == "") {
-	  		alert("Please enter a username!");
-	  	}
-	  	else if(signUpData.password == null || signUpData.password == "") {
-	  		alert("Please enter a password!");
-	  	}
-	  	else if(signUpData.password != signUpData.passwordVerify) {
-	  		alert("Password entries don't match!");
-	  	}
-	  	else if(signUpData.email == null || signUpData.email == "") {
-	  		alert("Please enter your email address!");
-	  	}
-	  	else if (signUpData.email !== null || signUpData.email !== "") {
-			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			if(!re.test(signUpData.email)) {
-				alert("Not a valid email address!");
-			}
-			else {
-		    	$.post("/api/v1/newuser", signUpData, function(response){
-			    	if(response == "invalid") {
-			    		alert("Either this email or this username is already in use!");
-			    	}
-			    	else {
-			    		$.get("/loginAuth", signUpData, function(){
-			    			window.location.href= "./";    			
-			    		});
-			    	}
-		    	});
-	    	}
-	  	}
-	}
 
 	render() {
 
@@ -166,7 +189,7 @@ export class Header extends React.Component {
 		  			</RB.Navbar>
 				</RB.Row>
 
-				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)} onClick={this.signUp.bind(this)}/>
+				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)}/>
 			</div>
 		);
 	}

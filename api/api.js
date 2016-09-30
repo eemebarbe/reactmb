@@ -42,7 +42,7 @@ app.post('/api/v1/newuser', function(req,res) {
         } else {
             connection.query("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",[ req.body.username, req.body.password, req.body.email ], function(err, rows, fields) {
                 if (err) {
-                    console.log(err);
+                    res.status(401);
                 }
             });
         }
