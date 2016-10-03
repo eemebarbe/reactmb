@@ -55,14 +55,18 @@ $.ajax({
 	}
 
 
-/*	signIn(){
+	signIn(){
+	  	var signInData = {
+	  		username : ReactDOM.findDOMNode(this.refs.logInUser).value,
+	  		password : ReactDOM.findDOMNode(this.refs.logInPass).value
+	  		};
+
 		$.ajax({
-			  type: "GET",
+			  type: "POST",
 			  url: "/loginAuth",
-			  data: signUpData,
+			  data: signInData,
 			  dataType: "json",
 			  success: function(){
-							$.get("/loginAuth", signUpData, function(){
 							window.location.href= "./"; 
 			  			});
 			  },
@@ -70,7 +74,7 @@ $.ajax({
 			         alert("Either your email or password is wrong!");
 			  }
 		});	
-	}*/
+	}
 
 	render(){
 
@@ -99,12 +103,12 @@ $.ajax({
 		        	</RB.Col>
 		        	<RB.Col sm={6}>
 			        	<h4>Sign In</h4>
-			        	<RB.Form id="signInForm" action="/loginAuth" method="get">
+			        	<RB.Form>
 			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="text" placeholder="username" name="username" />
+			        	<RB.FormControl type="text" ref="logInUser" placeholder="username" name="username" />
 			        	</RB.FormGroup>
 			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="password" placeholder="password" name="password" />
+			        	<RB.FormControl type="password" ref="logInPass" placeholder="password" name="password" />
 			        	</RB.FormGroup>
 			        	</RB.Form>
 		        	</RB.Col>
@@ -116,7 +120,7 @@ $.ajax({
 		      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
 		      		</RB.Col>
 			      	<RB.Col sm={6}>
-		        		<RB.Button bsStyle="primary" type="submit" form="signInForm">Sign In</RB.Button>
+		        		<RB.Button onClick={this.signIn.bind(this)}>Sign In</RB.Button>
 		        	</RB.Col>
 	      		</RB.Modal.Footer>
 				</RB.Modal>
@@ -189,7 +193,7 @@ export class Header extends React.Component {
 		  			</RB.Navbar>
 				</RB.Row>
 
-				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)}/>
+				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)} close={this.close.bind(this)}/>
 			</div>
 		);
 	}

@@ -48736,24 +48736,29 @@
 					}
 				}
 			}
+		}, {
+			key: 'signIn',
+			value: function signIn() {
+				var signInData = {
+					username: _reactDom2.default.findDOMNode(this.refs.logInUser).value,
+					password: _reactDom2.default.findDOMNode(this.refs.logInPass).value
+				};
 
-			/*	signIn(){
-	  		$.ajax({
-	  			  type: "GET",
-	  			  url: "/loginAuth",
-	  			  data: signUpData,
-	  			  dataType: "json",
-	  			  success: function(){
-	  							$.get("/loginAuth", signUpData, function(){
-	  							window.location.href= "./"; 
-	  			  			});
-	  			  },
-	  			  error: function() {
-	  			         alert("Either your email or password is wrong!");
-	  			  }
-	  		});	
-	  	}*/
-
+				_jquery2.default.ajax({
+					type: "POST",
+					url: "/loginAuth",
+					data: signInData,
+					dataType: "json",
+					success: function success() {
+						_jquery2.default.post("/loginAuth", signInData, function () {
+							window.location.href = "./";
+						});
+					},
+					error: function error() {
+						alert("Either your email or password is wrong!");
+					}
+				});
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -48819,16 +48824,16 @@
 									),
 									_react2.default.createElement(
 										RB.Form,
-										{ id: 'signInForm', action: '/loginAuth', method: 'get' },
+										null,
 										_react2.default.createElement(
 											RB.FormGroup,
 											null,
-											_react2.default.createElement(RB.FormControl, { type: 'text', placeholder: 'username', name: 'username' })
+											_react2.default.createElement(RB.FormControl, { type: 'text', ref: 'logInUser', placeholder: 'username', name: 'username' })
 										),
 										_react2.default.createElement(
 											RB.FormGroup,
 											null,
-											_react2.default.createElement(RB.FormControl, { type: 'password', placeholder: 'password', name: 'password' })
+											_react2.default.createElement(RB.FormControl, { type: 'password', ref: 'logInPass', placeholder: 'password', name: 'password' })
 										)
 									)
 								)
@@ -48851,7 +48856,7 @@
 								{ sm: 6 },
 								_react2.default.createElement(
 									RB.Button,
-									{ bsStyle: 'primary', type: 'submit', form: 'signInForm' },
+									{ onClick: this.signIn.bind(this) },
 									'Sign In'
 								)
 							)
@@ -48992,7 +48997,7 @@
 							authRender
 						)
 					),
-					_react2.default.createElement(Modal, { showModal: this.state.showModal, onHide: this.close.bind(this) })
+					_react2.default.createElement(Modal, { showModal: this.state.showModal, onHide: this.close.bind(this), close: this.close.bind(this) })
 				);
 			}
 		}]);

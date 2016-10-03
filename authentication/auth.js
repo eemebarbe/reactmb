@@ -11,14 +11,34 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('/loginAuth', passport.authenticate('local'), function(req,res) {
+app.post('/loginAuth', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    else if (!user) {  
+      return res.status(401);
+    }
+    else {
+      return res.redirect('/');
+    }
+    });
+});
+
+/*app.post('/loginAuth', passport.authenticate('local'), function(req,res) {
+    if (err) {
+      res.status(401);
+    }
+    else {
     res.redirect('/');
-  });
+    }
+  });*/
 
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
+
 
 
 passport.use(new LocalStrategy({
@@ -34,7 +54,6 @@ function(req, username, password, done) { // callback with email and password fr
                 return done(err);
        if (!rows.length) {
                 return done(null, false);
-                console.log("wrong shit");
             } 
       
       // if the user is found but the password is wrong
