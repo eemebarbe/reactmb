@@ -48748,12 +48748,10 @@
 					type: "POST",
 					url: "/loginAuth",
 					data: signInData,
-					dataType: "json",
 					success: function success() {
 						window.location.href = "./";
 					},
 					error: function error() {
-						console.log("FUCK MY LIIIIFE");
 						alert("Either your email or password is wrong!");
 					}
 				});

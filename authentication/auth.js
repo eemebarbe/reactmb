@@ -16,16 +16,18 @@ app.post('/loginAuth', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!user) {  
-      return res.status(401);
+    else if (!user) {  
+      res.status(401).send({ success : false });
     }
-    req.logIn(user, function(err) {
-      if (err) {
-        return next(err);
-      }
-      return res.status(200);
-    });
-  })(req, res, next);
+    else { 
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.status(200).send({ success : true });
+      });
+    }
+    })(req, res, next);
 });
 
 
