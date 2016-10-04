@@ -16,23 +16,18 @@ app.post('/loginAuth', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    else if (!user) {  
+    if (!user) {  
       return res.status(401);
     }
-    else {
-      return res.redirect('/');
-    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200);
     });
+  })(req, res, next);
 });
 
-/*app.post('/loginAuth', passport.authenticate('local'), function(req,res) {
-    if (err) {
-      res.status(401);
-    }
-    else {
-    res.redirect('/');
-    }
-  });*/
 
 app.get('/logout', function(req, res) {
   req.logout();
@@ -47,23 +42,22 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },
 
-function(req, username, password, done) { // callback with email and password from our form
+  function(req, username, password, done) { // callback with email and password from our form
 
-         connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'",function(err,rows){
+    connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'",function(err,rows){
       if (err)
-                return done(err);
-       if (!rows.length) {
-                return done(null, false);
-            } 
+        return done(err);
+      if (!rows.length) {
+        return done(null, false);
+      }   
+        // if the user is found but the password is wrong
+      if (!( rows[0].password == password)) {
+        return done(null, false); // create the loginMessage and save it to session as flashdata
+      } else {
+              // all is well, return successful user
+        return done(null, rows[0].username);   
+      }  
       
-      // if the user is found but the password is wrong
-            if (!( rows[0].password == password)) {
-                return done(null, false, { message: 'Incorrect password.' }); // create the loginMessage and save it to session as flashdata
-              } else {
-            // all is well, return successful user
-                return done(null, rows[0].username);   
-                }  
-    
     });
 }));
 

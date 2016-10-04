@@ -48750,11 +48750,10 @@
 					data: signInData,
 					dataType: "json",
 					success: function success() {
-						_jquery2.default.post("/loginAuth", signInData, function () {
-							window.location.href = "./";
-						});
+						window.location.href = "./";
 					},
 					error: function error() {
+						console.log("FUCK MY LIIIIFE");
 						alert("Either your email or password is wrong!");
 					}
 				});

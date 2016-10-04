@@ -67,11 +67,10 @@ $.ajax({
 			  data: signInData,
 			  dataType: "json",
 			  success: function(){
-							window.location.href= "./"; 
-			  			});
+				window.location.href= "./"; 
 			  },
-			  error: function() {
-			         alert("Either your email or password is wrong!");
+			  error: function(){
+			    alert("Either your email or password is wrong!");
 			  }
 		});	
 	}
