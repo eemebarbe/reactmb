@@ -55,22 +55,20 @@ webpackJsonp([2],[
 			key: 'deletePost',
 			value: function deletePost(post) {
 				var deletedPost = { post: post };
-				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
-					console.log(deletedPost);
-				});
+				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				var _this2 = this;
 
-				var finalPosts = this.state.posts.map(function (posts) {
+				var finalPosts = this.state.posts.map(index, function (posts) {
 					return _react2.default.createElement(
 						'div',
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ ref: posts.idposts, className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts) },
+							{ ref: index, className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts) },
 							_react2.default.createElement(
 								RB.Panel,
 								null,

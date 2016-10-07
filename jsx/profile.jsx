@@ -18,7 +18,9 @@ class ProfileOptions extends React.Component {
 
 	deletePost(post) {
 		var deletedPost = {post : post};
-		$.post('/api/v1/deletepost/', deletedPost);
+		$.post('/api/v1/deletepost/', deletedPost, function() {
+			this.setState({ posts :});
+		});
 	}
 
 
