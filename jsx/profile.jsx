@@ -10,22 +10,28 @@ class ProfileOptions extends React.Component {
 	constructor(props) {
     super(props);
     this.state = { posts : window.posts };
-  }
+  	}
 
 	uploadImage() {
 
-
 	}
+
+	deletePost(post) {
+		var deletedPost = {post : post};
+		$.post('/api/v1/deletepost/', deletedPost);
+	}
+
 
 	render() {
 
 		var finalPosts = this.state.posts.map((posts) => {
 			return (
 				<div>
-				<RB.Row className="postRow">
+				<RB.Row ref={posts.idposts} className="postRow" onClick={this.deletePost.bind(null, posts.idposts)}>
 					<RB.Panel>
 						{posts.title}
 						{posts.postdate}
+						<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
 					</RB.Panel>
 	    		</RB.Row>
 	    		</div>

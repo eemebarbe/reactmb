@@ -52,8 +52,17 @@ webpackJsonp([2],[
 			key: 'uploadImage',
 			value: function uploadImage() {}
 		}, {
+			key: 'deletePost',
+			value: function deletePost(post) {
+				var deletedPost = { post: post };
+				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
+					console.log(deletedPost);
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
 
 				var finalPosts = this.state.posts.map(function (posts) {
 					return _react2.default.createElement(
@@ -61,12 +70,13 @@ webpackJsonp([2],[
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ className: 'postRow' },
+							{ ref: posts.idposts, className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts) },
 							_react2.default.createElement(
 								RB.Panel,
 								null,
 								posts.title,
-								posts.postdate
+								posts.postdate,
+								_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
 							)
 						)
 					);

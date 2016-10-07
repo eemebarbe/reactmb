@@ -81,5 +81,4 @@ return function ensureAuthenticated(req, res, next) {
     }
 }
 
-
 }

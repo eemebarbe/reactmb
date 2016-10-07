@@ -121,7 +121,6 @@ app.get("/api/v1/postrange", function(req, res) {
     });
 });
 
-}
 
 app.get("/api/v1/postcount/", function(req, res) {
 
@@ -136,3 +135,19 @@ app.get("/api/v1/postcount/", function(req, res) {
           res.end();
     });
 });
+
+
+app.post('/api/v1/deletepost/', ensureAuthenticated, function(req,res) {
+
+    connection.query('DELETE FROM posts WHERE `idposts`=(?) AND `idusers`=(?)',[ req.body.post, req.user ], function(err, rows, fields) {
+      if (err) throw err;
+});
+    
+  res.end();
+});
+
+
+
+
+
+}

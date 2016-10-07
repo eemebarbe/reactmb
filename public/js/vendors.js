@@ -48692,12 +48692,19 @@
 		function Modal(props) {
 			_classCallCheck(this, Modal);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Modal).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Modal).call(this, props));
+
+			_this.state = {
+				signUpAlert: null,
+				signInAlert: null
+			};
+			return _this;
 		}
 
 		_createClass(Modal, [{
 			key: 'signUp',
 			value: function signUp() {
+				var self = this;
 				var signUpData = {
 					username: _reactDom2.default.findDOMNode(this.refs.username).value,
 					password: _reactDom2.default.findDOMNode(this.refs.password).value,
@@ -48707,17 +48714,17 @@
 
 				//Verify all sign-up data before passing it to the server
 				if (signUpData.username == null || signUpData.username == "") {
-					alert("Please enter a username!");
+					this.setState({ signUpAlert: "Please enter a username!" });
 				} else if (signUpData.password == null || signUpData.password == "") {
-					alert("Please enter a password!");
+					this.setState({ signUpAlert: "Please enter a password!" });
 				} else if (signUpData.password != signUpData.passwordVerify) {
-					alert("Password entries don't match!");
+					this.setState({ signUpAlert: "Password entries don't match!" });
 				} else if (signUpData.email == null || signUpData.email == "") {
-					alert("Please enter your email address!");
+					this.setState({ signUpAlert: "Please enter your email address!" });
 				} else if (signUpData.email !== null || signUpData.email !== "") {
 					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 					if (!re.test(signUpData.email)) {
-						alert("Not a valid email address!");
+						this.setState({ signUpAlert: "Not a valid email address!" });
 					} else {
 						_jquery2.default.ajax({
 							type: "POST",
@@ -48725,12 +48732,12 @@
 							data: signUpData,
 							dataType: "json",
 							success: function success() {
-								_jquery2.default.get("/loginAuth", signUpData, function () {
+								_jquery2.default.post("/loginAuth", signUpData, function () {
 									window.location.href = "./";
 								});
 							},
 							error: function error() {
-								alert("Either this email or this username is already in use!");
+								self.setState({ signUpAlert: "Either this email or this username is already in use!" });
 							}
 						});
 					}
@@ -48748,17 +48755,30 @@
 					type: "POST",
 					url: "/loginAuth",
 					data: signInData,
+					dataType: "json",
 					success: function success() {
 						window.location.href = "./";
 					},
 					error: function error() {
-						alert("Either your email or password is wrong!");
+						this.setState({ signInAlert: "Username or password was entered incorrectly." });
 					}
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+
+				var signUpPopUp = _react2.default.createElement(
+					RB.Popover,
+					null,
+					this.state.signUpAlert
+				);
+
+				var signInPopUp = _react2.default.createElement(
+					RB.Popover,
+					null,
+					this.state.signInAlert
+				);
 
 				return _react2.default.createElement(
 					'div',
@@ -48843,18 +48863,26 @@
 								RB.Col,
 								{ sm: 6 },
 								_react2.default.createElement(
-									RB.Button,
-									{ onClick: this.signUp.bind(this) },
-									'Sign Up'
+									RB.OverlayTrigger,
+									{ trigger: 'click', placement: 'left', overlay: signUpPopUp },
+									_react2.default.createElement(
+										RB.Button,
+										{ onClick: this.signUp.bind(this) },
+										'Sign Up'
+									)
 								)
 							),
 							_react2.default.createElement(
 								RB.Col,
 								{ sm: 6 },
 								_react2.default.createElement(
-									RB.Button,
-									{ onClick: this.signIn.bind(this) },
-									'Sign In'
+									RB.OverlayTrigger,
+									{ trigger: 'click', placement: 'left', overlay: signInPopUp },
+									_react2.default.createElement(
+										RB.Button,
+										{ bsStyle: 'primary', onClick: this.signIn.bind(this) },
+										'Sign In'
+									)
 								)
 							)
 						)

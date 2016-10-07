@@ -7,9 +7,14 @@ export class Modal extends React.Component {
 
 	constructor(props) {
     	super(props);
+    	this.state = {
+    		signUpAlert : null,
+    		signInAlert : null
+    	};
   	}
 
 	signUp() {
+		var self = this;
 	  	var signUpData = {
 	  		username : ReactDOM.findDOMNode(this.refs.username).value,
 	  		password : ReactDOM.findDOMNode(this.refs.password).value,
@@ -19,21 +24,21 @@ export class Modal extends React.Component {
 
 	//Verify all sign-up data before passing it to the server
 	  	if(signUpData.username == null || signUpData.username == "") {
-	  		alert("Please enter a username!");
+	  		this.setState({ signUpAlert : "Please enter a username!" });
 	  	}
 	  	else if(signUpData.password == null || signUpData.password == "") {
-	  		alert("Please enter a password!");
+	  		this.setState({ signUpAlert : "Please enter a password!" });
 	  	}
 	  	else if(signUpData.password != signUpData.passwordVerify) {
-	  		alert("Password entries don't match!");
+	  		this.setState({ signUpAlert : "Password entries don't match!" });	  		
 	  	}
 	  	else if(signUpData.email == null || signUpData.email == "") {
-	  		alert("Please enter your email address!");
+	  		this.setState({ signUpAlert : "Please enter your email address!" });	  		
 	  	}
 	  	else if (signUpData.email !== null || signUpData.email !== "") {
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			if(!re.test(signUpData.email)) {
-				alert("Not a valid email address!");
+	  			this.setState({ signUpAlert : "Not a valid email address!" });				
 			}
 			else {
 $.ajax({
@@ -42,12 +47,12 @@ $.ajax({
   data: signUpData,
   dataType: "json",
   success: function(){
-				$.get("/loginAuth", signUpData, function(){
+				$.post("/loginAuth", signUpData, function(){
 				window.location.href= "./"; 
   			});
   },
   error: function() {
-         alert("Either this email or this username is already in use!");
+	  	 self.setState({ signUpAlert : "Either this email or this username is already in use!" });	
   }
 });
 	    	}
@@ -70,12 +75,24 @@ $.ajax({
 				window.location.href= "./"; 
 			  },
 			  error: function(){
-			    alert("Either your email or password is wrong!");
+			    this.setState({ signInAlert : "Username or password was entered incorrectly." });	
 			  }
 		});	
 	}
 
 	render(){
+
+	  	const signUpPopUp = (
+	  		<RB.Popover>
+	    	{this.state.signUpAlert}
+	  		</RB.Popover>
+			);
+
+	  	const signInPopUp = (
+	  		<RB.Popover>
+	    	{this.state.signInAlert}
+	  		</RB.Popover>
+			);
 
 		return(
 			<div>
@@ -116,10 +133,14 @@ $.ajax({
 
 	      		<RB.Modal.Footer>
 			      	<RB.Col sm={6}>
-		      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
+			      		<RB.OverlayTrigger trigger="click" placement="left" overlay={signUpPopUp}>
+			      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
+    					</RB.OverlayTrigger>
 		      		</RB.Col>
 			      	<RB.Col sm={6}>
-		        		<RB.Button onClick={this.signIn.bind(this)}>Sign In</RB.Button>
+			      		<RB.OverlayTrigger trigger="click" placement="left" overlay={signInPopUp}>
+		        			<RB.Button bsStyle="primary" onClick={this.signIn.bind(this)}>Sign In</RB.Button>
+	    				</RB.OverlayTrigger>
 		        	</RB.Col>
 	      		</RB.Modal.Footer>
 				</RB.Modal>
