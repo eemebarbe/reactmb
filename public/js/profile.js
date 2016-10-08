@@ -53,22 +53,25 @@ webpackJsonp([2],[
 			value: function uploadImage() {}
 		}, {
 			key: 'deletePost',
-			value: function deletePost(post) {
+			value: function deletePost(post, postIndex) {
 				var deletedPost = { post: post };
-				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {});
+				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
+					this.setState({
+						posts: this.state.posts.splice(postIndex, 1) });
+				}.bind(this));
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				var _this2 = this;
 
-				var finalPosts = this.state.posts.map(index, function (posts) {
+				var finalPosts = this.state.posts.map(function (posts) {
 					return _react2.default.createElement(
 						'div',
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ ref: index, className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts) },
+							{ className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts, _this2.state.posts.indexOf(posts)) },
 							_react2.default.createElement(
 								RB.Panel,
 								null,

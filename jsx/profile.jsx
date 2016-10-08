@@ -16,11 +16,12 @@ class ProfileOptions extends React.Component {
 
 	}
 
-	deletePost(post) {
+	deletePost(post, postIndex) {
 		var deletedPost = {post : post};
 		$.post('/api/v1/deletepost/', deletedPost, function() {
-			this.setState({ posts :});
-		});
+			this.setState({ 
+				 posts : this.state.posts.splice(postIndex, 1)});
+		}.bind(this));
 	}
 
 
@@ -29,7 +30,7 @@ class ProfileOptions extends React.Component {
 		var finalPosts = this.state.posts.map((posts) => {
 			return (
 				<div>
-				<RB.Row ref={posts.idposts} className="postRow" onClick={this.deletePost.bind(null, posts.idposts)}>
+				<RB.Row className="postRow" onClick={this.deletePost.bind(null, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
 						{posts.postdate}
