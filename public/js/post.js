@@ -71,10 +71,8 @@ webpackJsonp([1],[
 				var deletedComment = { comment: comment };
 				console.log(this.state.comments);
 				_jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
-					this.setState({
-						comments: this.state.comments.splice(commentIndex, 1) });
+					console.log(JSON.stringify({ comments: this.state.comments.splice(commentIndex, 1) }));
 				}.bind(this));
-				console.log(this.state.comments);
 			}
 		}, {
 			key: 'render',
