@@ -26,7 +26,16 @@ class PostDisplay extends React.Component {
 			}.bind(this));
 
 			this.setState({ commentSubmitted : true });
+	}
 
+
+	deleteComment(comment, commentIndex) {
+		var deletedComment = {comment : comment};
+		console.log(this.state.comments);
+		$.post('../api/v1/deletecomment/', deletedComment, function() {
+			this.setState({ 
+				 comments : this.state.comments.splice(commentIndex, 1)});
+		}.bind(this));
 	}
 
 
@@ -59,13 +68,14 @@ class PostDisplay extends React.Component {
 		var	finalComments = this.state.comments.map((commentsEntered) => {
 	        return (
 				<div>
-				<RB.Row className="commentRow">
+				<RB.Row className="commentRow" onClick={this.deleteComment.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
 				<RB.Col xs={3} sm={2}>
 				<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
 					</RB.Col>
 					<RB.Col xs={9} sm={10} >
 				<RB.Panel className="commentPanel" header={ commentsEntered.iduser }>
 	      		{ commentsEntered.comment }
+	      		<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
 	    		</RB.Panel>
 	    		</RB.Col>
 	    		</RB.Row>

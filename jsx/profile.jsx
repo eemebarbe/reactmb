@@ -17,6 +17,7 @@ class ProfileOptions extends React.Component {
 	}
 
 	deletePost(post, postIndex) {
+		console.log(postIndex);
 		var deletedPost = {post : post};
 		$.post('/api/v1/deletepost/', deletedPost, function() {
 			this.setState({ 
@@ -30,7 +31,7 @@ class ProfileOptions extends React.Component {
 		var finalPosts = this.state.posts.map((posts) => {
 			return (
 				<div>
-				<RB.Row className="postRow" onClick={this.deletePost.bind(null, posts.idposts, this.state.posts.indexOf(posts))}>
+				<RB.Row className="postRow" onClick={this.deletePost.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
 						{posts.postdate}

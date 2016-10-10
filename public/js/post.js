@@ -66,8 +66,20 @@ webpackJsonp([1],[
 				this.setState({ commentSubmitted: true });
 			}
 		}, {
+			key: 'deleteComment',
+			value: function deleteComment(comment, commentIndex) {
+				var deletedComment = { comment: comment };
+				console.log(this.state.comments);
+				_jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
+					this.setState({
+						comments: this.state.comments.splice(commentIndex, 1) });
+				}.bind(this));
+				console.log(this.state.comments);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
 
 				var authRender = null;
 				if (window.user !== "" && this.state.commentSubmitted == false) {
@@ -129,7 +141,7 @@ webpackJsonp([1],[
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ className: 'commentRow' },
+							{ className: 'commentRow', onClick: _this2.deleteComment.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
 							_react2.default.createElement(
 								RB.Col,
 								{ xs: 3, sm: 2 },
@@ -141,7 +153,8 @@ webpackJsonp([1],[
 								_react2.default.createElement(
 									RB.Panel,
 									{ className: 'commentPanel', header: commentsEntered.iduser },
-									commentsEntered.comment
+									commentsEntered.comment,
+									_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
 								)
 							)
 						)

@@ -54,6 +54,7 @@ webpackJsonp([2],[
 		}, {
 			key: 'deletePost',
 			value: function deletePost(post, postIndex) {
+				console.log(postIndex);
 				var deletedPost = { post: post };
 				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
 					this.setState({
@@ -71,7 +72,7 @@ webpackJsonp([2],[
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ className: 'postRow', onClick: _this2.deletePost.bind(null, posts.idposts, _this2.state.posts.indexOf(posts)) },
+							{ className: 'postRow', onClick: _this2.deletePost.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
 							_react2.default.createElement(
 								RB.Panel,
 								null,
