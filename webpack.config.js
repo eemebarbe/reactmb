@@ -34,6 +34,10 @@ module.exports = {
     ]
   },
 
+    externals: {
+    'react/addons': 'react/addons'
+  },
+
   plugins: [
         new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js")
     ]

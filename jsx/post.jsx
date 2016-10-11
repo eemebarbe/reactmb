@@ -1,4 +1,5 @@
 import React from 'react';
+import update from 'react-addons-update';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import $ from "jquery";
@@ -31,9 +32,10 @@ class PostDisplay extends React.Component {
 
 	deleteComment(comment, commentIndex) {
 		var deletedComment = {comment : comment};
-		console.log(this.state.comments);
 		$.post('../api/v1/deletecomment/', deletedComment, function() {
-console.log(JSON.stringify({comments: this.state.comments.splice(commentIndex, 1)}));
+			this.setState({ 
+				 comments: update(this.state.comments, {$splice: [[commentIndex, 1]]})
+			});
 		}.bind(this));
 	}
 
