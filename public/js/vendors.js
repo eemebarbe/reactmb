@@ -50537,7 +50537,7 @@
 								{ sm: 6 },
 								_react2.default.createElement(
 									RB.OverlayTrigger,
-									{ trigger: 'click', placement: 'left', overlay: signUpPopUp },
+									{ trigger: this.state.signUpAlert !== null ? 'click' : null, placement: 'left', overlay: signUpPopUp },
 									_react2.default.createElement(
 										RB.Button,
 										{ onClick: this.signUp.bind(this) },
@@ -50550,7 +50550,7 @@
 								{ sm: 6 },
 								_react2.default.createElement(
 									RB.OverlayTrigger,
-									{ trigger: 'click', placement: 'left', overlay: signInPopUp },
+									{ trigger: this.state.signInAlert !== null ? 'click' : null, placement: 'left', overlay: signInPopUp },
 									_react2.default.createElement(
 										RB.Button,
 										{ bsStyle: 'primary', onClick: this.signIn.bind(this) },

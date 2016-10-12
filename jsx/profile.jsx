@@ -1,4 +1,5 @@
 import React from 'react';
+import update from 'react-addons-update';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import $ from "jquery";
@@ -9,7 +10,10 @@ class ProfileOptions extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = { posts : window.posts };
+    this.state = { 
+    	posts : window.posts,
+    	showConfirm : false
+    };
   	}
 
 	uploadImage() {
@@ -17,11 +21,11 @@ class ProfileOptions extends React.Component {
 	}
 
 	deletePost(post, postIndex) {
-		console.log(postIndex);
 		var deletedPost = {post : post};
 		$.post('/api/v1/deletepost/', deletedPost, function() {
 			this.setState({ 
-				 posts : this.state.posts.splice(postIndex, 1)});
+				 posts : update(this.state.posts, {$splice: [[postIndex, 1]]})
+			});
 		}.bind(this));
 	}
 
@@ -61,13 +65,32 @@ class ProfileOptions extends React.Component {
 	}
 }
 
+class PostDeletionConfirm extends React.Component {
+
+	constructor(props) {
+    	super(props);
+  	}
+
+	render() {
+		return (
+			<RB.Modal show={this.props.showConfirm} onHide={this.props.close}>
+				<RB.Modal.Header closeButton>
+	      		</RB.Modal.Header>
+	      		<h4>Are you sure you would like to delete this post?</h4>
+	      		<RB.Button>Yes</RB.Button>
+	      		<RB.Button>No</RB.Button>
+			</RB.Modal>
+		);
+	}
+}
+
 class ProfilePage extends React.Component {
 	render() {
 		return (
 			<RB.Grid>
 			<formatting.Header />
 			<ProfileOptions />
-
+			<Modal showConfirm={this.state.showConfirm} onHide={this.close.bind(this)} close={this.close.bind(this)}/>
 			</RB.Grid>
 			);
 	}

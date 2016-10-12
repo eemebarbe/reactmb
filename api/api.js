@@ -148,7 +148,6 @@ app.post('/api/v1/deletepost/', ensureAuthenticated, function(req,res) {
 
 
 app.post('/api/v1/deletecomment/', ensureAuthenticated, function(req,res) {
-console.log(req.body.comment);
     connection.query('DELETE FROM comments WHERE `idcomments`=(?) AND `idusers`=(?)',[ req.body.comment, req.user ], function(err, rows, fields) {
       if (err) throw err;
 });

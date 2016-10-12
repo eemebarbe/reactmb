@@ -133,12 +133,12 @@ $.ajax({
 
 	      		<RB.Modal.Footer>
 			      	<RB.Col sm={6}>
-			      		<RB.OverlayTrigger trigger="click" placement="left" overlay={signUpPopUp}>
+			      		<RB.OverlayTrigger trigger={this.state.signUpAlert !== null ? 'click' : null} placement="left" overlay={signUpPopUp}>
 			      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
     					</RB.OverlayTrigger>
 		      		</RB.Col>
 			      	<RB.Col sm={6}>
-			      		<RB.OverlayTrigger trigger="click" placement="left" overlay={signInPopUp}>
+			      		<RB.OverlayTrigger trigger={this.state.signInAlert !== null ? 'click' : null} placement="left" overlay={signInPopUp}>
 		        			<RB.Button bsStyle="primary" onClick={this.signIn.bind(this)}>Sign In</RB.Button>
 	    				</RB.OverlayTrigger>
 		        	</RB.Col>

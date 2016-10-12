@@ -140,29 +140,54 @@ webpackJsonp([1],{
 				}
 
 				var finalComments = this.state.comments.map(function (commentsEntered) {
-					return _react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							RB.Row,
-							{ className: 'commentRow', onClick: _this2.deleteComment.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
+					if (window.user == commentsEntered.idusers) {
+						return _react2.default.createElement(
+							'div',
+							null,
 							_react2.default.createElement(
-								RB.Col,
-								{ xs: 3, sm: 2 },
-								_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
-							),
-							_react2.default.createElement(
-								RB.Col,
-								{ xs: 9, sm: 10 },
+								RB.Row,
+								{ className: 'commentRow', onClick: _this2.deleteComment.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
 								_react2.default.createElement(
-									RB.Panel,
-									{ className: 'commentPanel', header: commentsEntered.iduser },
-									commentsEntered.comment,
-									_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+									RB.Col,
+									{ xs: 3, sm: 2 },
+									_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+								),
+								_react2.default.createElement(
+									RB.Col,
+									{ xs: 9, sm: 10 },
+									_react2.default.createElement(
+										RB.Panel,
+										{ className: 'commentPanel', header: commentsEntered.idusers },
+										commentsEntered.comment,
+										_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+									)
 								)
 							)
-						)
-					);
+						);
+					} else {
+						return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								RB.Row,
+								{ className: 'commentRow' },
+								_react2.default.createElement(
+									RB.Col,
+									{ xs: 3, sm: 2 },
+									_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+								),
+								_react2.default.createElement(
+									RB.Col,
+									{ xs: 9, sm: 10 },
+									_react2.default.createElement(
+										RB.Panel,
+										{ className: 'commentPanel', header: commentsEntered.idusers },
+										commentsEntered.comment
+									)
+								)
+							)
+						);
+					}
 				});
 
 				return _react2.default.createElement(

@@ -67,21 +67,39 @@ class PostDisplay extends React.Component {
 			}
 
 		var	finalComments = this.state.comments.map((commentsEntered) => {
-	        return (
-				<div>
-				<RB.Row className="commentRow" onClick={this.deleteComment.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
-				<RB.Col xs={3} sm={2}>
-				<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
-					</RB.Col>
-					<RB.Col xs={9} sm={10} >
-				<RB.Panel className="commentPanel" header={ commentsEntered.iduser }>
-	      		{ commentsEntered.comment }
-	      		<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
-	    		</RB.Panel>
-	    		</RB.Col>
-	    		</RB.Row>
-	    		</div>
-	        );
+	        if( window.user == commentsEntered.idusers ) {
+		        return (
+					<div>
+					<RB.Row className="commentRow" onClick={this.deleteComment.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
+					<RB.Col xs={3} sm={2}>
+					<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+						</RB.Col>
+						<RB.Col xs={9} sm={10} >
+					<RB.Panel className="commentPanel" header={ commentsEntered.idusers }>
+		      		{ commentsEntered.comment }
+		      		<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
+		    		</RB.Panel>
+		    		</RB.Col>
+		    		</RB.Row>
+		    		</div>
+	        	);
+	        }
+	        else {
+	        	return (
+					<div>
+					<RB.Row className="commentRow">
+					<RB.Col xs={3} sm={2}>
+					<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+						</RB.Col>
+						<RB.Col xs={9} sm={10} >
+					<RB.Panel className="commentPanel" header={ commentsEntered.idusers }>
+		      		{ commentsEntered.comment }
+		    		</RB.Panel>
+		    		</RB.Col>
+		    		</RB.Row>
+		    		</div>        		
+	        	);
+	        }
 	    });
 
 		return (
