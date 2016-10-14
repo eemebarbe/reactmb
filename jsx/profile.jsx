@@ -6,27 +6,41 @@ import $ from "jquery";
 import * as formatting from './header.jsx';
 
 
+
 class ProfileOptions extends React.Component {
 
 	constructor(props) {
     super(props);
     this.state = { 
     	posts : window.posts,
-    	showConfirm : false
+    	showConfirm : false,
+    	deletePost : null,
+    	deletePostIndex : null
     };
   	}
 
-	uploadImage() {
+    close() {
+    	this.setState({ showConfirm: false });
+  	}
 
-	}
+  	open(post, postIndex) {
+    	this.setState({ showConfirm: true,
+    					deletePost : post,
+    					deletePostIndex : postIndex });
+  	}
 
-	deletePost(post, postIndex) {
-		var deletedPost = {post : post};
+  	uploadImage() {
+
+  	}
+
+	deletePost() {
+		var deletedPost = {post : this.state.deletePost};
 		$.post('/api/v1/deletepost/', deletedPost, function() {
 			this.setState({ 
-				 posts : update(this.state.posts, {$splice: [[postIndex, 1]]})
+				 posts : update(this.state.posts, {$splice: [[this.statedeletePostIndex, 1]]})
 			});
 		}.bind(this));
+		this.setState({ showConfirm: false });
 	}
 
 
@@ -35,7 +49,7 @@ class ProfileOptions extends React.Component {
 		var finalPosts = this.state.posts.map((posts) => {
 			return (
 				<div>
-				<RB.Row className="postRow" onClick={this.deletePost.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
+				<RB.Row className="postRow" onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
 						{posts.postdate}
@@ -60,29 +74,22 @@ class ProfileOptions extends React.Component {
 	      		<h4>Posts</h4>
 	      			{finalPosts}
 	      		</RB.Row>
+
+	      		<RB.Modal show={this.state.showConfirm} onHide={this.close.bind(this)}>
+				<RB.Modal.Header closeButton>
+	      		</RB.Modal.Header>
+	      		<RB.Modal.Body>
+		      		<h4>Are you sure you would like to delete this post?</h4>
+		      		<RB.Button onClick={this.deletePost.bind(this)}>Yes</RB.Button>
+		      		<RB.Button>No</RB.Button>
+	      		</RB.Modal.Body>
+				</RB.Modal>
 	      	</div>
+
 			);
 	}
 }
 
-class PostDeletionConfirm extends React.Component {
-
-	constructor(props) {
-    	super(props);
-  	}
-
-	render() {
-		return (
-			<RB.Modal show={this.props.showConfirm} onHide={this.props.close}>
-				<RB.Modal.Header closeButton>
-	      		</RB.Modal.Header>
-	      		<h4>Are you sure you would like to delete this post?</h4>
-	      		<RB.Button>Yes</RB.Button>
-	      		<RB.Button>No</RB.Button>
-			</RB.Modal>
-		);
-	}
-}
 
 class ProfilePage extends React.Component {
 	render() {
@@ -90,7 +97,6 @@ class ProfilePage extends React.Component {
 			<RB.Grid>
 			<formatting.Header />
 			<ProfileOptions />
-			<Modal showConfirm={this.state.showConfirm} onHide={this.close.bind(this)} close={this.close.bind(this)}/>
 			</RB.Grid>
 			);
 	}

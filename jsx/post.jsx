@@ -12,7 +12,20 @@ class PostDisplay extends React.Component {
     super(props);
     this.state = { comments: window.loopComments,
     				numberOfComments: window.loopComments.length,
-    				commentSubmitted: false };
+    				commentSubmitted: false,
+    				thisComment: null,
+    				thisCommentIndex: null,
+    				showConfirm: null };
+  	}
+
+    close() {
+    	this.setState({ showConfirm: false });
+  	}
+
+  	open(comment, commentIndex) {
+    	this.setState({ showConfirm: true,
+    					thisComment : comment,
+    					thisCommentIndex : commentIndex });
   	}
 
 	postComment() {
@@ -30,13 +43,14 @@ class PostDisplay extends React.Component {
 	}
 
 
-	deleteComment(comment, commentIndex) {
-		var deletedComment = {comment : comment};
+	deleteComment() {
+		var deletedComment = {comment : this.state.thisComment};
 		$.post('../api/v1/deletecomment/', deletedComment, function() {
 			this.setState({ 
-				 comments: update(this.state.comments, {$splice: [[commentIndex, 1]]})
+				 comments: update(this.state.comments, {$splice: [[this.state.thisCommentIndex, 1]]})
 			});
 		}.bind(this));
+		this.setState({ showConfirm: false });
 	}
 
 
@@ -70,11 +84,11 @@ class PostDisplay extends React.Component {
 	        if( window.user == commentsEntered.idusers ) {
 		        return (
 					<div>
-					<RB.Row className="commentRow" onClick={this.deleteComment.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
-					<RB.Col xs={3} sm={2}>
+					<RB.Row className="commentRow" onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
+					<RB.Col xs={3}>
 					<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
 						</RB.Col>
-						<RB.Col xs={9} sm={10} >
+						<RB.Col xs={9}>
 					<RB.Panel className="commentPanel" header={ commentsEntered.idusers }>
 		      		{ commentsEntered.comment }
 		      		<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
@@ -112,7 +126,18 @@ class PostDisplay extends React.Component {
 			<RB.Row>
 				{finalComments}
 			</RB.Row>
+
+	      		<RB.Modal show={this.state.showConfirm} onHide={this.close.bind(this)}>
+				<RB.Modal.Header closeButton>
+	      		</RB.Modal.Header>
+	      		<RB.Modal.Body>
+		      		<h4>Are you sure you would like to delete this comment?</h4>
+		      		<RB.Button onClick={this.deleteComment.bind(this)}>Yes</RB.Button>
+		      		<RB.Button>No</RB.Button>
+	      		</RB.Modal.Body>
+				</RB.Modal>
 			</div>
+
 		)
 	}
 }

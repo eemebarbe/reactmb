@@ -50403,7 +50403,6 @@
 							type: "POST",
 							url: "/api/v1/newuser",
 							data: signUpData,
-							dataType: "json",
 							success: function success() {
 								_jquery2.default.post("/loginAuth", signUpData, function () {
 									window.location.href = "./";

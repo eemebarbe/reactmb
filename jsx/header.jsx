@@ -45,7 +45,6 @@ $.ajax({
   type: "POST",
   url: "/api/v1/newuser",
   data: signUpData,
-  dataType: "json",
   success: function(){
 				$.post("/loginAuth", signUpData, function(){
 				window.location.href= "./"; 

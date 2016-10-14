@@ -51,11 +51,26 @@ webpackJsonp([1],{
 
 			_this.state = { comments: window.loopComments,
 				numberOfComments: window.loopComments.length,
-				commentSubmitted: false };
+				commentSubmitted: false,
+				thisComment: null,
+				thisCommentIndex: null,
+				showConfirm: null };
 			return _this;
 		}
 
 		_createClass(PostDisplay, [{
+			key: 'close',
+			value: function close() {
+				this.setState({ showConfirm: false });
+			}
+		}, {
+			key: 'open',
+			value: function open(comment, commentIndex) {
+				this.setState({ showConfirm: true,
+					thisComment: comment,
+					thisCommentIndex: commentIndex });
+			}
+		}, {
 			key: 'postComment',
 			value: function postComment() {
 				var commentData = {
@@ -72,13 +87,14 @@ webpackJsonp([1],{
 			}
 		}, {
 			key: 'deleteComment',
-			value: function deleteComment(comment, commentIndex) {
-				var deletedComment = { comment: comment };
+			value: function deleteComment() {
+				var deletedComment = { comment: this.state.thisComment };
 				_jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
 					this.setState({
-						comments: (0, _reactAddonsUpdate2.default)(this.state.comments, { $splice: [[commentIndex, 1]] })
+						comments: (0, _reactAddonsUpdate2.default)(this.state.comments, { $splice: [[this.state.thisCommentIndex, 1]] })
 					});
 				}.bind(this));
+				this.setState({ showConfirm: false });
 			}
 		}, {
 			key: 'render',
@@ -146,15 +162,15 @@ webpackJsonp([1],{
 							null,
 							_react2.default.createElement(
 								RB.Row,
-								{ className: 'commentRow', onClick: _this2.deleteComment.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
+								{ className: 'commentRow', onClick: _this2.open.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
 								_react2.default.createElement(
 									RB.Col,
-									{ xs: 3, sm: 2 },
+									{ xs: 3 },
 									_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
 								),
 								_react2.default.createElement(
 									RB.Col,
-									{ xs: 9, sm: 10 },
+									{ xs: 9 },
 									_react2.default.createElement(
 										RB.Panel,
 										{ className: 'commentPanel', header: commentsEntered.idusers },
@@ -212,6 +228,30 @@ webpackJsonp([1],{
 						RB.Row,
 						null,
 						finalComments
+					),
+					_react2.default.createElement(
+						RB.Modal,
+						{ show: this.state.showConfirm, onHide: this.close.bind(this) },
+						_react2.default.createElement(RB.Modal.Header, { closeButton: true }),
+						_react2.default.createElement(
+							RB.Modal.Body,
+							null,
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Are you sure you would like to delete this comment?'
+							),
+							_react2.default.createElement(
+								RB.Button,
+								{ onClick: this.deleteComment.bind(this) },
+								'Yes'
+							),
+							_react2.default.createElement(
+								RB.Button,
+								null,
+								'No'
+							)
+						)
 					)
 				);
 			}

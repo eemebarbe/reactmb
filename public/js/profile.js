@@ -51,23 +51,38 @@ webpackJsonp([2],{
 
 			_this.state = {
 				posts: window.posts,
-				showConfirm: false
+				showConfirm: false,
+				deletePost: null,
+				deletePostIndex: null
 			};
 			return _this;
 		}
 
 		_createClass(ProfileOptions, [{
+			key: 'close',
+			value: function close() {
+				this.setState({ showConfirm: false });
+			}
+		}, {
+			key: 'open',
+			value: function open(post, postIndex) {
+				this.setState({ showConfirm: true,
+					deletePost: post,
+					deletePostIndex: postIndex });
+			}
+		}, {
 			key: 'uploadImage',
 			value: function uploadImage() {}
 		}, {
 			key: 'deletePost',
-			value: function deletePost(post, postIndex) {
-				var deletedPost = { post: post };
+			value: function deletePost() {
+				var deletedPost = { post: this.state.deletePost };
 				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
 					this.setState({
-						posts: (0, _reactAddonsUpdate2.default)(this.state.posts, { $splice: [[postIndex, 1]] })
+						posts: (0, _reactAddonsUpdate2.default)(this.state.posts, { $splice: [[this.statedeletePostIndex, 1]] })
 					});
 				}.bind(this));
+				this.setState({ showConfirm: false });
 			}
 		}, {
 			key: 'render',
@@ -80,7 +95,7 @@ webpackJsonp([2],{
 						null,
 						_react2.default.createElement(
 							RB.Row,
-							{ className: 'postRow', onClick: _this2.deletePost.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
+							{ className: 'postRow', onClick: _this2.open.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
 							_react2.default.createElement(
 								RB.Panel,
 								null,
@@ -124,6 +139,30 @@ webpackJsonp([2],{
 							'Posts'
 						),
 						finalPosts
+					),
+					_react2.default.createElement(
+						RB.Modal,
+						{ show: this.state.showConfirm, onHide: this.close.bind(this) },
+						_react2.default.createElement(RB.Modal.Header, { closeButton: true }),
+						_react2.default.createElement(
+							RB.Modal.Body,
+							null,
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Are you sure you would like to delete this post?'
+							),
+							_react2.default.createElement(
+								RB.Button,
+								{ onClick: this.deletePost.bind(this) },
+								'Yes'
+							),
+							_react2.default.createElement(
+								RB.Button,
+								null,
+								'No'
+							)
+						)
 					)
 				);
 			}
@@ -132,46 +171,8 @@ webpackJsonp([2],{
 		return ProfileOptions;
 	}(_react2.default.Component);
 
-	var PostDeletionConfirm = function (_React$Component2) {
-		_inherits(PostDeletionConfirm, _React$Component2);
-
-		function PostDeletionConfirm(props) {
-			_classCallCheck(this, PostDeletionConfirm);
-
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostDeletionConfirm).call(this, props));
-		}
-
-		_createClass(PostDeletionConfirm, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					RB.Modal,
-					{ show: this.props.showConfirm, onHide: this.props.close },
-					_react2.default.createElement(RB.Modal.Header, { closeButton: true }),
-					_react2.default.createElement(
-						'h4',
-						null,
-						'Are you sure you would like to delete this post?'
-					),
-					_react2.default.createElement(
-						RB.Button,
-						null,
-						'Yes'
-					),
-					_react2.default.createElement(
-						RB.Button,
-						null,
-						'No'
-					)
-				);
-			}
-		}]);
-
-		return PostDeletionConfirm;
-	}(_react2.default.Component);
-
-	var ProfilePage = function (_React$Component3) {
-		_inherits(ProfilePage, _React$Component3);
+	var ProfilePage = function (_React$Component2) {
+		_inherits(ProfilePage, _React$Component2);
 
 		function ProfilePage() {
 			_classCallCheck(this, ProfilePage);
@@ -186,8 +187,7 @@ webpackJsonp([2],{
 					RB.Grid,
 					null,
 					_react2.default.createElement(formatting.Header, null),
-					_react2.default.createElement(ProfileOptions, null),
-					_react2.default.createElement(Modal, { showConfirm: this.state.showConfirm, onHide: this.close.bind(this), close: this.close.bind(this) })
+					_react2.default.createElement(ProfileOptions, null)
 				);
 			}
 		}]);

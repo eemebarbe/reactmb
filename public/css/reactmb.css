@@ -1,9 +1,9 @@
-.commentRow{
-	max-height: 150px;
+.commentRow {
+	max-height: 170px;
 	margin-top: 20px;
 
 }
 
-.commentPanel {
+.panel-body {
 	height: 100%;
 }
