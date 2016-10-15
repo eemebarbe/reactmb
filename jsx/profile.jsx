@@ -30,7 +30,23 @@ class ProfileOptions extends React.Component {
   	}
 
   	uploadImage() {
+  		var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0];
+  		var	data = new FormData();
+  			data.append('avatar', avatarData);
 
+  		$.ajax({
+		  url: 'api/v1/avatar',
+		  data: data,
+		  processData: false,
+		  contentType: false,
+		  type: 'POST',
+		  success: function(){
+		    alert("success");
+		  },
+		  error: function(){
+		  	alert("error");
+		  }
+		});
   	}
 
 	deletePost() {
@@ -65,9 +81,11 @@ class ProfileOptions extends React.Component {
 				<RB.Row>
 				<h4>Profile Image</h4>
 	      		<RB.Image className="userImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
-			    <RB.FormGroup id="formControlsFile">
-			        <RB.FormControl type="file"/>
-			    </RB.FormGroup>
+			    
+			    
+				<input type="file" ref="avatarPath" name="file"/>
+				
+			    
 				<RB.Button onClick={this.uploadImage.bind(this)}>Save</RB.Button>
 				</RB.Row>
 				<RB.Row>

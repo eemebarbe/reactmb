@@ -157,6 +157,13 @@ app.post('/api/v1/deletecomment/', ensureAuthenticated, function(req,res) {
 });
 
 
+app.post('/api/v1/avatar', upload.single('avatar'), ensureAuthenticated, function(req,res) {
+    console.log(req.file);
+
+    res.end();
+});
+    
+
 
 
 }

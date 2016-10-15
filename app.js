@@ -6,6 +6,8 @@ var express = require('express');
     bodyParser = require('body-parser');
     path = require ('path');
     ejs = require('ejs');
+    multer = require('multer');
+    upload = multer({ dest: 'uploads/' })
   	router = express.Router(); 
 
 

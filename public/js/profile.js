@@ -72,7 +72,25 @@ webpackJsonp([2],{
 			}
 		}, {
 			key: 'uploadImage',
-			value: function uploadImage() {}
+			value: function uploadImage() {
+				var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0];
+				var data = new FormData();
+				data.append('avatar', avatarData);
+
+				_jquery2.default.ajax({
+					url: 'api/v1/avatar',
+					data: data,
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: function success() {
+						alert("success");
+					},
+					error: function error() {
+						alert("error");
+					}
+				});
+			}
 		}, {
 			key: 'deletePost',
 			value: function deletePost() {
@@ -119,11 +137,7 @@ webpackJsonp([2],{
 							'Profile Image'
 						),
 						_react2.default.createElement(RB.Image, { className: 'userImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true }),
-						_react2.default.createElement(
-							RB.FormGroup,
-							{ id: 'formControlsFile' },
-							_react2.default.createElement(RB.FormControl, { type: 'file' })
-						),
+						_react2.default.createElement('input', { type: 'file', ref: 'avatarPath', name: 'file' }),
 						_react2.default.createElement(
 							RB.Button,
 							{ onClick: this.uploadImage.bind(this) },
