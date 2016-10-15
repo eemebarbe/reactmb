@@ -30,23 +30,34 @@ class ProfileOptions extends React.Component {
   	}
 
   	uploadImage() {
-  		var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0];
-  		var	data = new FormData();
-  			data.append('avatar', avatarData);
+  		var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
+  			avatarPath = ReactDOM.findDOMNode(this.refs.avatarPath).value,
+  			data = new FormData(),
+ 			re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+ 		data.append('avatar', avatarData);
 
-  		$.ajax({
-		  url: 'api/v1/avatar',
-		  data: data,
-		  processData: false,
-		  contentType: false,
-		  type: 'POST',
-		  success: function(){
-		    alert("success");
-		  },
-		  error: function(){
-		  	alert("error");
-		  }
-		});
+		if(!re.exec(avatarPath))
+		{
+			alert("File extension not supported!");
+		}
+		else if(avatarData.size > 20000) {
+			alert("File size is too big!");
+		}
+		else {
+	  		$.ajax({
+			  url: 'api/v1/avatar',
+			  data: data,
+			  processData: false,
+			  contentType: false,
+			  type: 'POST',
+			  success: function(){
+			    alert("success");
+			  },
+			  error: function(){
+			  	alert("error");
+			  }
+			});
+		}
   	}
 
 	deletePost() {

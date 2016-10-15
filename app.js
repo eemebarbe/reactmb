@@ -6,9 +6,24 @@ var express = require('express');
     bodyParser = require('body-parser');
     path = require ('path');
     ejs = require('ejs');
-    multer = require('multer');
-    upload = multer({ dest: 'uploads/' })
   	router = express.Router(); 
+
+
+//file upload configuration
+
+var multer = require('multer');
+
+var avatarStorage = multer.diskStorage({
+
+  	destination: function (req, file, cb) {
+    	cb(null, 'uploads/avatars/');
+  	},
+	filename: function (req, file, cb){
+		cb(null, req.user);
+	}
+});
+
+uploadAvatar = multer({ storage: avatarStorage });
 
 
 //database configuration

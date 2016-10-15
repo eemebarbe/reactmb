@@ -73,23 +73,31 @@ webpackJsonp([2],{
 		}, {
 			key: 'uploadImage',
 			value: function uploadImage() {
-				var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0];
-				var data = new FormData();
+				var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0],
+				    avatarPath = _reactDom2.default.findDOMNode(this.refs.avatarPath).value,
+				    data = new FormData(),
+				    re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
 				data.append('avatar', avatarData);
 
-				_jquery2.default.ajax({
-					url: 'api/v1/avatar',
-					data: data,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success: function success() {
-						alert("success");
-					},
-					error: function error() {
-						alert("error");
-					}
-				});
+				if (!re.exec(avatarPath)) {
+					alert("File extension not supported!");
+				} else if (avatarData.size > 20000) {
+					alert("File size is too big!");
+				} else {
+					_jquery2.default.ajax({
+						url: 'api/v1/avatar',
+						data: data,
+						processData: false,
+						contentType: false,
+						type: 'POST',
+						success: function success() {
+							alert("success");
+						},
+						error: function error() {
+							alert("error");
+						}
+					});
+				}
 			}
 		}, {
 			key: 'deletePost',
