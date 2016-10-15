@@ -14,12 +14,15 @@ var express = require('express');
 var multer = require('multer');
 
 var avatarStorage = multer.diskStorage({
-
   	destination: function (req, file, cb) {
     	cb(null, 'uploads/avatars/');
   	},
 	filename: function (req, file, cb){
 		cb(null, req.user);
+	},
+	limits: {
+		fieldNameSize: 100,
+		fizeSize: 20000
 	}
 });
 
