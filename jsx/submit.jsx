@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
-import $ from "jquery";
+import $ from 'jquery';
 import * as formatting from './header.jsx';
 
 
@@ -20,7 +20,7 @@ class SubmitForm extends React.Component {
   		idusers : window.user
   		};
 
-		$.post("api/v1/newpost", articleData);
+		$.post('api/v1/newpost', articleData);
 
 
 	}
@@ -31,14 +31,14 @@ class SubmitForm extends React.Component {
 				<div>
 	      		<h4>Title</h4>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl ref="title" type="text"/>
+	        	<RB.FormControl ref='title' type='text'/>
 	        	</RB.FormGroup>
 	        	<h4>Content</h4>
 	        	<RB.FormGroup>        	
-	        	<RB.FormControl ref="article" componentClass="textarea" type="text"/>
+	        	<RB.FormControl ref='article' componentClass='textarea' type='text'/>
 	        	</RB.FormGroup>
 	        	<RB.ButtonGroup>
-				<RB.Button onClick={this.postArticle.bind(this)} href="./">Submit</RB.Button>
+				<RB.Button onClick={this.postArticle.bind(this)} href='./'>Submit</RB.Button>
 				</RB.ButtonGroup>
 	        	</div>
 			);

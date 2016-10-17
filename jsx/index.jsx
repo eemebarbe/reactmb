@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
-import $ from "jquery";
+import $ from 'jquery';
 import * as formatting from './header.jsx';
 
 
@@ -20,27 +20,27 @@ class SubmissionList extends React.Component {
 	getPosts(page) {
 		var loopPosts = [];
 		var pageRange = 3;
-		$.get("/api/v1/postcount/", function(response) {
+		$.get('/api/v1/postcount/', function(response) {
 			var math = Math.ceil(response[0].count / pageRange);
        		this.setState({ numberOfPages: math });
 		}.bind(this));
 
-		$.get("/api/v1/postrange?page=" + page + "&pageRange=" + pageRange, function(response) {
+		$.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function(response) {
 
 			if(response !== null){
 
 				for(var i=0; i<response.length; i++) {
 
-// if the comment number comes out as null in the query, pass "0" so that it isn't blank
+// if the comment number comes out as null in the query, pass '0' so that it isn't blank
 				var commentAmount = null;
 				if(response[i].comments == null) {
-					commentAmount = "0";
+					commentAmount = '0';
 				} else {
 					commentAmount = response[i].comments;
 				}
 
 					loopPosts.push(
-						<RB.ListGroupItem href={"/post/" + response[i].idposts} header={response[i].title}>
+						<RB.ListGroupItem href={'/post/' + response[i].idposts} header={response[i].title}>
 						Submitted by {response[i].idusers} | Comments <b>({commentAmount})</b>
 						</RB.ListGroupItem>
 						);

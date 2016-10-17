@@ -76,11 +76,13 @@ webpackJsonp([1],{
 				var commentData = {
 					comment: _reactDom2.default.findDOMNode(this.refs.submitComment).value,
 					idposts: window.idposts,
-					idusers: window.user
+					username: window.user
 				};
 
-				_jquery2.default.post("../api/v1/newcomment", commentData, function (response) {
-					this.setState({ comments: this.state.comments.concat(commentData) });
+				_jquery2.default.post('../api/v1/newcomment', commentData, function (response) {
+					this.setState({
+						comments: (0, _reactAddonsUpdate2.default)(this.state.comments, { $unshift: [commentData] })
+					});
 				}.bind(this));
 
 				this.setState({ commentSubmitted: true });
@@ -102,7 +104,7 @@ webpackJsonp([1],{
 				var _this2 = this;
 
 				var authRender = null;
-				if (window.user !== "" && this.state.commentSubmitted == false) {
+				if (window.user !== '' && this.state.commentSubmitted == false) {
 					authRender = _react2.default.createElement(
 						RB.Row,
 						null,
@@ -127,7 +129,7 @@ webpackJsonp([1],{
 							)
 						)
 					);
-				} else if (window.user !== "" && this.state.commentSubmitted == true) {
+				} else if (window.user !== '' && this.state.commentSubmitted == true) {
 					authRender = _react2.default.createElement(
 						RB.Row,
 						null,
@@ -156,7 +158,8 @@ webpackJsonp([1],{
 				}
 
 				var finalComments = this.state.comments.map(function (commentsEntered) {
-					if (window.user == commentsEntered.idusers) {
+					console.log(commentsEntered.avatar);
+					if (window.user == commentsEntered.username) {
 						return _react2.default.createElement(
 							'div',
 							null,
@@ -166,14 +169,14 @@ webpackJsonp([1],{
 								_react2.default.createElement(
 									RB.Col,
 									{ xs: 3 },
-									_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+									_react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
 								),
 								_react2.default.createElement(
 									RB.Col,
 									{ xs: 9 },
 									_react2.default.createElement(
 										RB.Panel,
-										{ className: 'commentPanel', header: commentsEntered.idusers },
+										{ className: 'commentPanel', header: commentsEntered.username },
 										commentsEntered.comment,
 										_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
 									)
@@ -190,14 +193,14 @@ webpackJsonp([1],{
 								_react2.default.createElement(
 									RB.Col,
 									{ xs: 3, sm: 2 },
-									_react2.default.createElement(RB.Image, { className: 'commentImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true })
+									_react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
 								),
 								_react2.default.createElement(
 									RB.Col,
 									{ xs: 9, sm: 10 },
 									_react2.default.createElement(
 										RB.Panel,
-										{ className: 'commentPanel', header: commentsEntered.idusers },
+										{ className: 'commentPanel', header: commentsEntered.username },
 										commentsEntered.comment
 									)
 								)

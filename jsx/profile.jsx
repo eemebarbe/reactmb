@@ -2,7 +2,7 @@ import React from 'react';
 import update from 'react-addons-update';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
-import $ from "jquery";
+import $ from 'jquery';
 import * as formatting from './header.jsx';
 
 
@@ -13,9 +13,11 @@ class ProfileOptions extends React.Component {
     super(props);
     this.state = { 
     	posts : window.posts,
+    	avatar : window.avatar,
     	showConfirm : false,
     	deletePost : null,
-    	deletePostIndex : null
+    	deletePostIndex : null,
+    	isLoading : false
     };
   	}
 
@@ -30,6 +32,9 @@ class ProfileOptions extends React.Component {
   	}
 
   	uploadImage() {
+  		var self = this;
+  		this.setState({ isLoading : true });
+
   		var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
   			avatarPath = ReactDOM.findDOMNode(this.refs.avatarPath).value,
   			data = new FormData(),
@@ -38,10 +43,10 @@ class ProfileOptions extends React.Component {
 
 		if(!re.exec(avatarPath))
 		{
-			alert("File extension not supported!");
+			alert('File extension not supported!');
 		}
 		else if(avatarData.size > 20000) {
-			alert("File size is too big!");
+			alert('File size is too big!');
 		}
 		else {
 	  		$.ajax({
@@ -51,10 +56,10 @@ class ProfileOptions extends React.Component {
 			  contentType: false,
 			  type: 'POST',
 			  success: function(){
-			    alert("success");
+			    self.setState({ isLoading : false, avatar : '../uploads/avatars/' + window.user });
 			  },
 			  error: function(){
-			  	alert("error");
+			  	self.setState({ isLoading : false });
 			  }
 			});
 		}
@@ -76,11 +81,11 @@ class ProfileOptions extends React.Component {
 		var finalPosts = this.state.posts.map((posts) => {
 			return (
 				<div>
-				<RB.Row className="postRow" onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
+				<RB.Row className='postRow' onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
 						{posts.postdate}
-						<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
+						<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
 					</RB.Panel>
 	    		</RB.Row>
 	    		</div>
@@ -90,19 +95,25 @@ class ProfileOptions extends React.Component {
 		return (
 			<div>
 				<RB.Row>
-				<h4>Profile Image</h4>
-	      		<RB.Image className="userImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
-			    
-			    
-				<input type="file" ref="avatarPath" name="file"/>
-				
-			    
-				<RB.Button onClick={this.uploadImage.bind(this)}>Save</RB.Button>
+					<RB.Col xs={12} md={6}>
+						<h4>Profile Image</h4>
+			      		<RB.Image className='userImg' src={ this.state.avatar } responsive circle />
+				    </RB.Col>
+				    <RB.Col xs={12} md={6}>
+						<h4>Upload New Profile Image</h4>
+					    <RB.Well>
+					    	<RB.FormGroup>
+								<input type='file' ref='avatarPath' name='file'/>
+							</RB.FormGroup>
+							<RB.Button disabled={this.state.isLoading} onClick={this.uploadImage.bind(this)}>{ this.state.isLoading ? 'Loading...' : 'Save' }</RB.Button>
+						</RB.Well>
+					</RB.Col>
 				</RB.Row>
+
 				<RB.Row>
-	      		<h4>Posts</h4>
-	      			{finalPosts}
-	      		</RB.Row>
+			      	<h4>Posts</h4>
+			   	</RB.Row>
+			      	{finalPosts}
 
 	      		<RB.Modal show={this.state.showConfirm} onHide={this.close.bind(this)}>
 				<RB.Modal.Header closeButton>

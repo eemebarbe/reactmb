@@ -58,7 +58,7 @@ webpackJsonp([3],[
 					idusers: window.user
 				};
 
-				_jquery2.default.post("api/v1/newpost", articleData);
+				_jquery2.default.post('api/v1/newpost', articleData);
 			}
 		}, {
 			key: 'render',

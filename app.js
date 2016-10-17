@@ -15,7 +15,7 @@ var multer = require('multer');
 
 var avatarStorage = multer.diskStorage({
   	destination: function (req, file, cb) {
-    	cb(null, 'uploads/avatars/');
+    	cb(null, 'public/uploads/avatars/');
   	},
 	filename: function (req, file, cb){
 		cb(null, req.user);

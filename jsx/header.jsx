@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
-import $ from "jquery";
+import $ from 'jquery';
 
 export class Modal extends React.Component {
 
@@ -23,35 +23,35 @@ export class Modal extends React.Component {
 	  		};
 
 	//Verify all sign-up data before passing it to the server
-	  	if(signUpData.username == null || signUpData.username == "") {
-	  		this.setState({ signUpAlert : "Please enter a username!" });
+	  	if(signUpData.username == null || signUpData.username == '') {
+	  		this.setState({ signUpAlert : 'Please enter a username!' });
 	  	}
-	  	else if(signUpData.password == null || signUpData.password == "") {
-	  		this.setState({ signUpAlert : "Please enter a password!" });
+	  	else if(signUpData.password == null || signUpData.password == '') {
+	  		this.setState({ signUpAlert : 'Please enter a password!' });
 	  	}
 	  	else if(signUpData.password != signUpData.passwordVerify) {
-	  		this.setState({ signUpAlert : "Password entries don't match!" });	  		
+	  		this.setState({ signUpAlert : 'Password entries don\'t match!' });	  		
 	  	}
-	  	else if(signUpData.email == null || signUpData.email == "") {
-	  		this.setState({ signUpAlert : "Please enter your email address!" });	  		
+	  	else if(signUpData.email == null || signUpData.email == '') {
+	  		this.setState({ signUpAlert : 'Please enter your email address!' });	  		
 	  	}
-	  	else if (signUpData.email !== null || signUpData.email !== "") {
+	  	else if (signUpData.email !== null || signUpData.email !== '') {
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			if(!re.test(signUpData.email)) {
-	  			this.setState({ signUpAlert : "Not a valid email address!" });				
+	  			this.setState({ signUpAlert : 'Not a valid email address!' });				
 			}
 			else {
 $.ajax({
-  type: "POST",
-  url: "/api/v1/newuser",
+  type: 'POST',
+  url: '/api/v1/newuser',
   data: signUpData,
   success: function(){
-				$.post("/loginAuth", signUpData, function(){
-				window.location.href= "./"; 
+				$.post('/loginAuth', signUpData, function(){
+				window.location.href= '../'; 
   			});
   },
   error: function() {
-	  	 self.setState({ signUpAlert : "Either this email or this username is already in use!" });	
+	  	 self.setState({ signUpAlert : 'Either this email or this username is already in use!' });	
   }
 });
 	    	}
@@ -66,15 +66,15 @@ $.ajax({
 	  		};
 
 		$.ajax({
-			  type: "POST",
-			  url: "/loginAuth",
+			  type: 'POST',
+			  url: '/loginAuth',
 			  data: signInData,
-			  dataType: "json",
+			  dataType: 'json',
 			  success: function(){
-				window.location.href= "./"; 
+				window.location.href= '../'; 
 			  },
 			  error: function(){
-			    this.setState({ signInAlert : "Username or password was entered incorrectly." });	
+			    this.setState({ signInAlert : 'Username or password was entered incorrectly.' });	
 			  }
 		});	
 	}
@@ -104,26 +104,26 @@ $.ajax({
 		      		<RB.Col sm={6}>
 			      		<h4>Sign Up</h4>
 			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="username" type="text" placeholder="choose a username" />
+			        		<RB.FormControl ref='username' type='text' placeholder='choose a username' />
 			        	</RB.FormGroup>
 			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="password" type="password" placeholder="password" />
+			        		<RB.FormControl ref='password' type='password' placeholder='password' />
 			        	</RB.FormGroup>
 			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="passwordVerify" type="password" placeholder="verify password" />
+			        		<RB.FormControl ref='passwordVerify' type='password' placeholder='verify password' />
 			        	</RB.FormGroup>
 			        	<RB.FormGroup>        	
-			        		<RB.FormControl ref="email" type="text" placeholder="email" />
+			        		<RB.FormControl ref='email' type='text' placeholder='email' />
 			        	</RB.FormGroup>
 		        	</RB.Col>
 		        	<RB.Col sm={6}>
 			        	<h4>Sign In</h4>
 			        	<RB.Form>
 			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="text" ref="logInUser" placeholder="username" name="username" />
+			        	<RB.FormControl type='text' ref='logInUser' placeholder='username' name='username' />
 			        	</RB.FormGroup>
 			        	<RB.FormGroup>        	
-			        	<RB.FormControl type="password" ref="logInPass" placeholder="password" name="password" />
+			        	<RB.FormControl type='password' ref='logInPass' placeholder='password' name='password' />
 			        	</RB.FormGroup>
 			        	</RB.Form>
 		        	</RB.Col>
@@ -132,13 +132,13 @@ $.ajax({
 
 	      		<RB.Modal.Footer>
 			      	<RB.Col sm={6}>
-			      		<RB.OverlayTrigger trigger={this.state.signUpAlert !== null ? 'click' : null} placement="left" overlay={signUpPopUp}>
+			      		<RB.OverlayTrigger trigger={this.state.signUpAlert !== null ? 'click' : null} placement='left' overlay={signUpPopUp}>
 			      			<RB.Button onClick={this.signUp.bind(this)}>Sign Up</RB.Button>
     					</RB.OverlayTrigger>
 		      		</RB.Col>
 			      	<RB.Col sm={6}>
-			      		<RB.OverlayTrigger trigger={this.state.signInAlert !== null ? 'click' : null} placement="left" overlay={signInPopUp}>
-		        			<RB.Button bsStyle="primary" onClick={this.signIn.bind(this)}>Sign In</RB.Button>
+			      		<RB.OverlayTrigger trigger={this.state.signInAlert !== null ? 'click' : null} placement='left' overlay={signInPopUp}>
+		        			<RB.Button bsStyle='primary' onClick={this.signIn.bind(this)}>Sign In</RB.Button>
 	    				</RB.OverlayTrigger>
 		        	</RB.Col>
 	      		</RB.Modal.Footer>
@@ -167,7 +167,7 @@ export class Header extends React.Component {
 	render() {
 
 		var authRender = null;
-		if( window.user == "" ) { 
+		if( window.user == '') { 
 		 	authRender = 
 				<div>
 					<RB.Navbar.Form pullRight>
@@ -181,12 +181,12 @@ export class Header extends React.Component {
 				<div>
 					<RB.Navbar.Form pullRight>
 					<RB.ButtonGroup>
-				    <RB.Button href="/logout">Sign Out</RB.Button>
+				    <RB.Button href='/logout'>Sign Out</RB.Button>
 					</RB.ButtonGroup>
 					</RB.Navbar.Form>
 					<RB.Nav pullRight>
-					<RB.NavItem eventKey={3} href="../submit">Submit</RB.NavItem>
-				    <RB.NavItem eventKey={4} href="../profile">Profile</RB.NavItem>
+					<RB.NavItem eventKey={3} href='../submit'>Submit</RB.NavItem>
+				    <RB.NavItem eventKey={4} href='../profile'>Profile</RB.NavItem>
 					</RB.Nav>
 				</div>;
 	  	}
@@ -201,12 +201,12 @@ export class Header extends React.Component {
 					<RB.Navbar>
 				    <RB.Navbar.Header>
 				    <RB.Navbar.Brand>
-				    <a href="/">ReactMB</a>
+				    <a href='/'>ReactMB</a>
 				    </RB.Navbar.Brand>
 				    </RB.Navbar.Header>
 		  			<RB.Nav>
-		  			<RB.NavItem eventKey={1} href="#">Popular</RB.NavItem>
-			        <RB.NavItem eventKey={2} href="#">Newest</RB.NavItem>
+		  			<RB.NavItem eventKey={1} href='#'>Popular</RB.NavItem>
+			        <RB.NavItem eventKey={2} href='#'>Newest</RB.NavItem>
 					</RB.Nav>
 					{authRender}
 		  			</RB.Navbar>

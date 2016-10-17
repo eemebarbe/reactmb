@@ -57,28 +57,28 @@ webpackJsonp([0],[
 			value: function getPosts(page) {
 				var loopPosts = [];
 				var pageRange = 3;
-				_jquery2.default.get("/api/v1/postcount/", function (response) {
+				_jquery2.default.get('/api/v1/postcount/', function (response) {
 					var math = Math.ceil(response[0].count / pageRange);
 					this.setState({ numberOfPages: math });
 				}.bind(this));
 
-				_jquery2.default.get("/api/v1/postrange?page=" + page + "&pageRange=" + pageRange, function (response) {
+				_jquery2.default.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function (response) {
 
 					if (response !== null) {
 
 						for (var i = 0; i < response.length; i++) {
 
-							// if the comment number comes out as null in the query, pass "0" so that it isn't blank
+							// if the comment number comes out as null in the query, pass '0' so that it isn't blank
 							var commentAmount = null;
 							if (response[i].comments == null) {
-								commentAmount = "0";
+								commentAmount = '0';
 							} else {
 								commentAmount = response[i].comments;
 							}
 
 							loopPosts.push(_react2.default.createElement(
 								RB.ListGroupItem,
-								{ href: "/post/" + response[i].idposts, header: response[i].title },
+								{ href: '/post/' + response[i].idposts, header: response[i].title },
 								'Submitted by ',
 								response[i].idusers,
 								' | Comments ',

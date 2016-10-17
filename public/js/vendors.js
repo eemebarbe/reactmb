@@ -50386,30 +50386,30 @@
 				};
 
 				//Verify all sign-up data before passing it to the server
-				if (signUpData.username == null || signUpData.username == "") {
-					this.setState({ signUpAlert: "Please enter a username!" });
-				} else if (signUpData.password == null || signUpData.password == "") {
-					this.setState({ signUpAlert: "Please enter a password!" });
+				if (signUpData.username == null || signUpData.username == '') {
+					this.setState({ signUpAlert: 'Please enter a username!' });
+				} else if (signUpData.password == null || signUpData.password == '') {
+					this.setState({ signUpAlert: 'Please enter a password!' });
 				} else if (signUpData.password != signUpData.passwordVerify) {
-					this.setState({ signUpAlert: "Password entries don't match!" });
-				} else if (signUpData.email == null || signUpData.email == "") {
-					this.setState({ signUpAlert: "Please enter your email address!" });
-				} else if (signUpData.email !== null || signUpData.email !== "") {
+					this.setState({ signUpAlert: 'Password entries don\'t match!' });
+				} else if (signUpData.email == null || signUpData.email == '') {
+					this.setState({ signUpAlert: 'Please enter your email address!' });
+				} else if (signUpData.email !== null || signUpData.email !== '') {
 					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 					if (!re.test(signUpData.email)) {
-						this.setState({ signUpAlert: "Not a valid email address!" });
+						this.setState({ signUpAlert: 'Not a valid email address!' });
 					} else {
 						_jquery2.default.ajax({
-							type: "POST",
-							url: "/api/v1/newuser",
+							type: 'POST',
+							url: '/api/v1/newuser',
 							data: signUpData,
 							success: function success() {
-								_jquery2.default.post("/loginAuth", signUpData, function () {
-									window.location.href = "./";
+								_jquery2.default.post('/loginAuth', signUpData, function () {
+									window.location.href = '../';
 								});
 							},
 							error: function error() {
-								self.setState({ signUpAlert: "Either this email or this username is already in use!" });
+								self.setState({ signUpAlert: 'Either this email or this username is already in use!' });
 							}
 						});
 					}
@@ -50424,15 +50424,15 @@
 				};
 
 				_jquery2.default.ajax({
-					type: "POST",
-					url: "/loginAuth",
+					type: 'POST',
+					url: '/loginAuth',
 					data: signInData,
-					dataType: "json",
+					dataType: 'json',
 					success: function success() {
-						window.location.href = "./";
+						window.location.href = '../';
 					},
 					error: function error() {
-						this.setState({ signInAlert: "Username or password was entered incorrectly." });
+						this.setState({ signInAlert: 'Username or password was entered incorrectly.' });
 					}
 				});
 			}
@@ -50593,7 +50593,7 @@
 			value: function render() {
 
 				var authRender = null;
-				if (window.user == "") {
+				if (window.user == '') {
 					authRender = _react2.default.createElement(
 						'div',
 						null,

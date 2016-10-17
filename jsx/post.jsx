@@ -2,7 +2,7 @@ import React from 'react';
 import update from 'react-addons-update';
 import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
-import $ from "jquery";
+import $ from 'jquery';
 import * as formatting from './header.jsx';
 
 
@@ -32,11 +32,13 @@ class PostDisplay extends React.Component {
 		var commentData = {
 	  		comment : ReactDOM.findDOMNode(this.refs.submitComment).value,
 	  		idposts : window.idposts,
-	  		idusers : window.user
+	  		username : window.user
 	  		};
 
-			$.post("../api/v1/newcomment", commentData, function(response) {
-				this.setState({ comments : this.state.comments.concat(commentData)});
+			$.post('../api/v1/newcomment', commentData, function(response) {
+				this.setState({
+					comments : update(this.state.comments, {$unshift: [commentData]})
+				});
 			}.bind(this));
 
 			this.setState({ commentSubmitted : true });
@@ -57,18 +59,18 @@ class PostDisplay extends React.Component {
 	render() {
 
 		var authRender = null;
-			if( window.user !== "" && this.state.commentSubmitted == false ) { 
+			if( window.user !== '' && this.state.commentSubmitted == false ) { 
 			 	authRender = 
 					<RB.Row>
 						<h4>{this.state.numberOfComments} Comments</h4>
 						<RB.FormGroup>        	
-				        <RB.FormControl ref="submitComment" componentClass="textarea" type="text"/>
+				        <RB.FormControl ref='submitComment' componentClass='textarea' type='text'/>
 				        </RB.FormGroup>
 				        <RB.ButtonGroup>
 						<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
 						</RB.ButtonGroup>
 					</RB.Row>
-		  	} else if ( window.user !== "" && this.state.commentSubmitted == true ) {
+		  	} else if ( window.user !== '' && this.state.commentSubmitted == true ) {
 			  	authRender = 
 			  		<RB.Row>
 			  			<h4>Thanks!</h4>
@@ -81,17 +83,18 @@ class PostDisplay extends React.Component {
 			}
 
 		var	finalComments = this.state.comments.map((commentsEntered) => {
-	        if( window.user == commentsEntered.idusers ) {
+			console.log(commentsEntered.avatar);
+	        if( window.user == commentsEntered.username ) {
 		        return (
 					<div>
-					<RB.Row className="commentRow" onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
+					<RB.Row className='commentRow' onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
 					<RB.Col xs={3}>
-					<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+					<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
 						</RB.Col>
 						<RB.Col xs={9}>
-					<RB.Panel className="commentPanel" header={ commentsEntered.idusers }>
+					<RB.Panel className='commentPanel' header={ commentsEntered.username }>
 		      		{ commentsEntered.comment }
-		      		<RB.Glyphicon glyph="glyphicon glyphicon-remove"/>
+		      		<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
 		    		</RB.Panel>
 		    		</RB.Col>
 		    		</RB.Row>
@@ -101,12 +104,12 @@ class PostDisplay extends React.Component {
 	        else {
 	        	return (
 					<div>
-					<RB.Row className="commentRow">
+					<RB.Row className='commentRow'>
 					<RB.Col xs={3} sm={2}>
-					<RB.Image className="commentImg" src="https://x.myspacecdn.com/new/common/images/user.png" responsive circle />
+					<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
 						</RB.Col>
 						<RB.Col xs={9} sm={10} >
-					<RB.Panel className="commentPanel" header={ commentsEntered.idusers }>
+					<RB.Panel className='commentPanel' header={ commentsEntered.username }>
 		      		{ commentsEntered.comment }
 		    		</RB.Panel>
 		    		</RB.Col>

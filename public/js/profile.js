@@ -51,9 +51,11 @@ webpackJsonp([2],{
 
 			_this.state = {
 				posts: window.posts,
+				avatar: window.avatar,
 				showConfirm: false,
 				deletePost: null,
-				deletePostIndex: null
+				deletePostIndex: null,
+				isLoading: false
 			};
 			return _this;
 		}
@@ -73,6 +75,9 @@ webpackJsonp([2],{
 		}, {
 			key: 'uploadImage',
 			value: function uploadImage() {
+				var self = this;
+				this.setState({ isLoading: true });
+
 				var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0],
 				    avatarPath = _reactDom2.default.findDOMNode(this.refs.avatarPath).value,
 				    data = new FormData(),
@@ -80,9 +85,9 @@ webpackJsonp([2],{
 				data.append('avatar', avatarData);
 
 				if (!re.exec(avatarPath)) {
-					alert("File extension not supported!");
+					alert('File extension not supported!');
 				} else if (avatarData.size > 20000) {
-					alert("File size is too big!");
+					alert('File size is too big!');
 				} else {
 					_jquery2.default.ajax({
 						url: 'api/v1/avatar',
@@ -91,10 +96,10 @@ webpackJsonp([2],{
 						contentType: false,
 						type: 'POST',
 						success: function success() {
-							alert("success");
+							self.setState({ isLoading: false, avatar: '../uploads/avatars/' + window.user });
 						},
 						error: function error() {
-							alert("error");
+							self.setState({ isLoading: false });
 						}
 					});
 				}
@@ -140,16 +145,37 @@ webpackJsonp([2],{
 						RB.Row,
 						null,
 						_react2.default.createElement(
-							'h4',
-							null,
-							'Profile Image'
+							RB.Col,
+							{ xs: 12, md: 6 },
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Profile Image'
+							),
+							_react2.default.createElement(RB.Image, { className: 'userImg', src: this.state.avatar, responsive: true, circle: true })
 						),
-						_react2.default.createElement(RB.Image, { className: 'userImg', src: 'https://x.myspacecdn.com/new/common/images/user.png', responsive: true, circle: true }),
-						_react2.default.createElement('input', { type: 'file', ref: 'avatarPath', name: 'file' }),
 						_react2.default.createElement(
-							RB.Button,
-							{ onClick: this.uploadImage.bind(this) },
-							'Save'
+							RB.Col,
+							{ xs: 12, md: 6 },
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Upload New Profile Image'
+							),
+							_react2.default.createElement(
+								RB.Well,
+								null,
+								_react2.default.createElement(
+									RB.FormGroup,
+									null,
+									_react2.default.createElement('input', { type: 'file', ref: 'avatarPath', name: 'file' })
+								),
+								_react2.default.createElement(
+									RB.Button,
+									{ disabled: this.state.isLoading, onClick: this.uploadImage.bind(this) },
+									this.state.isLoading ? 'Loading...' : 'Save'
+								)
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -159,9 +185,9 @@ webpackJsonp([2],{
 							'h4',
 							null,
 							'Posts'
-						),
-						finalPosts
+						)
 					),
+					finalPosts,
 					_react2.default.createElement(
 						RB.Modal,
 						{ show: this.state.showConfirm, onHide: this.close.bind(this) },
