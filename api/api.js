@@ -1,5 +1,6 @@
 module.exports = function(app){
 
+
 var ensureAuthenticated = require('../authentication/auth.js')(app);
 
 app.get('/api/v1/posts',function(req,res){
