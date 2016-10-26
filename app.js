@@ -35,8 +35,8 @@ var	mysql = require('mysql');
 	connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'my_password',
-	database : 'reactmb'
+	password : '',
+	database : 'ReactMB'
 	});
 
 	connection.connect();

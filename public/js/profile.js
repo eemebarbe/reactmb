@@ -146,7 +146,7 @@ webpackJsonp([2],{
 						null,
 						_react2.default.createElement(
 							RB.Col,
-							{ xs: 12, md: 6 },
+							{ xs: 12, sm: 6 },
 							_react2.default.createElement(
 								'h4',
 								null,
@@ -156,7 +156,7 @@ webpackJsonp([2],{
 						),
 						_react2.default.createElement(
 							RB.Col,
-							{ xs: 12, md: 6 },
+							{ xs: 12, sm: 6 },
 							_react2.default.createElement(
 								'h4',
 								null,
@@ -207,7 +207,7 @@ webpackJsonp([2],{
 							),
 							_react2.default.createElement(
 								RB.Button,
-								null,
+								{ onClick: this.close.bind(this) },
 								'No'
 							)
 						)

@@ -32,7 +32,7 @@ class PostDisplay extends React.Component {
 		var commentData = {
 	  		comment : ReactDOM.findDOMNode(this.refs.submitComment).value,
 	  		idposts : window.idposts,
-	  		username : window.user
+	  		username : window.user,
 	  		};
 
 			$.post('../api/v1/newcomment', commentData, function(response) {
@@ -61,13 +61,13 @@ class PostDisplay extends React.Component {
 		var authRender = null;
 			if( window.user !== '' && this.state.commentSubmitted == false ) { 
 			 	authRender = 
-					<RB.Row>
+					<RB.Row className="addCommentForm">
 						<h4>{this.state.numberOfComments} Comments</h4>
 						<RB.FormGroup>        	
-				        <RB.FormControl ref='submitComment' componentClass='textarea' type='text'/>
+				        	<RB.FormControl ref='submitComment' componentClass='textarea' type='text'/>
 				        </RB.FormGroup>
 				        <RB.ButtonGroup>
-						<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
+							<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
 						</RB.ButtonGroup>
 					</RB.Row>
 		  	} else if ( window.user !== '' && this.state.commentSubmitted == true ) {
@@ -77,7 +77,7 @@ class PostDisplay extends React.Component {
 			  		</RB.Row>					
 		  	} else {
 			  	authRender = 
-			  		<RB.Row>
+			  		<RB.Row className="addCommentForm">
 			  			<h4>{this.state.numberOfComments} Comments <b>(Please log in to comment!)</b></h4>
 			  		</RB.Row>
 			}
@@ -87,33 +87,33 @@ class PostDisplay extends React.Component {
 	        if( window.user == commentsEntered.username ) {
 		        return (
 					<div>
-					<RB.Row className='commentRow' onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
-					<RB.Col xs={3}>
-					<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
-						</RB.Col>
-						<RB.Col xs={9}>
-					<RB.Panel className='commentPanel' header={ commentsEntered.username }>
-		      		{ commentsEntered.comment }
-		      		<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
-		    		</RB.Panel>
-		    		</RB.Col>
-		    		</RB.Row>
+						<RB.Row className='commentRow' onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
+							<RB.Col xs={3} sm={2}>
+								<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
+							</RB.Col>
+							<RB.Col xs={9} sm={10}>
+								<RB.Panel className='commentPanel' header={ commentsEntered.username }>
+						      		{ commentsEntered.comment }
+						      		<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
+					    		</RB.Panel>
+				    		</RB.Col>
+			    		</RB.Row>
 		    		</div>
 	        	);
 	        }
 	        else {
 	        	return (
 					<div>
-					<RB.Row className='commentRow'>
-					<RB.Col xs={3} sm={2}>
-					<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
-						</RB.Col>
-						<RB.Col xs={9} sm={10} >
-					<RB.Panel className='commentPanel' header={ commentsEntered.username }>
-		      		{ commentsEntered.comment }
-		    		</RB.Panel>
-		    		</RB.Col>
-		    		</RB.Row>
+						<RB.Row className='commentRow'>
+							<RB.Col xs={3} sm={2}>
+								<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
+							</RB.Col>
+							<RB.Col xs={9} sm={10}>
+								<RB.Panel className='commentPanel' header={ commentsEntered.username }>
+					      		{ commentsEntered.comment }
+				    		</RB.Panel>
+				    		</RB.Col>
+			    		</RB.Row>
 		    		</div>        		
 	        	);
 	        }
@@ -121,23 +121,23 @@ class PostDisplay extends React.Component {
 
 		return (
 			<div>
-			<RB.Row>
-				<h2>{ window.title }</h2>
-				<div>{ window.article }</div>
-			</RB.Row>
-				{authRender}
-			<RB.Row>
-				{finalComments}
-			</RB.Row>
+				<RB.Row>
+					<h2>{ window.title }</h2>
+					<div>{ window.article }</div>
+				</RB.Row>
+					{authRender}
+				<RB.Row className='commentsBox'>
+					{finalComments}
+				</RB.Row>
 
 	      		<RB.Modal show={this.state.showConfirm} onHide={this.close.bind(this)}>
-				<RB.Modal.Header closeButton>
-	      		</RB.Modal.Header>
-	      		<RB.Modal.Body>
-		      		<h4>Are you sure you would like to delete this comment?</h4>
-		      		<RB.Button onClick={this.deleteComment.bind(this)}>Yes</RB.Button>
-		      		<RB.Button>No</RB.Button>
-	      		</RB.Modal.Body>
+					<RB.Modal.Header closeButton>
+		      		</RB.Modal.Header>
+		      		<RB.Modal.Body>
+			      		<h4>Are you sure you would like to delete this comment?</h4>
+			      		<RB.Button onClick={this.deleteComment.bind(this)}>Yes</RB.Button>
+			      		<RB.Button onClick={this.close.bind(this)}>No</RB.Button>
+		      		</RB.Modal.Body>
 				</RB.Modal>
 			</div>
 

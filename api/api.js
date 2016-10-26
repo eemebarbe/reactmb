@@ -3,8 +3,7 @@ module.exports = function(app){
 var ensureAuthenticated = require('../authentication/auth.js')(app);
 
 app.get('/api/v1/posts',function(req,res){
-    var data = null;
-    
+    var data = null; 
     connection.query('SELECT * from posts', function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
@@ -65,21 +64,17 @@ app.get('/api/v1/comments/:postId', function(req,res) {
 });
 
 app.post('/api/v1/newpost', ensureAuthenticated, function(req,res) {
-  
     connection.query('INSERT INTO posts (title, article, idusers) VALUES (?, ?, ?)',[ req.body.title, req.body.article, req.body.idusers ], function(err, rows, fields) {
       if (err) throw err;
 });
-    
   res.end();
 });
 
 
 app.post('/api/v1/newcomment', ensureAuthenticated, function(req,res) {
-  
     connection.query('INSERT INTO comments (comment, idposts, username) VALUES (?, ?, ?)',[ req.body.comment, req.body.idposts, req.body.username ], function(err, rows, fields) {
       if (err) throw err;
 });
-    
   res.end();
 });
 
@@ -87,7 +82,6 @@ app.post('/api/v1/newcomment', ensureAuthenticated, function(req,res) {
 
 app.get('/api/v1/posts/:thisId', function(req, res) {
     var url_Id = req.param('thisId');
-
     connection.query('SELECT * FROM posts WHERE `idposts`=(?)',[url_Id],function(err, rows, fields){
         if(rows.length != 0){
             data = rows;
@@ -138,7 +132,6 @@ app.get('/api/v1/postcount/', function(req, res) {
 
 
 app.post('/api/v1/deletepost/', ensureAuthenticated, function(req,res) {
-
     connection.query('DELETE FROM posts WHERE `idposts`=(?) AND `idusers`=(?)',[ req.body.post, req.user ], function(err, rows, fields) {
       if (err) throw err;
 });
@@ -148,7 +141,7 @@ app.post('/api/v1/deletepost/', ensureAuthenticated, function(req,res) {
 
 
 app.post('/api/v1/deletecomment/', ensureAuthenticated, function(req,res) {
-    connection.query('DELETE FROM comments WHERE `idcomments`=(?) AND `idusers`=(?)',[ req.body.comment, req.user ], function(err, rows, fields) {
+    connection.query('DELETE FROM comments WHERE `idcomments`=(?) AND `username`=(?)',[ req.body.comment, req.user ], function(err, rows, fields) {
       if (err) throw err;
 });
     
@@ -163,7 +156,5 @@ app.post('/api/v1/avatar', ensureAuthenticated, uploadAvatar.single('avatar'), f
     res.end();
 });
     
-
-
 
 }

@@ -4,7 +4,6 @@ import * as RB from 'react-bootstrap';
 import $ from 'jquery';
 
 export class Modal extends React.Component {
-
 	constructor(props) {
     	super(props);
     	this.state = {
@@ -40,21 +39,21 @@ export class Modal extends React.Component {
 			if(!re.test(signUpData.email)) {
 	  			this.setState({ signUpAlert : 'Not a valid email address!' });				
 			}
-			else {
-$.ajax({
-  type: 'POST',
-  url: '/api/v1/newuser',
-  data: signUpData,
-  success: function(){
-				$.post('/loginAuth', signUpData, function(){
-				window.location.href= '../'; 
-  			});
-  },
-  error: function() {
-	  	 self.setState({ signUpAlert : 'Either this email or this username is already in use!' });	
-  }
-});
-	    	}
+		else {
+			$.ajax({
+			  type: 'POST',
+			  url: '/api/v1/newuser',
+			  data: signUpData,
+			  success: function(){
+							$.post('/loginAuth', signUpData, function(){
+							window.location.href= '../'; 
+			  			});
+			  },
+			  error: function() {
+				  	 self.setState({ signUpAlert : 'Either this email or this username is already in use!' });	
+			  }
+			});
+	    }
 	  	}
 	}
 
@@ -83,13 +82,13 @@ $.ajax({
 
 	  	const signUpPopUp = (
 	  		<RB.Popover>
-	    	{this.state.signUpAlert}
+	    		{this.state.signUpAlert}
 	  		</RB.Popover>
 			);
 
 	  	const signInPopUp = (
 	  		<RB.Popover>
-	    	{this.state.signInAlert}
+	    		{this.state.signInAlert}
 	  		</RB.Popover>
 			);
 
@@ -119,12 +118,12 @@ $.ajax({
 		        	<RB.Col sm={6}>
 			        	<h4>Sign In</h4>
 			        	<RB.Form>
-			        	<RB.FormGroup>        	
-			        	<RB.FormControl type='text' ref='logInUser' placeholder='username' name='username' />
-			        	</RB.FormGroup>
-			        	<RB.FormGroup>        	
-			        	<RB.FormControl type='password' ref='logInPass' placeholder='password' name='password' />
-			        	</RB.FormGroup>
+				        	<RB.FormGroup>        	
+				        		<RB.FormControl type='text' ref='logInUser' placeholder='username' name='username' />
+				        	</RB.FormGroup>
+				        	<RB.FormGroup>        	
+				        		<RB.FormControl type='password' ref='logInPass' placeholder='password' name='password' />
+				        	</RB.FormGroup>
 			        	</RB.Form>
 		        	</RB.Col>
 	        	</RB.Row>
@@ -165,28 +164,27 @@ export class Header extends React.Component {
   	}
 
 	render() {
-
 		var authRender = null;
 		if( window.user == '') { 
 		 	authRender = 
 				<div>
 					<RB.Navbar.Form pullRight>
-					<RB.ButtonGroup>
-				    <RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
-					</RB.ButtonGroup>
+						<RB.ButtonGroup>
+					    	<RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
+						</RB.ButtonGroup>
 					</RB.Navbar.Form>
 				</div>;
 	  	} else {
 		 	authRender = 
 				<div>
 					<RB.Navbar.Form pullRight>
-					<RB.ButtonGroup>
-				    <RB.Button href='/logout'>Sign Out</RB.Button>
-					</RB.ButtonGroup>
+						<RB.ButtonGroup>
+					    <RB.Button href='/logout'>Sign Out</RB.Button>
+						</RB.ButtonGroup>
 					</RB.Navbar.Form>
 					<RB.Nav pullRight>
-					<RB.NavItem eventKey={3} href='../submit'>Submit</RB.NavItem>
-				    <RB.NavItem eventKey={4} href='../profile'>Profile</RB.NavItem>
+						<RB.NavItem eventKey={3} href='../submit'>Submit</RB.NavItem>
+					    <RB.NavItem eventKey={4} href='../profile'>Profile</RB.NavItem>
 					</RB.Nav>
 				</div>;
 	  	}
@@ -196,19 +194,19 @@ export class Header extends React.Component {
 			<div>
 				<RB.Row>
 					<RB.PageHeader>
-		  			ReactMB <small>Built on React and Node</small>
+		  				ReactMB <small>Built on React and Node</small>
 					</RB.PageHeader>
 					<RB.Navbar>
-				    <RB.Navbar.Header>
-				    <RB.Navbar.Brand>
-				    <a href='/'>ReactMB</a>
-				    </RB.Navbar.Brand>
-				    </RB.Navbar.Header>
-		  			<RB.Nav>
-		  			<RB.NavItem eventKey={1} href='#'>Popular</RB.NavItem>
-			        <RB.NavItem eventKey={2} href='#'>Newest</RB.NavItem>
-					</RB.Nav>
-					{authRender}
+					    <RB.Navbar.Header>
+						    <RB.Navbar.Brand>
+						    	<a href='/'>ReactMB</a>
+						    </RB.Navbar.Brand>
+					    </RB.Navbar.Header>
+			  			<RB.Nav>
+				  			<RB.NavItem eventKey={1} href='#'>Popular</RB.NavItem>
+					        <RB.NavItem eventKey={2} href='#'>Newest</RB.NavItem>
+						</RB.Nav>
+						{authRender}
 		  			</RB.Navbar>
 				</RB.Row>
 

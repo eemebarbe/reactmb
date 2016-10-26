@@ -1,5 +1,6 @@
 module.exports = function(app){
 
+
 var  passport = require('passport');
      cookieParser = require('cookie-parser');
      expressSession = require('express-session');
@@ -45,7 +46,6 @@ passport.use(new LocalStrategy({
 },
 
   function(req, username, password, done) { // callback with email and password from our form
-
     connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'",function(err,rows){
       if (err)
         return done(err);
@@ -65,20 +65,21 @@ passport.use(new LocalStrategy({
 
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+  done(null, user);
 });
 
 passport.deserializeUser(function(user, done){
-    done(null, user);
-  });
+  done(null, user);
+});
 
 
 return function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next(); }
-    else {
+    return next();
+  } else {
       res.redirect('/login');
-    }
+  }
 }
+
 
 }

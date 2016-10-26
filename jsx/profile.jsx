@@ -95,11 +95,11 @@ class ProfileOptions extends React.Component {
 		return (
 			<div>
 				<RB.Row>
-					<RB.Col xs={12} md={6}>
+					<RB.Col xs={12} sm={6}>
 						<h4>Profile Image</h4>
 			      		<RB.Image className='userImg' src={ this.state.avatar } responsive circle />
 				    </RB.Col>
-				    <RB.Col xs={12} md={6}>
+				    <RB.Col xs={12} sm={6}>
 						<h4>Upload New Profile Image</h4>
 					    <RB.Well>
 					    	<RB.FormGroup>
@@ -121,7 +121,7 @@ class ProfileOptions extends React.Component {
 	      		<RB.Modal.Body>
 		      		<h4>Are you sure you would like to delete this post?</h4>
 		      		<RB.Button onClick={this.deletePost.bind(this)}>Yes</RB.Button>
-		      		<RB.Button>No</RB.Button>
+		      		<RB.Button onClick={this.close.bind(this)}>No</RB.Button>
 	      		</RB.Modal.Body>
 				</RB.Modal>
 	      	</div>

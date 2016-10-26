@@ -26,25 +26,21 @@ class SubmissionList extends React.Component {
 		}.bind(this));
 
 		$.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function(response) {
-
 			if(response !== null){
-
 				for(var i=0; i<response.length; i++) {
-
-// if the comment number comes out as null in the query, pass '0' so that it isn't blank
-				var commentAmount = null;
-				if(response[i].comments == null) {
-					commentAmount = '0';
-				} else {
-					commentAmount = response[i].comments;
-				}
-
-					loopPosts.push(
-						<RB.ListGroupItem href={'/post/' + response[i].idposts} header={response[i].title}>
-						Submitted by {response[i].idusers} | Comments <b>({commentAmount})</b>
-						</RB.ListGroupItem>
+// if the comment amount comes out as null in the query, pass '0' to avoid an error
+					var commentAmount = null;
+					if(response[i].comments == null) {
+						commentAmount = '0';
+					} else {
+						commentAmount = response[i].comments;
+					}
+						loopPosts.push(
+							<RB.ListGroupItem href={'/post/' + response[i].idposts} header={response[i].title}>
+								Submitted by {response[i].idusers} | Comments <b>({commentAmount})</b>
+							</RB.ListGroupItem>
 						);
-				}
+					}
 			} else {
 				loopPosts = <div>No More Posts</div>;
 			}
@@ -68,12 +64,10 @@ class SubmissionList extends React.Component {
 	render() {
 		return (
 			<RB.Row>
-			<RB.ListGroup>
-
-			 {this.state.posts}
-
-			</RB.ListGroup>
-			<RB.Pagination next prev first last items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
+				<RB.ListGroup
+					{this.state.posts}
+				</RB.ListGroup>
+				<RB.Pagination next prev first last items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />
 			</RB.Row>
 
 			);
@@ -84,9 +78,8 @@ class FrontPage extends React.Component {
 	render() {
 		return (
 			<RB.Grid>
-			<formatting.Header />
-			<SubmissionList />
-
+				<formatting.Header />
+				<SubmissionList />
 			</RB.Grid>
 			);
 	}

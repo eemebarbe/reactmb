@@ -1,9 +1,20 @@
-.commentRow {
-	max-height: 170px;
-	margin-top: 20px;
+.commentImg {
+	max-height: 95px;
+}
 
+.commentsBox {
+	margin-top: 40px;
+}
+
+.addCommentForm {
+	margin-top: 40px;
 }
 
 .panel-body {
 	height: 100%;
+}
+
+.userImg {
+	height: 109px;
+	width: 109px;
 }

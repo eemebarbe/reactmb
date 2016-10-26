@@ -107,7 +107,7 @@ webpackJsonp([1],{
 				if (window.user !== '' && this.state.commentSubmitted == false) {
 					authRender = _react2.default.createElement(
 						RB.Row,
-						null,
+						{ className: 'addCommentForm' },
 						_react2.default.createElement(
 							'h4',
 							null,
@@ -142,7 +142,7 @@ webpackJsonp([1],{
 				} else {
 					authRender = _react2.default.createElement(
 						RB.Row,
-						null,
+						{ className: 'addCommentForm' },
 						_react2.default.createElement(
 							'h4',
 							null,
@@ -168,12 +168,12 @@ webpackJsonp([1],{
 								{ className: 'commentRow', onClick: _this2.open.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
 								_react2.default.createElement(
 									RB.Col,
-									{ xs: 3 },
+									{ xs: 3, sm: 2 },
 									_react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
 								),
 								_react2.default.createElement(
 									RB.Col,
-									{ xs: 9 },
+									{ xs: 9, sm: 10 },
 									_react2.default.createElement(
 										RB.Panel,
 										{ className: 'commentPanel', header: commentsEntered.username },
@@ -229,7 +229,7 @@ webpackJsonp([1],{
 					authRender,
 					_react2.default.createElement(
 						RB.Row,
-						null,
+						{ className: 'commentsBox' },
 						finalComments
 					),
 					_react2.default.createElement(
@@ -251,7 +251,7 @@ webpackJsonp([1],{
 							),
 							_react2.default.createElement(
 								RB.Button,
-								null,
+								{ onClick: this.close.bind(this) },
 								'No'
 							)
 						)
