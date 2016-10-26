@@ -1,6 +1,6 @@
 # ReactMB
 
-A message board build on React and Node.
+A message board built on React (ES6, JSX) and Node.
 
 Try it out by visiting [http://104.198.225.69/](http://104.198.225.69/). This project was built for demonstration and is not formatted for mobile.
 
@@ -15,7 +15,7 @@ Try it out by visiting [http://104.198.225.69/](http://104.198.225.69/). This pr
 
 --
 
-Register a user in order to sign in, add a personal avatar, submit posts or comments, or access the user panel.
+Register a user in order to sign in, add a personal avatar, submit/delete posts or comments, or access the user panel.
 
 
 

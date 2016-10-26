@@ -8,60 +8,81 @@ import * as formatting from './header.jsx';
 
 class PostDisplay extends React.Component {
 
-	constructor(props) {
-    super(props);
-    this.state = { comments: window.loopComments,
-    				numberOfComments: window.loopComments.length,
-    				commentSubmitted: false,
-    				thisComment: null,
-    				thisCommentIndex: null,
-    				showConfirm: null };
-  	}
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            comments: window.loopComments,
+            numberOfComments: window.loopComments.length,
+            commentSubmitted: false,
+            thisComment: null,
+            thisCommentIndex: null,
+            showConfirm: null
+        };
+    }
+    // when showConfirm is set to false, modal is not visible
     close() {
-    	this.setState({ showConfirm: false });
-  	}
+        this.setState({
+            showConfirm: false
+        });
+    }
+    // opens a pop-up that confirms that you would like to delete the selected comment
+    open(comment, commentIndex) {
+        this.setState({
+            showConfirm: true,
+            thisComment: comment,
+            thisCommentIndex: commentIndex
+        });
+    }
+    // posts comment to database
+    postComment() {
+        var commentData = {
+            comment: ReactDOM.findDOMNode(this.refs.submitComment).value,
+            idposts: window.idposts,
+            username: window.user,
+        };
 
-  	open(comment, commentIndex) {
-    	this.setState({ showConfirm: true,
-    					thisComment : comment,
-    					thisCommentIndex : commentIndex });
-  	}
+        $.post('../api/v1/newcomment', commentData, function(response) {
+            // adds user's submitted comment to the DOM
+            this.setState({
+                comments: update(this.state.comments, {
+                    $unshift: [commentData]
+                })
+            });
+        }.bind(this));
+        // when set to true, commentSubmitted removes the comment form and adds a thank-you message
+        this.setState({
+            commentSubmitted: true
+        });
+    }
 
-	postComment() {
-		var commentData = {
-	  		comment : ReactDOM.findDOMNode(this.refs.submitComment).value,
-	  		idposts : window.idposts,
-	  		username : window.user,
-	  		};
-
-			$.post('../api/v1/newcomment', commentData, function(response) {
-				this.setState({
-					comments : update(this.state.comments, {$unshift: [commentData]})
-				});
-			}.bind(this));
-
-			this.setState({ commentSubmitted : true });
-	}
-
-
-	deleteComment() {
-		var deletedComment = {comment : this.state.thisComment};
-		$.post('../api/v1/deletecomment/', deletedComment, function() {
-			this.setState({ 
-				 comments: update(this.state.comments, {$splice: [[this.state.thisCommentIndex, 1]]})
-			});
-		}.bind(this));
-		this.setState({ showConfirm: false });
-	}
+    // deletes selected comment
+    deleteComment() {
+        var deletedComment = {
+            comment: this.state.thisComment
+        };
+        $.post('../api/v1/deletecomment/', deletedComment, function() {
+            this.setState({
+                comments: update(this.state.comments, {
+                    $splice: [
+                        [this.state.thisCommentIndex, 1]
+                    ]
+                })
+            });
+        }.bind(this));
+        // removes confirmation pop-up after ajax request is complete
+        this.setState({
+            showConfirm: false
+        });
+    }
 
 
-	render() {
+    render() {
 
-		var authRender = null;
-			if( window.user !== '' && this.state.commentSubmitted == false ) { 
-			 	authRender = 
-					<RB.Row className="addCommentForm">
+        var authRender = null;
+        // if user is signed in and hasn't yet submitted a comment
+        if (window.user !== '' && this.state.commentSubmitted == false) {
+            authRender =
+                <RB.Row className="addCommentForm">
 						<h4>{this.state.numberOfComments} Comments</h4>
 						<RB.FormGroup>        	
 				        	<RB.FormControl ref='submitComment' componentClass='textarea' type='text'/>
@@ -70,23 +91,22 @@ class PostDisplay extends React.Component {
 							<RB.Button onClick={this.postComment.bind(this)}>Submit</RB.Button>
 						</RB.ButtonGroup>
 					</RB.Row>
-		  	} else if ( window.user !== '' && this.state.commentSubmitted == true ) {
-			  	authRender = 
-			  		<RB.Row>
+        } else if (window.user !== '' && this.state.commentSubmitted == true) {  // if user is signed in and has submitted a comment
+            authRender =
+                <RB.Row>
 			  			<h4>Thanks!</h4>
-			  		</RB.Row>					
-		  	} else {
-			  	authRender = 
-			  		<RB.Row className="addCommentForm">
+			  		</RB.Row>
+        } else {  // if user is not signed in
+            authRender =
+                <RB.Row className="addCommentForm">
 			  			<h4>{this.state.numberOfComments} Comments <b>(Please log in to comment!)</b></h4>
 			  		</RB.Row>
-			}
-
-		var	finalComments = this.state.comments.map((commentsEntered) => {
-			console.log(commentsEntered.avatar);
-	        if( window.user == commentsEntered.username ) {
-		        return (
-					<div>
+        }
+        // recieves state information and populates a list of comments on the post
+        var finalComments = this.state.comments.map((commentsEntered) => {
+            if (window.user == commentsEntered.username) {
+                return (
+                    <div>
 						<RB.Row className='commentRow' onClick={this.open.bind(this, commentsEntered.idcomments, this.state.comments.indexOf(commentsEntered))}>
 							<RB.Col xs={3} sm={2}>
 								<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
@@ -99,11 +119,10 @@ class PostDisplay extends React.Component {
 				    		</RB.Col>
 			    		</RB.Row>
 		    		</div>
-	        	);
-	        }
-	        else {
-	        	return (
-					<div>
+                );
+            } else {
+                return (
+                    <div>
 						<RB.Row className='commentRow'>
 							<RB.Col xs={3} sm={2}>
 								<RB.Image className='commentImg' src={ commentsEntered.avatar } responsive circle />
@@ -114,13 +133,13 @@ class PostDisplay extends React.Component {
 				    		</RB.Panel>
 				    		</RB.Col>
 			    		</RB.Row>
-		    		</div>        		
-	        	);
-	        }
-	    });
+		    		</div>
+                );
+            }
+        });
 
-		return (
-			<div>
+        return (
+            <div>
 				<RB.Row>
 					<h2>{ window.title }</h2>
 					<div>{ window.article }</div>
@@ -141,21 +160,21 @@ class PostDisplay extends React.Component {
 				</RB.Modal>
 			</div>
 
-		)
-	}
+        )
+    }
 }
 
 
 class PostPage extends React.Component {
 
-	render() {
-		return (
-			<RB.Grid>
-			<formatting.Header />
-			<PostDisplay />
+    render() {
+        return (
+            <RB.Grid>
+				<formatting.Header />
+				<PostDisplay />
 			</RB.Grid>
-		)
-	}
+        )
+    }
 }
 
 ReactDOM.render(<PostPage />, document.getElementById('content'));

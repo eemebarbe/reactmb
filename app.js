@@ -1,12 +1,11 @@
 //general dependencies
-
 var express = require('express');
-	app = express();
-	fs = require('fs');
-    bodyParser = require('body-parser');
-    path = require ('path');
-    ejs = require('ejs');
-  	router = express.Router(); 
+app = express();
+fs = require('fs');
+bodyParser = require('body-parser');
+path = require('path');
+ejs = require('ejs');
+router = express.Router();
 
 
 //file upload configuration
@@ -14,56 +13,58 @@ var express = require('express');
 var multer = require('multer');
 
 var avatarStorage = multer.diskStorage({
-  	destination: function (req, file, cb) {
-    	cb(null, 'public/uploads/avatars/');
-  	},
-	filename: function (req, file, cb){
-		cb(null, req.user);
-	},
-	limits: {
-		fieldNameSize: 100,
-		fizeSize: 20000
-	}
+    destination: function(req, file, cb) {
+        cb(null, 'public/uploads/avatars/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, req.user);
+    },
+    limits: {
+        fieldNameSize: 100,
+        fizeSize: 20000
+    }
 });
 
-uploadAvatar = multer({ storage: avatarStorage });
+uploadAvatar = multer({
+    storage: avatarStorage
+});
 
 
 //database configuration
 
-var	mysql = require('mysql');
-	connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'ReactMB'
-	});
+var mysql = require('mysql');
+connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ReactMB'
+});
 
-	connection.connect();
+connection.connect();
 
 
 //route configuration
 
-  	app.use('/api', router);
-	app.use(express.static(__dirname + '/public'));
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.use(bodyParser.json());
+app.use('/api', router);
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
-	app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 
 
 //internal app dependencies
 
-var	routes = require('./routes/routes.js')(app);
-	api = require('./api/api.js')(app);
+var routes = require('./routes/routes.js')(app);
+api = require('./api/api.js')(app);
 
 
 //server initialization
 
-	var port = 80;
-	app.listen(port, function() {
-	    console.log('ReactMB up and running on Port ' + port);
-	});
-
-
+var port = 80;
+app.listen(port, function() {
+    console.log('ReactMB up and running on Port ' + port);
+});
 

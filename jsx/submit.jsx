@@ -6,24 +6,27 @@ import * as formatting from './header.jsx';
 
 
 class SubmitForm extends React.Component {
-	constructor(props) {
-    super(props);
-    this.state = { article : [] };
-}
+    constructor(props) {
+        super(props);
+        this.state = {
+            article: []
+        };
+    }
 
-	postArticle() {
-	var articleData = {
-  		title : ReactDOM.findDOMNode(this.refs.title).value,
-  		article : ReactDOM.findDOMNode(this.refs.article).value,
-  		idusers : window.user
-  		};
-		$.post('api/v1/newpost', articleData);
-	}
+    // submits post to database
+    postArticle() {
+        var articleData = {
+            title: ReactDOM.findDOMNode(this.refs.title).value,
+            article: ReactDOM.findDOMNode(this.refs.article).value,
+            idusers: window.user
+        };
+        $.post('api/v1/newpost', articleData);
+    }
 
 
-	render() {
-		return (
-				<div>
+    render() {
+        return (
+            <div>
 		      		<h4>Title</h4>
 		        	<RB.FormGroup>        	
 		        		<RB.FormControl ref='title' type='text'/>
@@ -36,21 +39,20 @@ class SubmitForm extends React.Component {
 						<RB.Button onClick={this.postArticle.bind(this)} href='./'>Submit</RB.Button>
 					</RB.ButtonGroup>
 	        	</div>
-			);
-	}
+        );
+    }
 }
 
 class SubmitPage extends React.Component {
-	render() {
-		return (
-			<RB.Grid>
-			<formatting.Header />
-			<SubmitForm />
+    render() {
+        return (
+            <RB.Grid>
+				<formatting.Header />
+				<SubmitForm />
 			</RB.Grid>
-			);
-	}
+        );
+    }
 }
 
 
 ReactDOM.render(<SubmitPage />, document.getElementById('content'));
-

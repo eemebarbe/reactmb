@@ -5,82 +5,97 @@ import * as RB from 'react-bootstrap';
 import $ from 'jquery';
 import * as formatting from './header.jsx';
 
-
-
+// user preference panel, used to change avatar or delete user's posts
 class ProfileOptions extends React.Component {
-
-	constructor(props) {
-    super(props);
-    this.state = { 
-    	posts : window.posts,
-    	avatar : window.avatar,
-    	showConfirm : false,
-    	deletePost : null,
-    	deletePostIndex : null,
-    	isLoading : false
-    };
-  	}
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            posts: window.posts,
+            avatar: window.avatar,
+            showConfirm: false,
+            deletePost: null,
+            deletePostIndex: null,
+            isLoading: false
+        };
+    }
+    // when showConfirm is set to false, no confirmation pop-up is shown
     close() {
-    	this.setState({ showConfirm: false });
-  	}
+        this.setState({
+            showConfirm: false
+        });
+    }
+    // opens up a prompt to confirm that the user would like to delete the selected post
+    open(post, postIndex) {
+        this.setState({
+            showConfirm: true,
+            deletePost: post,
+            deletePostIndex: postIndex
+        });
+    }
+    // uploads avatar image to file directory
+    uploadImage() {
+        var self = this;
+        this.setState({
+            isLoading: true
+        });
 
-  	open(post, postIndex) {
-    	this.setState({ showConfirm: true,
-    					deletePost : post,
-    					deletePostIndex : postIndex });
-  	}
+        var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
+            avatarPath = ReactDOM.findDOMNode(this.refs.avatarPath).value,
+            data = new FormData(),
+            re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+        data.append('avatar', avatarData);
 
-  	uploadImage() {
-  		var self = this;
-  		this.setState({ isLoading : true });
+        if (!re.exec(avatarPath)) {
+            alert('File extension not supported!');
+        } else if (avatarData.size > 20000) {
+            alert('File size is too big!');
+        } else {
+            $.ajax({
+                url: 'api/v1/avatar',
+                data: data,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function() {
+                    self.setState({
+                        isLoading: false,
+                        avatar: '../uploads/avatars/' + window.user
+                    });
+                },
+                error: function() {
+                    self.setState({
+                        isLoading: false
+                    });
+                }
+            });
+        }
+    }
+    // deletes selected post
+    deletePost() {
+        var deletedPost = {
+            post: this.state.deletePost
+        };
+        $.post('/api/v1/deletepost/', deletedPost, function() {
+            this.setState({
+                posts: update(this.state.posts, {
+                    $splice: [
+                        [this.statedeletePostIndex, 1]
+                    ]
+                })
+            });
+        }.bind(this));
+        // when showConfirm is set to false, deletion prompt is removed
+        this.setState({
+            showConfirm: false
+        });
+    }
 
-  		var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
-  			avatarPath = ReactDOM.findDOMNode(this.refs.avatarPath).value,
-  			data = new FormData(),
- 			re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
- 		data.append('avatar', avatarData);
 
-		if(!re.exec(avatarPath))
-		{
-			alert('File extension not supported!');
-		}
-		else if(avatarData.size > 20000) {
-			alert('File size is too big!');
-		}
-		else {
-	  		$.ajax({
-			  url: 'api/v1/avatar',
-			  data: data,
-			  processData: false,
-			  contentType: false,
-			  type: 'POST',
-			  success: function(){
-			    self.setState({ isLoading : false, avatar : '../uploads/avatars/' + window.user });
-			  },
-			  error: function(){
-			  	self.setState({ isLoading : false });
-			  }
-			});
-		}
-  	}
+    render() {
 
-	deletePost() {
-		var deletedPost = {post : this.state.deletePost};
-		$.post('/api/v1/deletepost/', deletedPost, function() {
-			this.setState({ 
-				 posts : update(this.state.posts, {$splice: [[this.statedeletePostIndex, 1]]})
-			});
-		}.bind(this));
-		this.setState({ showConfirm: false });
-	}
-
-
-	render() {
-
-		var finalPosts = this.state.posts.map((posts) => {
-			return (
-				<div>
+        var finalPosts = this.state.posts.map((posts) => {
+            return (
+                <div>
 				<RB.Row className='postRow' onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
@@ -89,11 +104,11 @@ class ProfileOptions extends React.Component {
 					</RB.Panel>
 	    		</RB.Row>
 	    		</div>
-	        );
-	    });
+            );
+        });
 
-		return (
-			<div>
+        return (
+            <div>
 				<RB.Row>
 					<RB.Col xs={12} sm={6}>
 						<h4>Profile Image</h4>
@@ -126,20 +141,20 @@ class ProfileOptions extends React.Component {
 				</RB.Modal>
 	      	</div>
 
-			);
-	}
+        );
+    }
 }
 
 
 class ProfilePage extends React.Component {
-	render() {
-		return (
-			<RB.Grid>
-			<formatting.Header />
-			<ProfileOptions />
+    render() {
+        return (
+            <RB.Grid>
+				<formatting.Header />
+				<ProfileOptions />
 			</RB.Grid>
-			);
-	}
+        );
+    }
 }
 
 

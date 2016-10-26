@@ -3,97 +3,108 @@ import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import $ from 'jquery';
 
+// pop-up modal used for signing in or creating a new account
 export class Modal extends React.Component {
-	constructor(props) {
-    	super(props);
-    	this.state = {
-    		signUpAlert : null,
-    		signInAlert : null
-    	};
-  	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            signUpAlert: null,
+            signInAlert: null
+        };
+    }
+    //function used to submit new users
+    signUp() {
+        var self = this;
+        var signUpData = {
+            username: ReactDOM.findDOMNode(this.refs.username).value,
+            password: ReactDOM.findDOMNode(this.refs.password).value,
+            passwordVerify: ReactDOM.findDOMNode(this.refs.passwordVerify).value,
+            email: ReactDOM.findDOMNode(this.refs.email).value
+        };
 
-	signUp() {
-		var self = this;
-	  	var signUpData = {
-	  		username : ReactDOM.findDOMNode(this.refs.username).value,
-	  		password : ReactDOM.findDOMNode(this.refs.password).value,
-	  		passwordVerify : ReactDOM.findDOMNode(this.refs.passwordVerify).value,
-	  		email : ReactDOM.findDOMNode(this.refs.email).value
-	  		};
+        // verify all sign-up data before passing it to the server
+        if (signUpData.username == null || signUpData.username == '') {
+            this.setState({
+                signUpAlert: 'Please enter a username!'
+            });
+        } else if (signUpData.password == null || signUpData.password == '') {
+            this.setState({
+                signUpAlert: 'Please enter a password!'
+            });
+        } else if (signUpData.password != signUpData.passwordVerify) {
+            this.setState({
+                signUpAlert: 'Password entries don\'t match!'
+            });
+        } else if (signUpData.email == null || signUpData.email == '') {
+            this.setState({
+                signUpAlert: 'Please enter your email address!'
+            });
+        } else if (signUpData.email !== null || signUpData.email !== '') {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!re.test(signUpData.email)) {
+                this.setState({
+                    signUpAlert: 'Not a valid email address!'
+                });
+            // if all form data passes, submit to the database
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/newuser',
+                    data: signUpData,
+                    success: function() {
+                        $.post('/loginAuth', signUpData, function() {
+                            window.location.href = '../';
+                        });
+                    },
+                    error: function() {
+                        self.setState({
+                            signUpAlert: 'Either this email or this username is already in use!'
+                        });
+                    }
+                });
+            }
+        }
+    }
 
-	//Verify all sign-up data before passing it to the server
-	  	if(signUpData.username == null || signUpData.username == '') {
-	  		this.setState({ signUpAlert : 'Please enter a username!' });
-	  	}
-	  	else if(signUpData.password == null || signUpData.password == '') {
-	  		this.setState({ signUpAlert : 'Please enter a password!' });
-	  	}
-	  	else if(signUpData.password != signUpData.passwordVerify) {
-	  		this.setState({ signUpAlert : 'Password entries don\'t match!' });	  		
-	  	}
-	  	else if(signUpData.email == null || signUpData.email == '') {
-	  		this.setState({ signUpAlert : 'Please enter your email address!' });	  		
-	  	}
-	  	else if (signUpData.email !== null || signUpData.email !== '') {
-			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			if(!re.test(signUpData.email)) {
-	  			this.setState({ signUpAlert : 'Not a valid email address!' });				
-			}
-		else {
-			$.ajax({
-			  type: 'POST',
-			  url: '/api/v1/newuser',
-			  data: signUpData,
-			  success: function(){
-							$.post('/loginAuth', signUpData, function(){
-							window.location.href= '../'; 
-			  			});
-			  },
-			  error: function() {
-				  	 self.setState({ signUpAlert : 'Either this email or this username is already in use!' });	
-			  }
-			});
-	    }
-	  	}
-	}
+    // function used to pass user sign-in data through authentication and ultimately log the user in
+    signIn() {
+        var signInData = {
+            username: ReactDOM.findDOMNode(this.refs.logInUser).value,
+            password: ReactDOM.findDOMNode(this.refs.logInPass).value
+        };
 
+        $.ajax({
+            type: 'POST',
+            url: '/loginAuth',
+            data: signInData,
+            dataType: 'json',
+            success: function() {
+                window.location.href = '../';
+            },
+            error: function() {
+                this.setState({
+                    signInAlert: 'Username or password was entered incorrectly.'
+                });
+            }
+        });
+    }
 
-	signIn(){
-	  	var signInData = {
-	  		username : ReactDOM.findDOMNode(this.refs.logInUser).value,
-	  		password : ReactDOM.findDOMNode(this.refs.logInPass).value
-	  		};
-
-		$.ajax({
-			  type: 'POST',
-			  url: '/loginAuth',
-			  data: signInData,
-			  dataType: 'json',
-			  success: function(){
-				window.location.href= '../'; 
-			  },
-			  error: function(){
-			    this.setState({ signInAlert : 'Username or password was entered incorrectly.' });	
-			  }
-		});	
-	}
-
-	render(){
-
-	  	const signUpPopUp = (
-	  		<RB.Popover>
+    render() {
+        // alert box for sign-up error
+        const signUpPopUp = (
+            <RB.Popover>
 	    		{this.state.signUpAlert}
 	  		</RB.Popover>
-			);
-
-	  	const signInPopUp = (
-	  		<RB.Popover>
+        );
+        // alert box for sign-in error
+        const signInPopUp = (
+            <RB.Popover>
 	    		{this.state.signInAlert}
 	  		</RB.Popover>
-			);
+        );
 
-		return(
-			<div>
+        return (
+            <div>
 				<RB.Modal show={this.props.showModal} onHide={this.props.close}>
 				<RB.Modal.Header closeButton>
 	        	<RB.Modal.Title>Enter your credentials {this.props.showModal}</RB.Modal.Title>
@@ -143,40 +154,48 @@ export class Modal extends React.Component {
 	      		</RB.Modal.Footer>
 				</RB.Modal>
 			</div>
-		);
-	}
+        );
+    }
 }
 
 
 export class Header extends React.Component {
-	
-	constructor(props) {
-    	super(props);
-    	this.state = { showModal: false };
-  	}
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false
+        };
+    }
+    // when showModal is set to false, no modal is shown 
     close() {
-    	this.setState({ showModal: false });
-  	}
+        this.setState({
+            showModal: false
+        });
+    }
+    // when showModal is set to true, modal is shown
+    open() {
+        this.setState({
+            showModal: true
+        });
+    }
 
-  	open() {
-    	this.setState({ showModal: true });
-  	}
-
-	render() {
-		var authRender = null;
-		if( window.user == '') { 
-		 	authRender = 
-				<div>
+    render() {
+        var authRender = null;
+        // if user is not signed in
+        if (window.user == '') {
+            authRender =
+                <div>
 					<RB.Navbar.Form pullRight>
 						<RB.ButtonGroup>
 					    	<RB.Button onClick={this.open.bind(this)}>Sign In</RB.Button>
 						</RB.ButtonGroup>
 					</RB.Navbar.Form>
 				</div>;
-	  	} else {
-		 	authRender = 
-				<div>
+        // if user is signed in
+        } else {
+            authRender =
+                <div>
 					<RB.Navbar.Form pullRight>
 						<RB.ButtonGroup>
 					    <RB.Button href='/logout'>Sign Out</RB.Button>
@@ -187,11 +206,11 @@ export class Header extends React.Component {
 					    <RB.NavItem eventKey={4} href='../profile'>Profile</RB.NavItem>
 					</RB.Nav>
 				</div>;
-	  	}
+        }
 
 
-		return (
-			<div>
+        return (
+            <div>
 				<RB.Row>
 					<RB.PageHeader>
 		  				ReactMB <small>Built on React and Node</small>
@@ -212,11 +231,6 @@ export class Header extends React.Component {
 
 				<Modal showModal={this.state.showModal} onHide={this.close.bind(this)} close={this.close.bind(this)}/>
 			</div>
-		);
-	}
+        );
+    }
 }
-
-
-
-
-
