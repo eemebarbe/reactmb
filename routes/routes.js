@@ -57,7 +57,7 @@ module.exports = function(app){
           // Create new user var to be rendered in the template.
           var user = {  
             user : req.user,
-            title: data[0].title,
+            title: JSON.stringify(data[0].title),
             idposts : data[0].idposts,
             article: JSON.stringify(data[0].article),
             loopComments: JSON.stringify(rows)
