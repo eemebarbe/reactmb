@@ -59,7 +59,7 @@ module.exports = function(app){
             user : req.user,
             title: data[0].title,
             idposts : data[0].idposts,
-            article: data[0].article,
+            article: JSON.stringify(data[0].article),
             loopComments: JSON.stringify(rows)
           };
  
