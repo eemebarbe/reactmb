@@ -69,7 +69,7 @@ class SubmissionList extends React.Component {
     render() {
         return (
             <RB.Row>
-				<RB.ListGroup
+				<RB.ListGroup>
 					{this.state.posts}
 				</RB.ListGroup>
 				<RB.Pagination next prev first last items={this.state.numberOfPages} maxButtons={5} onSelect={this.handleSelect.bind(this)} activePage={this.state.currentPage} />

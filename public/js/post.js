@@ -42,249 +42,279 @@ webpackJsonp([1],{
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var PostDisplay = function (_React$Component) {
-		_inherits(PostDisplay, _React$Component);
+	    _inherits(PostDisplay, _React$Component);
 
-		function PostDisplay(props) {
-			_classCallCheck(this, PostDisplay);
+	    function PostDisplay(props) {
+	        _classCallCheck(this, PostDisplay);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PostDisplay).call(this, props));
 
-			_this.state = { comments: window.loopComments,
-				numberOfComments: window.loopComments.length,
-				commentSubmitted: false,
-				thisComment: null,
-				thisCommentIndex: null,
-				showConfirm: null };
-			return _this;
-		}
+	        _this.state = {
+	            comments: window.loopComments,
+	            numberOfComments: window.loopComments.length,
+	            commentSubmitted: false,
+	            thisComment: null,
+	            thisCommentIndex: null,
+	            showConfirm: null
+	        };
+	        return _this;
+	    }
+	    // when showConfirm is set to false, modal is not visible
 
-		_createClass(PostDisplay, [{
-			key: 'close',
-			value: function close() {
-				this.setState({ showConfirm: false });
-			}
-		}, {
-			key: 'open',
-			value: function open(comment, commentIndex) {
-				this.setState({ showConfirm: true,
-					thisComment: comment,
-					thisCommentIndex: commentIndex });
-			}
-		}, {
-			key: 'postComment',
-			value: function postComment() {
-				var commentData = {
-					comment: _reactDom2.default.findDOMNode(this.refs.submitComment).value,
-					idposts: window.idposts,
-					username: window.user
-				};
 
-				_jquery2.default.post('../api/v1/newcomment', commentData, function (response) {
-					this.setState({
-						comments: (0, _reactAddonsUpdate2.default)(this.state.comments, { $unshift: [commentData] })
-					});
-				}.bind(this));
+	    _createClass(PostDisplay, [{
+	        key: 'close',
+	        value: function close() {
+	            this.setState({
+	                showConfirm: false
+	            });
+	        }
+	        // opens a pop-up that confirms that you would like to delete the selected comment
 
-				this.setState({ commentSubmitted: true });
-			}
-		}, {
-			key: 'deleteComment',
-			value: function deleteComment() {
-				var deletedComment = { comment: this.state.thisComment };
-				_jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
-					this.setState({
-						comments: (0, _reactAddonsUpdate2.default)(this.state.comments, { $splice: [[this.state.thisCommentIndex, 1]] })
-					});
-				}.bind(this));
-				this.setState({ showConfirm: false });
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
+	    }, {
+	        key: 'open',
+	        value: function open(comment, commentIndex) {
+	            this.setState({
+	                showConfirm: true,
+	                thisComment: comment,
+	                thisCommentIndex: commentIndex
+	            });
+	        }
+	        // posts comment to database
 
-				var authRender = null;
-				if (window.user !== '' && this.state.commentSubmitted == false) {
-					authRender = _react2.default.createElement(
-						RB.Row,
-						{ className: 'addCommentForm' },
-						_react2.default.createElement(
-							'h4',
-							null,
-							this.state.numberOfComments,
-							' Comments'
-						),
-						_react2.default.createElement(
-							RB.FormGroup,
-							null,
-							_react2.default.createElement(RB.FormControl, { ref: 'submitComment', componentClass: 'textarea', type: 'text' })
-						),
-						_react2.default.createElement(
-							RB.ButtonGroup,
-							null,
-							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.postComment.bind(this) },
-								'Submit'
-							)
-						)
-					);
-				} else if (window.user !== '' && this.state.commentSubmitted == true) {
-					authRender = _react2.default.createElement(
-						RB.Row,
-						null,
-						_react2.default.createElement(
-							'h4',
-							null,
-							'Thanks!'
-						)
-					);
-				} else {
-					authRender = _react2.default.createElement(
-						RB.Row,
-						{ className: 'addCommentForm' },
-						_react2.default.createElement(
-							'h4',
-							null,
-							this.state.numberOfComments,
-							' Comments ',
-							_react2.default.createElement(
-								'b',
-								null,
-								'(Please log in to comment!)'
-							)
-						)
-					);
-				}
+	    }, {
+	        key: 'postComment',
+	        value: function postComment() {
+	            var self = this;
+	            var commentData = {
+	                comment: _reactDom2.default.findDOMNode(this.refs.submitComment).value,
+	                idposts: window.idposts,
+	                username: window.user
+	            };
 
-				var finalComments = this.state.comments.map(function (commentsEntered) {
-					console.log(commentsEntered.avatar);
-					if (window.user == commentsEntered.username) {
-						return _react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(
-								RB.Row,
-								{ className: 'commentRow', onClick: _this2.open.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
-								_react2.default.createElement(
-									RB.Col,
-									{ xs: 3, sm: 2 },
-									_react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
-								),
-								_react2.default.createElement(
-									RB.Col,
-									{ xs: 9, sm: 10 },
-									_react2.default.createElement(
-										RB.Panel,
-										{ className: 'commentPanel', header: commentsEntered.username },
-										commentsEntered.comment,
-										_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
-									)
-								)
-							)
-						);
-					} else {
-						return _react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(
-								RB.Row,
-								{ className: 'commentRow' },
-								_react2.default.createElement(
-									RB.Col,
-									{ xs: 3, sm: 2 },
-									_react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
-								),
-								_react2.default.createElement(
-									RB.Col,
-									{ xs: 9, sm: 10 },
-									_react2.default.createElement(
-										RB.Panel,
-										{ className: 'commentPanel', header: commentsEntered.username },
-										commentsEntered.comment
-									)
-								)
-							)
-						);
-					}
-				});
+	            _jquery2.default.post('../api/v1/newcomment', commentData, function (response) {
+	                // adds user's submitted comment to the DOM
+	                _jquery2.default.get('../api/v1/comments/' + idposts, function (response) {
+	                    self.setState({
+	                        comments: response
+	                    });
+	                });
+	            });
+	            // when set to true, commentSubmitted removes the comment form and adds a thank-you message
+	            this.setState({
+	                commentSubmitted: true
+	            });
+	        }
 
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						RB.Row,
-						null,
-						_react2.default.createElement(
-							'h2',
-							null,
-							window.title
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							window.article
-						)
-					),
-					authRender,
-					_react2.default.createElement(
-						RB.Row,
-						{ className: 'commentsBox' },
-						finalComments
-					),
-					_react2.default.createElement(
-						RB.Modal,
-						{ show: this.state.showConfirm, onHide: this.close.bind(this) },
-						_react2.default.createElement(RB.Modal.Header, { closeButton: true }),
-						_react2.default.createElement(
-							RB.Modal.Body,
-							null,
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Are you sure you would like to delete this comment?'
-							),
-							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.deleteComment.bind(this) },
-								'Yes'
-							),
-							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.close.bind(this) },
-								'No'
-							)
-						)
-					)
-				);
-			}
-		}]);
+	        // deletes selected comment
 
-		return PostDisplay;
+	    }, {
+	        key: 'deleteComment',
+	        value: function deleteComment() {
+	            var deletedComment = {
+	                comment: this.state.thisComment
+	            };
+	            _jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
+	                this.setState({
+	                    comments: (0, _reactAddonsUpdate2.default)(this.state.comments, {
+	                        $splice: [[this.state.thisCommentIndex, 1]]
+	                    })
+	                });
+	            }.bind(this));
+	            // removes confirmation pop-up after ajax request is complete
+	            this.setState({
+	                showConfirm: false
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var authRender = null;
+	            // if user is signed in and hasn't yet submitted a comment
+	            if (window.user !== '' && this.state.commentSubmitted == false) {
+	                authRender = _react2.default.createElement(
+	                    RB.Row,
+	                    { className: 'addCommentForm' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        this.state.numberOfComments,
+	                        ' Comments'
+	                    ),
+	                    _react2.default.createElement(
+	                        RB.FormGroup,
+	                        null,
+	                        _react2.default.createElement(RB.FormControl, { ref: 'submitComment', componentClass: 'textarea', type: 'text' })
+	                    ),
+	                    _react2.default.createElement(
+	                        RB.ButtonGroup,
+	                        null,
+	                        _react2.default.createElement(
+	                            RB.Button,
+	                            { onClick: this.postComment.bind(this) },
+	                            'Submit'
+	                        )
+	                    )
+	                );
+	            } else if (window.user !== '' && this.state.commentSubmitted == true) {
+	                // if user is signed in and has submitted a comment
+	                authRender = _react2.default.createElement(
+	                    RB.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'Thanks!'
+	                    )
+	                );
+	            } else {
+	                // if user is not signed in
+	                authRender = _react2.default.createElement(
+	                    RB.Row,
+	                    { className: 'addCommentForm' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        this.state.numberOfComments,
+	                        ' Comments ',
+	                        _react2.default.createElement(
+	                            'b',
+	                            null,
+	                            '(Please log in to comment!)'
+	                        )
+	                    )
+	                );
+	            }
+	            // recieves state information and populates a list of comments on the post
+	            var finalComments = this.state.comments.map(function (commentsEntered) {
+	                if (window.user == commentsEntered.username) {
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            RB.Row,
+	                            { className: 'commentRow', onClick: _this2.open.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
+	                            _react2.default.createElement(
+	                                RB.Col,
+	                                { xs: 3, sm: 2 },
+	                                _react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
+	                            ),
+	                            _react2.default.createElement(
+	                                RB.Col,
+	                                { xs: 9, sm: 10 },
+	                                _react2.default.createElement(
+	                                    RB.Panel,
+	                                    { className: 'commentPanel', header: commentsEntered.username },
+	                                    commentsEntered.comment,
+	                                    _react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+	                                )
+	                            )
+	                        )
+	                    );
+	                } else {
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            RB.Row,
+	                            { className: 'commentRow' },
+	                            _react2.default.createElement(
+	                                RB.Col,
+	                                { xs: 3, sm: 2 },
+	                                _react2.default.createElement(RB.Image, { className: 'commentImg', src: commentsEntered.avatar, responsive: true, circle: true })
+	                            ),
+	                            _react2.default.createElement(
+	                                RB.Col,
+	                                { xs: 9, sm: 10 },
+	                                _react2.default.createElement(
+	                                    RB.Panel,
+	                                    { className: 'commentPanel', header: commentsEntered.username },
+	                                    commentsEntered.comment
+	                                )
+	                            )
+	                        )
+	                    );
+	                }
+	            });
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    RB.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        'h2',
+	                        null,
+	                        window.title
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        window.article
+	                    )
+	                ),
+	                authRender,
+	                _react2.default.createElement(
+	                    RB.Row,
+	                    { className: 'commentsBox' },
+	                    finalComments
+	                ),
+	                _react2.default.createElement(
+	                    RB.Modal,
+	                    { show: this.state.showConfirm, onHide: this.close.bind(this) },
+	                    _react2.default.createElement(RB.Modal.Header, { closeButton: true }),
+	                    _react2.default.createElement(
+	                        RB.Modal.Body,
+	                        null,
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            'Are you sure you would like to delete this comment?'
+	                        ),
+	                        _react2.default.createElement(
+	                            RB.Button,
+	                            { onClick: this.deleteComment.bind(this) },
+	                            'Yes'
+	                        ),
+	                        _react2.default.createElement(
+	                            RB.Button,
+	                            { onClick: this.close.bind(this) },
+	                            'No'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return PostDisplay;
 	}(_react2.default.Component);
 
 	var PostPage = function (_React$Component2) {
-		_inherits(PostPage, _React$Component2);
+	    _inherits(PostPage, _React$Component2);
 
-		function PostPage() {
-			_classCallCheck(this, PostPage);
+	    function PostPage() {
+	        _classCallCheck(this, PostPage);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(PostPage).apply(this, arguments));
-		}
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PostPage).apply(this, arguments));
+	    }
 
-		_createClass(PostPage, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					RB.Grid,
-					null,
-					_react2.default.createElement(formatting.Header, null),
-					_react2.default.createElement(PostDisplay, null)
-				);
-			}
-		}]);
+	    _createClass(PostPage, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                RB.Grid,
+	                null,
+	                _react2.default.createElement(formatting.Header, null),
+	                _react2.default.createElement(PostDisplay, null)
+	            );
+	        }
+	    }]);
 
-		return PostPage;
+	    return PostPage;
 	}(_react2.default.Component);
 
 	_reactDom2.default.render(_react2.default.createElement(PostPage, null), document.getElementById('content'));

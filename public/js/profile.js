@@ -41,206 +41,233 @@ webpackJsonp([2],{
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// user preference panel, used to change avatar or delete user's posts
 	var ProfileOptions = function (_React$Component) {
-		_inherits(ProfileOptions, _React$Component);
+	    _inherits(ProfileOptions, _React$Component);
 
-		function ProfileOptions(props) {
-			_classCallCheck(this, ProfileOptions);
+	    function ProfileOptions(props) {
+	        _classCallCheck(this, ProfileOptions);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileOptions).call(this, props));
 
-			_this.state = {
-				posts: window.posts,
-				avatar: window.avatar,
-				showConfirm: false,
-				deletePost: null,
-				deletePostIndex: null,
-				isLoading: false
-			};
-			return _this;
-		}
+	        _this.state = {
+	            posts: window.posts,
+	            avatar: window.avatar,
+	            showConfirm: false,
+	            deletePost: null,
+	            deletePostIndex: null,
+	            isLoading: false
+	        };
+	        return _this;
+	    }
+	    // when showConfirm is set to false, no confirmation pop-up is shown
 
-		_createClass(ProfileOptions, [{
-			key: 'close',
-			value: function close() {
-				this.setState({ showConfirm: false });
-			}
-		}, {
-			key: 'open',
-			value: function open(post, postIndex) {
-				this.setState({ showConfirm: true,
-					deletePost: post,
-					deletePostIndex: postIndex });
-			}
-		}, {
-			key: 'uploadImage',
-			value: function uploadImage() {
-				var self = this;
-				this.setState({ isLoading: true });
 
-				var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0],
-				    avatarPath = _reactDom2.default.findDOMNode(this.refs.avatarPath).value,
-				    data = new FormData(),
-				    re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
-				data.append('avatar', avatarData);
+	    _createClass(ProfileOptions, [{
+	        key: 'close',
+	        value: function close() {
+	            this.setState({
+	                showConfirm: false
+	            });
+	        }
+	        // opens up a prompt to confirm that the user would like to delete the selected post
 
-				if (!re.exec(avatarPath)) {
-					alert('File extension not supported!');
-				} else if (avatarData.size > 20000) {
-					alert('File size is too big!');
-				} else {
-					_jquery2.default.ajax({
-						url: 'api/v1/avatar',
-						data: data,
-						processData: false,
-						contentType: false,
-						type: 'POST',
-						success: function success() {
-							self.setState({ isLoading: false, avatar: '../uploads/avatars/' + window.user });
-						},
-						error: function error() {
-							self.setState({ isLoading: false });
-						}
-					});
-				}
-			}
-		}, {
-			key: 'deletePost',
-			value: function deletePost() {
-				var deletedPost = { post: this.state.deletePost };
-				_jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
-					this.setState({
-						posts: (0, _reactAddonsUpdate2.default)(this.state.posts, { $splice: [[this.statedeletePostIndex, 1]] })
-					});
-				}.bind(this));
-				this.setState({ showConfirm: false });
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
+	    }, {
+	        key: 'open',
+	        value: function open(post, postIndex) {
+	            this.setState({
+	                showConfirm: true,
+	                deletePost: post,
+	                deletePostIndex: postIndex
+	            });
+	        }
+	        // uploads avatar image to file directory
 
-				var finalPosts = this.state.posts.map(function (posts) {
-					return _react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							RB.Row,
-							{ className: 'postRow', onClick: _this2.open.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
-							_react2.default.createElement(
-								RB.Panel,
-								null,
-								posts.title,
-								posts.postdate,
-								_react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
-							)
-						)
-					);
-				});
+	    }, {
+	        key: 'uploadImage',
+	        value: function uploadImage() {
+	            var self = this;
+	            this.setState({
+	                isLoading: true
+	            });
 
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						RB.Row,
-						null,
-						_react2.default.createElement(
-							RB.Col,
-							{ xs: 12, sm: 6 },
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Profile Image'
-							),
-							_react2.default.createElement(RB.Image, { className: 'userImg', src: this.state.avatar, responsive: true, circle: true })
-						),
-						_react2.default.createElement(
-							RB.Col,
-							{ xs: 12, sm: 6 },
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Upload New Profile Image'
-							),
-							_react2.default.createElement(
-								RB.Well,
-								null,
-								_react2.default.createElement(
-									RB.FormGroup,
-									null,
-									_react2.default.createElement('input', { type: 'file', ref: 'avatarPath', name: 'file' })
-								),
-								_react2.default.createElement(
-									RB.Button,
-									{ disabled: this.state.isLoading, onClick: this.uploadImage.bind(this) },
-									this.state.isLoading ? 'Loading...' : 'Save'
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						RB.Row,
-						null,
-						_react2.default.createElement(
-							'h4',
-							null,
-							'Posts'
-						)
-					),
-					finalPosts,
-					_react2.default.createElement(
-						RB.Modal,
-						{ show: this.state.showConfirm, onHide: this.close.bind(this) },
-						_react2.default.createElement(RB.Modal.Header, { closeButton: true }),
-						_react2.default.createElement(
-							RB.Modal.Body,
-							null,
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Are you sure you would like to delete this post?'
-							),
-							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.deletePost.bind(this) },
-								'Yes'
-							),
-							_react2.default.createElement(
-								RB.Button,
-								{ onClick: this.close.bind(this) },
-								'No'
-							)
-						)
-					)
-				);
-			}
-		}]);
+	            var avatarData = _reactDom2.default.findDOMNode(this.refs.avatarPath).files[0],
+	                avatarPath = _reactDom2.default.findDOMNode(this.refs.avatarPath).value,
+	                data = new FormData(),
+	                re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+	            data.append('avatar', avatarData);
 
-		return ProfileOptions;
+	            if (!re.exec(avatarPath)) {
+	                alert('File extension not supported!');
+	            } else if (avatarData.size > 20000) {
+	                alert('File size is too big!');
+	            } else {
+	                _jquery2.default.ajax({
+	                    url: 'api/v1/avatar',
+	                    data: data,
+	                    processData: false,
+	                    contentType: false,
+	                    type: 'POST',
+	                    success: function success() {
+	                        self.setState({
+	                            isLoading: false,
+	                            avatar: '../uploads/avatars/' + window.user
+	                        });
+	                    },
+	                    error: function error() {
+	                        self.setState({
+	                            isLoading: false
+	                        });
+	                    }
+	                });
+	            }
+	        }
+	        // deletes selected post
+
+	    }, {
+	        key: 'deletePost',
+	        value: function deletePost() {
+	            var deletedPost = {
+	                post: this.state.deletePost
+	            };
+	            _jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
+	                this.setState({
+	                    posts: (0, _reactAddonsUpdate2.default)(this.state.posts, {
+	                        $splice: [[this.statedeletePostIndex, 1]]
+	                    })
+	                });
+	            }.bind(this));
+	            // when showConfirm is set to false, deletion prompt is removed
+	            this.setState({
+	                showConfirm: false
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var finalPosts = this.state.posts.map(function (posts) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        RB.Row,
+	                        { className: 'postRow', onClick: _this2.open.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
+	                        _react2.default.createElement(
+	                            RB.Panel,
+	                            null,
+	                            posts.title,
+	                            posts.postdate,
+	                            _react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+	                        )
+	                    )
+	                );
+	            });
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    RB.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        RB.Col,
+	                        { xs: 12, sm: 6 },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            'Profile Image'
+	                        ),
+	                        _react2.default.createElement(RB.Image, { className: 'userImg', src: this.state.avatar, responsive: true, circle: true })
+	                    ),
+	                    _react2.default.createElement(
+	                        RB.Col,
+	                        { xs: 12, sm: 6 },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            'Upload New Profile Image'
+	                        ),
+	                        _react2.default.createElement(
+	                            RB.Well,
+	                            null,
+	                            _react2.default.createElement(
+	                                RB.FormGroup,
+	                                null,
+	                                _react2.default.createElement('input', { type: 'file', ref: 'avatarPath', name: 'file' })
+	                            ),
+	                            _react2.default.createElement(
+	                                RB.Button,
+	                                { disabled: this.state.isLoading, onClick: this.uploadImage.bind(this) },
+	                                this.state.isLoading ? 'Loading...' : 'Save'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    RB.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'Posts'
+	                    )
+	                ),
+	                finalPosts,
+	                _react2.default.createElement(
+	                    RB.Modal,
+	                    { show: this.state.showConfirm, onHide: this.close.bind(this) },
+	                    _react2.default.createElement(RB.Modal.Header, { closeButton: true }),
+	                    _react2.default.createElement(
+	                        RB.Modal.Body,
+	                        null,
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            'Are you sure you would like to delete this post?'
+	                        ),
+	                        _react2.default.createElement(
+	                            RB.Button,
+	                            { onClick: this.deletePost.bind(this) },
+	                            'Yes'
+	                        ),
+	                        _react2.default.createElement(
+	                            RB.Button,
+	                            { onClick: this.close.bind(this) },
+	                            'No'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ProfileOptions;
 	}(_react2.default.Component);
 
 	var ProfilePage = function (_React$Component2) {
-		_inherits(ProfilePage, _React$Component2);
+	    _inherits(ProfilePage, _React$Component2);
 
-		function ProfilePage() {
-			_classCallCheck(this, ProfilePage);
+	    function ProfilePage() {
+	        _classCallCheck(this, ProfilePage);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfilePage).apply(this, arguments));
-		}
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfilePage).apply(this, arguments));
+	    }
 
-		_createClass(ProfilePage, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					RB.Grid,
-					null,
-					_react2.default.createElement(formatting.Header, null),
-					_react2.default.createElement(ProfileOptions, null)
-				);
-			}
-		}]);
+	    _createClass(ProfilePage, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                RB.Grid,
+	                null,
+	                _react2.default.createElement(formatting.Header, null),
+	                _react2.default.createElement(ProfileOptions, null)
+	            );
+	        }
+	    }]);
 
-		return ProfilePage;
+	    return ProfilePage;
 	}(_react2.default.Component);
 
 	_reactDom2.default.render(_react2.default.createElement(ProfilePage, null), document.getElementById('content'));

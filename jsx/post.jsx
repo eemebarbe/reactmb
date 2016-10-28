@@ -35,6 +35,7 @@ class PostDisplay extends React.Component {
     }
     // posts comment to database
     postComment() {
+        var self = this;
         var commentData = {
             comment: ReactDOM.findDOMNode(this.refs.submitComment).value,
             idposts: window.idposts,
@@ -43,12 +44,12 @@ class PostDisplay extends React.Component {
 
         $.post('../api/v1/newcomment', commentData, function(response) {
             // adds user's submitted comment to the DOM
-            this.setState({
-                comments: update(this.state.comments, {
-                    $unshift: [commentData]
+            $.get('../api/v1/comments/' + idposts, function(response){
+                self.setState({
+                    comments: response
                 })
             });
-        }.bind(this));
+        });
         // when set to true, commentSubmitted removes the comment form and adds a thank-you message
         this.setState({
             commentSubmitted: true
