@@ -208,7 +208,11 @@ webpackJsonp([1],{
 	                                    RB.Panel,
 	                                    { className: 'commentPanel', header: commentsEntered.username },
 	                                    commentsEntered.comment,
-	                                    _react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'commentDeletion' },
+	                                        _react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+	                                    )
 	                                )
 	                            )
 	                        )
@@ -246,9 +250,19 @@ webpackJsonp([1],{
 	                    RB.Row,
 	                    null,
 	                    _react2.default.createElement(
-	                        'h2',
-	                        null,
-	                        window.title
+	                        'div',
+	                        { className: 'postHeader' },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            null,
+	                            window.title
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            'by ',
+	                            window.owner
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',

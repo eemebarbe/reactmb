@@ -115,7 +115,9 @@ class PostDisplay extends React.Component {
 							<RB.Col xs={9} sm={10}>
 								<RB.Panel className='commentPanel' header={ commentsEntered.username }>
 						      		{ commentsEntered.comment }
-						      		<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
+                                    <div className='commentDeletion'>
+						      		  <RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
+                                    </div>
 					    		</RB.Panel>
 				    		</RB.Col>
 			    		</RB.Row>
@@ -142,7 +144,10 @@ class PostDisplay extends React.Component {
         return (
             <div>
 				<RB.Row>
-					<h2>{ window.title }</h2>
+                    <div className='postHeader'>
+    					<h2>{ window.title }</h2>
+                        <div>by { window.owner }</div>
+                    </div>
 					<div>{ window.article }</div>
 				</RB.Row>
 					{authRender}

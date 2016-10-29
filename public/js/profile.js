@@ -158,8 +158,12 @@ webpackJsonp([2],{
 	                            RB.Panel,
 	                            null,
 	                            posts.title,
-	                            posts.postdate,
-	                            _react2.default.createElement(RB.Glyphicon, { glyph: 'glyphicon glyphicon-remove' })
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'postDeletion' },
+	                                posts.postdate,
+	                                _react2.default.createElement(RB.Glyphicon, { className: 'glyphSpace', glyph: 'glyphicon glyphicon-remove' })
+	                            )
 	                        )
 	                    )
 	                );

@@ -99,8 +99,10 @@ class ProfileOptions extends React.Component {
 				<RB.Row className='postRow' onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>
 					<RB.Panel>
 						{posts.title}
-						{posts.postdate}
-						<RB.Glyphicon glyph='glyphicon glyphicon-remove'/>
+                        <div className='postDeletion'>
+    						{posts.postdate}
+    						<RB.Glyphicon className="glyphSpace" glyph='glyphicon glyphicon-remove'/>
+                        </div>
 					</RB.Panel>
 	    		</RB.Row>
 	    		</div>

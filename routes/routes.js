@@ -57,6 +57,7 @@ module.exports = function(app){
           // Create new user var to be rendered in the template.
           var user = {  
             user : req.user,
+            owner : data[0].idusers,
             title: JSON.stringify(data[0].title),
             idposts : data[0].idposts,
             article: JSON.stringify(data[0].article),

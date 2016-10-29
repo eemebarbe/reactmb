@@ -59,8 +59,8 @@ webpackJsonp([0],[
 	    _createClass(SubmissionList, [{
 	        key: 'getPosts',
 	        value: function getPosts(page) {
-	            var loopPosts = [];
 	            var pageRange = 3;
+	            var self = this;
 	            // get the total number of posts so the pagination displays the correct number of pages
 	            _jquery2.default.get('/api/v1/postcount/', function (response) {
 	                var math = Math.ceil(response[0].count / pageRange);
@@ -70,39 +70,8 @@ webpackJsonp([0],[
 	            }.bind(this));
 	            // page value is passed to a database query and the appropriate range of posts are returned
 	            _jquery2.default.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function (response) {
-	                if (response !== null) {
-	                    for (var i = 0; i < response.length; i++) {
-	                        // if the comment amount comes out as null in the query, pass '0' to avoid an error
-	                        var commentAmount = null;
-	                        if (response[i].comments == null) {
-	                            commentAmount = '0';
-	                        } else {
-	                            commentAmount = response[i].comments;
-	                        }
-	                        loopPosts.push(_react2.default.createElement(
-	                            RB.ListGroupItem,
-	                            { href: '/post/' + response[i].idposts, header: response[i].title },
-	                            'Submitted by ',
-	                            response[i].idusers,
-	                            ' | Comments ',
-	                            _react2.default.createElement(
-	                                'b',
-	                                null,
-	                                '(',
-	                                commentAmount,
-	                                ')'
-	                            )
-	                        ));
-	                    }
-	                } else {
-	                    loopPosts = _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        'No More Posts'
-	                    );
-	                }
 	                this.setState({
-	                    posts: loopPosts
+	                    posts: response
 	                });
 	            }.bind(this));
 	        }
@@ -129,13 +98,39 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            if (this.state.posts !== null) {
+	                var self = this;
+	                var loopPosts = this.state.posts.map(function (postsEntered) {
+	                    return _react2.default.createElement(
+	                        RB.ListGroupItem,
+	                        { href: '/post/' + postsEntered.idposts, header: postsEntered.title },
+	                        'Submitted by ',
+	                        postsEntered.idusers,
+	                        ' | Comments ',
+	                        _react2.default.createElement(
+	                            'b',
+	                            null,
+	                            '(',
+	                            postsEntered.comments,
+	                            ')'
+	                        )
+	                    );
+	                });
+	            } else {
+	                var loopPosts = _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'No more posts!'
+	                );
+	            }
+
 	            return _react2.default.createElement(
 	                RB.Row,
 	                null,
 	                _react2.default.createElement(
 	                    RB.ListGroup,
 	                    null,
-	                    this.state.posts
+	                    loopPosts
 	                ),
 	                _react2.default.createElement(RB.Pagination, { next: true, prev: true, first: true, last: true, items: this.state.numberOfPages, maxButtons: 5, onSelect: this.handleSelect.bind(this), activePage: this.state.currentPage })
 	            );

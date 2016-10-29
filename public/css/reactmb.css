@@ -6,8 +6,24 @@
 	margin-top: 40px;
 }
 
+.commentDeletion {
+	float: right;
+}
+
+.postDeletion {
+	float: right;
+}
+
+.glyphSpace {
+	margin-left: 20px;
+}
+
 .addCommentForm {
 	margin-top: 40px;
+}
+
+.postHeader {
+	margin-bottom: 40px;
 }
 
 .panel-body {
