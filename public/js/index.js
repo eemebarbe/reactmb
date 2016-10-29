@@ -59,21 +59,23 @@ webpackJsonp([0],[
 	    _createClass(SubmissionList, [{
 	        key: 'getPosts',
 	        value: function getPosts(page) {
+	            var _this2 = this;
+
 	            var pageRange = 3;
 	            var self = this;
 	            // get the total number of posts so the pagination displays the correct number of pages
 	            _jquery2.default.get('/api/v1/postcount/', function (response) {
 	                var math = Math.ceil(response[0].count / pageRange);
-	                this.setState({
+	                _this2.setState({
 	                    numberOfPages: math
 	                });
-	            }.bind(this));
+	            });
 	            // page value is passed to a database query and the appropriate range of posts are returned
 	            _jquery2.default.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function (response) {
-	                this.setState({
+	                _this2.setState({
 	                    posts: response
 	                });
-	            }.bind(this));
+	            });
 	        }
 
 	        // eventKey is a react-bootstrap value that passes along the selected page from the pagination component.
@@ -98,6 +100,7 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            // loop through posts and render list
 	            if (this.state.posts !== null) {
 	                var self = this;
 	                var loopPosts = this.state.posts.map(function (postsEntered) {

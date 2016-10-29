@@ -20,18 +20,18 @@ class SubmissionList extends React.Component {
         var pageRange = 3;
         var self = this;
         // get the total number of posts so the pagination displays the correct number of pages
-        $.get('/api/v1/postcount/', function(response) {
+        $.get('/api/v1/postcount/', (response) => {
             var math = Math.ceil(response[0].count / pageRange);
             this.setState({
                 numberOfPages: math
             });
-        }.bind(this));
+        });
         // page value is passed to a database query and the appropriate range of posts are returned
-        $.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, function(response) {
+        $.get('/api/v1/postrange?page=' + page + '&pageRange=' + pageRange, (response) => {
             this.setState({
                 posts: response
             });
-        }.bind(this));
+        });
     }
 
 
@@ -50,6 +50,7 @@ class SubmissionList extends React.Component {
     }
 
     render() {
+// loop through posts and render list
         if(this.state.posts !== null) {
             var self = this;
             var loopPosts = this.state.posts.map((postsEntered) => {

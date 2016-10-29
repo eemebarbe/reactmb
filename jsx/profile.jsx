@@ -56,13 +56,13 @@ class ProfileOptions extends React.Component {
                 processData: false,
                 contentType: false,
                 type: 'POST',
-                success: function() {
+                success: () => {
                     self.setState({
                         isLoading: false,
                         avatar: '../uploads/avatars/' + window.user
                     });
                 },
-                error: function() {
+                error: () => {
                     self.setState({
                         isLoading: false
                     });
@@ -75,7 +75,7 @@ class ProfileOptions extends React.Component {
         var deletedPost = {
             post: this.state.deletePost
         };
-        $.post('/api/v1/deletepost/', deletedPost, function() {
+        $.post('/api/v1/deletepost/', deletedPost, () => {
             this.setState({
                 posts: update(this.state.posts, {
                     $splice: [
@@ -83,7 +83,7 @@ class ProfileOptions extends React.Component {
                     ]
                 })
             });
-        }.bind(this));
+        });
         // when showConfirm is set to false, deletion prompt is removed
         this.setState({
             showConfirm: false

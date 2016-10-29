@@ -51,12 +51,12 @@ export class Modal extends React.Component {
                     type: 'POST',
                     url: '/api/v1/newuser',
                     data: signUpData,
-                    success: function() {
+                    success: () => {
                         $.post('/loginAuth', signUpData, function() {
                             window.location.href = '../';
                         });
                     },
-                    error: function() {
+                    error: () => {
                         self.setState({
                             signUpAlert: 'Either this email or this username is already in use!'
                         });
@@ -78,10 +78,10 @@ export class Modal extends React.Component {
             url: '/loginAuth',
             data: signInData,
             dataType: 'json',
-            success: function() {
+            success: () => {
                 window.location.href = '../';
             },
-            error: function() {
+            error: () => {
                 this.setState({
                     signInAlert: 'Username or password was entered incorrectly.'
                 });

@@ -35,16 +35,16 @@ class PostDisplay extends React.Component {
     }
     // posts comment to database
     postComment() {
-        var self = this;
-        var commentData = {
+        const self = this;
+        const commentData = {
             comment: ReactDOM.findDOMNode(this.refs.submitComment).value,
             idposts: window.idposts,
             username: window.user,
         };
 
-        $.post('../api/v1/newcomment', commentData, function(response) {
+        $.post('../api/v1/newcomment', commentData, (response) => {
             // adds user's submitted comment to the DOM
-            $.get('../api/v1/comments/' + idposts, function(response){
+            $.get('../api/v1/comments/' + idposts, (response) => {
                 self.setState({
                     comments: response
                 })
@@ -58,10 +58,10 @@ class PostDisplay extends React.Component {
 
     // deletes selected comment
     deleteComment() {
-        var deletedComment = {
+        const deletedComment = {
             comment: this.state.thisComment
         };
-        $.post('../api/v1/deletecomment/', deletedComment, function() {
+        $.post('../api/v1/deletecomment/', deletedComment, () => {
             this.setState({
                 comments: update(this.state.comments, {
                     $splice: [
@@ -69,7 +69,7 @@ class PostDisplay extends React.Component {
                     ]
                 })
             });
-        }.bind(this));
+        });
         // removes confirmation pop-up after ajax request is complete
         this.setState({
             showConfirm: false
@@ -104,7 +104,7 @@ class PostDisplay extends React.Component {
 			  		</RB.Row>
         }
         // recieves state information and populates a list of comments on the post
-        var finalComments = this.state.comments.map((commentsEntered) => {
+        const finalComments = this.state.comments.map((commentsEntered) => {
             if (window.user == commentsEntered.username) {
                 return (
                     <div>

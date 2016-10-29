@@ -111,16 +111,18 @@ webpackJsonp([1],{
 	    }, {
 	        key: 'deleteComment',
 	        value: function deleteComment() {
+	            var _this2 = this;
+
 	            var deletedComment = {
 	                comment: this.state.thisComment
 	            };
 	            _jquery2.default.post('../api/v1/deletecomment/', deletedComment, function () {
-	                this.setState({
-	                    comments: (0, _reactAddonsUpdate2.default)(this.state.comments, {
-	                        $splice: [[this.state.thisCommentIndex, 1]]
+	                _this2.setState({
+	                    comments: (0, _reactAddonsUpdate2.default)(_this2.state.comments, {
+	                        $splice: [[_this2.state.thisCommentIndex, 1]]
 	                    })
 	                });
-	            }.bind(this));
+	            });
 	            // removes confirmation pop-up after ajax request is complete
 	            this.setState({
 	                showConfirm: false
@@ -129,7 +131,7 @@ webpackJsonp([1],{
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            var authRender = null;
 	            // if user is signed in and hasn't yet submitted a comment
@@ -195,7 +197,7 @@ webpackJsonp([1],{
 	                        null,
 	                        _react2.default.createElement(
 	                            RB.Row,
-	                            { className: 'commentRow', onClick: _this2.open.bind(_this2, commentsEntered.idcomments, _this2.state.comments.indexOf(commentsEntered)) },
+	                            { className: 'commentRow', onClick: _this3.open.bind(_this3, commentsEntered.idcomments, _this3.state.comments.indexOf(commentsEntered)) },
 	                            _react2.default.createElement(
 	                                RB.Col,
 	                                { xs: 3, sm: 2 },

@@ -50437,6 +50437,8 @@
 	    }, {
 	        key: 'signIn',
 	        value: function signIn() {
+	            var _this2 = this;
+
 	            var signInData = {
 	                username: _reactDom2.default.findDOMNode(this.refs.logInUser).value,
 	                password: _reactDom2.default.findDOMNode(this.refs.logInPass).value
@@ -50451,7 +50453,7 @@
 	                    window.location.href = '../';
 	                },
 	                error: function error() {
-	                    this.setState({
+	                    _this2.setState({
 	                        signInAlert: 'Username or password was entered incorrectly.'
 	                    });
 	                }
@@ -50593,12 +50595,12 @@
 	    function Header(props) {
 	        _classCallCheck(this, Header);
 
-	        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+	        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 
-	        _this2.state = {
+	        _this3.state = {
 	            showModal: false
 	        };
-	        return _this2;
+	        return _this3;
 	    }
 	    // when showModal is set to false, no modal is shown 
 

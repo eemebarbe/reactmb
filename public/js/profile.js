@@ -127,16 +127,18 @@ webpackJsonp([2],{
 	    }, {
 	        key: 'deletePost',
 	        value: function deletePost() {
+	            var _this2 = this;
+
 	            var deletedPost = {
 	                post: this.state.deletePost
 	            };
 	            _jquery2.default.post('/api/v1/deletepost/', deletedPost, function () {
-	                this.setState({
-	                    posts: (0, _reactAddonsUpdate2.default)(this.state.posts, {
-	                        $splice: [[this.statedeletePostIndex, 1]]
+	                _this2.setState({
+	                    posts: (0, _reactAddonsUpdate2.default)(_this2.state.posts, {
+	                        $splice: [[_this2.statedeletePostIndex, 1]]
 	                    })
 	                });
-	            }.bind(this));
+	            });
 	            // when showConfirm is set to false, deletion prompt is removed
 	            this.setState({
 	                showConfirm: false
@@ -145,7 +147,7 @@ webpackJsonp([2],{
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            var finalPosts = this.state.posts.map(function (posts) {
 	                return _react2.default.createElement(
@@ -153,7 +155,7 @@ webpackJsonp([2],{
 	                    null,
 	                    _react2.default.createElement(
 	                        RB.Row,
-	                        { className: 'postRow', onClick: _this2.open.bind(_this2, posts.idposts, _this2.state.posts.indexOf(posts)) },
+	                        { className: 'postRow', onClick: _this3.open.bind(_this3, posts.idposts, _this3.state.posts.indexOf(posts)) },
 	                        _react2.default.createElement(
 	                            RB.Panel,
 	                            null,
