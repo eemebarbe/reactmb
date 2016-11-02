@@ -39,7 +39,17 @@ module.exports = {
   },
 
   plugins: [
-        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js")
+        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js"),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
     ]
 
 };

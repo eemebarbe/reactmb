@@ -34,12 +34,12 @@ class ProfileOptions extends React.Component {
     }
     // uploads avatar image to file directory
     uploadImage() {
-        var self = this;
+        const self = this;
         this.setState({
             isLoading: true
         });
 
-        var avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
+        const avatarData = ReactDOM.findDOMNode(this.refs.avatarPath).files[0],
             avatarPath = ReactDOM.findDOMNode(this.refs.avatarPath).value,
             data = new FormData(),
             re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
@@ -72,7 +72,7 @@ class ProfileOptions extends React.Component {
     }
     // deletes selected post
     deletePost() {
-        var deletedPost = {
+        const deletedPost = {
             post: this.state.deletePost
         };
         $.post('/api/v1/deletepost/', deletedPost, () => {
@@ -93,7 +93,7 @@ class ProfileOptions extends React.Component {
 
     render() {
 
-        var finalPosts = this.state.posts.map((posts) => {
+        const finalPosts = this.state.posts.map((posts) => {
             return (
                 <div>
 				<RB.Row className='postRow' onClick={this.open.bind(this, posts.idposts, this.state.posts.indexOf(posts))}>

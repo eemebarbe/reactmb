@@ -17,11 +17,10 @@ class SubmissionList extends React.Component {
 
     // populates the list of posts. function passes a 'page' argument to the query so when a user selects a page, the correct range is displayed
     getPosts(page) {
-        var pageRange = 3;
-        var self = this;
+        const pageRange = 3;
         // get the total number of posts so the pagination displays the correct number of pages
         $.get('/api/v1/postcount/', (response) => {
-            var math = Math.ceil(response[0].count / pageRange);
+            const math = Math.ceil(response[0].count / pageRange);
             this.setState({
                 numberOfPages: math
             });
@@ -52,11 +51,10 @@ class SubmissionList extends React.Component {
     render() {
 // loop through posts and render list
         if(this.state.posts !== null) {
-            var self = this;
             var loopPosts = this.state.posts.map((postsEntered) => {
                 return (
                 <RB.ListGroupItem href={'/post/' + postsEntered.idposts} header={postsEntered.title}>
-                        Submitted by {postsEntered.idusers} | Comments <b>({postsEntered.comments})</b>
+                        Submitted by {postsEntered.idusers} | Comments <b>({postsEntered.comments === null ? "0" : postsEntered.comments})</b>
                     </RB.ListGroupItem>
                 );
             });

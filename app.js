@@ -1,11 +1,11 @@
 //general dependencies
 var express = require('express');
-app = express();
-fs = require('fs');
-bodyParser = require('body-parser');
-path = require('path');
-ejs = require('ejs');
-router = express.Router();
+var app = express();
+var fs = require('fs');
+var bodyParser = require('body-parser');
+var path = require('path');
+var ejs = require('ejs');
+var router = express.Router();
 
 
 //file upload configuration
@@ -25,7 +25,7 @@ var avatarStorage = multer.diskStorage({
     }
 });
 
-uploadAvatar = multer({
+var uploadAvatar = multer({
     storage: avatarStorage
 });
 
@@ -33,7 +33,7 @@ uploadAvatar = multer({
 //database configuration
 
 var mysql = require('mysql');
-connection = mysql.createConnection({
+var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
@@ -58,7 +58,7 @@ app.set('view engine', 'ejs');
 //internal app dependencies
 
 var routes = require('./routes/routes.js')(app);
-api = require('./api/api.js')(app);
+var api = require('./api/api.js')(app);
 
 
 //server initialization

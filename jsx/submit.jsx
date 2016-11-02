@@ -15,7 +15,7 @@ class SubmitForm extends React.Component {
 
     // submits post to database
     postArticle() {
-        var articleData = {
+        const articleData = {
             title: ReactDOM.findDOMNode(this.refs.title).value,
             article: ReactDOM.findDOMNode(this.refs.article).value,
             idusers: window.user

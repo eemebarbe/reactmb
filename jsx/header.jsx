@@ -14,8 +14,8 @@ export class Modal extends React.Component {
     }
     //function used to submit new users
     signUp() {
-        var self = this;
-        var signUpData = {
+        const self = this;
+        const signUpData = {
             username: ReactDOM.findDOMNode(this.refs.username).value,
             password: ReactDOM.findDOMNode(this.refs.password).value,
             passwordVerify: ReactDOM.findDOMNode(this.refs.passwordVerify).value,
@@ -23,24 +23,24 @@ export class Modal extends React.Component {
         };
 
         // verify all sign-up data before passing it to the server
-        if (signUpData.username == null || signUpData.username == '') {
+        if (!signUpData.username) {
             this.setState({
                 signUpAlert: 'Please enter a username!'
             });
-        } else if (signUpData.password == null || signUpData.password == '') {
+        } else if (!signUpData.password) {
             this.setState({
                 signUpAlert: 'Please enter a password!'
             });
-        } else if (signUpData.password != signUpData.passwordVerify) {
+        } else if (signUpData.password !== signUpData.passwordVerify) {
             this.setState({
                 signUpAlert: 'Password entries don\'t match!'
             });
-        } else if (signUpData.email == null || signUpData.email == '') {
+        } else if (!signUpData.email) {
             this.setState({
                 signUpAlert: 'Please enter your email address!'
             });
         } else if (signUpData.email !== null || signUpData.email !== '') {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (!re.test(signUpData.email)) {
                 this.setState({
                     signUpAlert: 'Not a valid email address!'
@@ -68,7 +68,7 @@ export class Modal extends React.Component {
 
     // function used to pass user sign-in data through authentication and ultimately log the user in
     signIn() {
-        var signInData = {
+        const signInData = {
             username: ReactDOM.findDOMNode(this.refs.logInUser).value,
             password: ReactDOM.findDOMNode(this.refs.logInPass).value
         };
@@ -183,7 +183,7 @@ export class Header extends React.Component {
     render() {
         var authRender = null;
         // if user is not signed in
-        if (window.user == '') {
+        if (window.user === '') {
             authRender =
                 <div>
 					<RB.Navbar.Form pullRight>
@@ -221,10 +221,6 @@ export class Header extends React.Component {
 						    	<a href='/'>ReactMB</a>
 						    </RB.Navbar.Brand>
 					    </RB.Navbar.Header>
-			  			<RB.Nav>
-				  			<RB.NavItem eventKey={1} href='#'>Popular</RB.NavItem>
-					        <RB.NavItem eventKey={2} href='#'>Newest</RB.NavItem>
-						</RB.Nav>
 						{authRender}
 		  			</RB.Navbar>
 				</RB.Row>
