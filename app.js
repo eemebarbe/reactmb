@@ -25,7 +25,7 @@ var avatarStorage = multer.diskStorage({
     }
 });
 
-var uploadAvatar = multer({
+uploadAvatar = multer({
     storage: avatarStorage
 });
 

@@ -47,8 +47,14 @@ class ProfileOptions extends React.Component {
 
         if (!re.exec(avatarPath)) {
             alert('File extension not supported!');
-        } else if (avatarData.size > 20000) {
-            alert('File size is too big!');
+            self.setState({
+                isLoading: false
+            });
+        } else if (avatarData.size > 200000) {
+            alert('This board is hosted on a potato! File size must be under 20KB.');
+            self.setState({
+                isLoading: false
+            });
         } else {
             $.ajax({
                 url: 'api/v1/avatar',

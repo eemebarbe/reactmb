@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as RB from 'react-bootstrap';
 import $ from 'jquery';
 
-// pop-up modal used for signing in or creating a new account
+//pop-up modal used for signing in or creating a new account
 export class Modal extends React.Component {
     constructor(props) {
         super(props);
